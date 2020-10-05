@@ -43,7 +43,7 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
     }
 
     private void init() {
-        this.setModal(true);
+        //this.setModal(true);
         initComponents();
         this.initControllers();
         this.initModels();
@@ -115,7 +115,6 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Novo Fornecedor");
 
         paneGeral.setBorder(javax.swing.BorderFactory.createTitledBorder("Geral"));
@@ -312,7 +311,6 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void createOrUpdate() {
@@ -404,6 +402,12 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NovoFornecedorJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

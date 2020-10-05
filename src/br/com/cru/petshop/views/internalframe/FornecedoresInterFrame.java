@@ -5,13 +5,13 @@
  */
 package br.com.cru.petshop.views.internalframe;
 
+import br.com.cru.petshop.views.NovoFornecedorJFrame;
 import br.com.cru.petshop.controllers.FornecedorController;
 import br.com.cru.petshop.controllers.interfaces.IFornecedorController;
 import br.com.cru.petshop.core.JFrameActivity;
 import br.com.cru.petshop.models.Fornecedor;
 import br.com.cru.petshop.models.Usuario;
 import br.com.cru.petshop.models.enums.TipoUsuario;
-import br.com.cru.petshop.views.NovoFornecedorJFrame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.List;
@@ -174,8 +174,8 @@ public class FornecedoresInterFrame extends JInternalFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         NovoFornecedorJFrame fornecedorJFrame = new NovoFornecedorJFrame();
         fornecedorJFrame.setVisible(true);
-        fornecedorJFrame.setLocationRelativeTo(this);
-        fornecedorJFrame.addWindowListener(new CallbackUpdateTable());
+        /*fornecedorJFrame.setLocationRelativeTo(this);
+        fornecedorJFrame.addWindowListener(new CallbackUpdateTable());*/
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -188,12 +188,12 @@ public class FornecedoresInterFrame extends JInternalFrame {
         int row = tableFornecedores.getSelectedRow();
         String value = tableFornecedores.getModel().getValueAt(row, column).toString();
         
-        if (!StringUtils.isNullOrEmpty(value)) {
-            NovoFornecedorJFrame frame = new NovoFornecedorJFrame(Integer.parseInt(value));
+        /*if (!StringUtils.isNullOrEmpty(value)) {
+            NovoFornecedorInterJFrame frame = new NovoFornecedorInterJFrame(Integer.parseInt(value));
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
             frame.addWindowListener(new CallbackUpdateTable());
-        }
+        }*/
         
     }//GEN-LAST:event_btnEditarActionPerformed
 

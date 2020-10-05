@@ -14,14 +14,14 @@ public class DBUtils {
 
     private static final String HOST = "127.0.0.1";
     private static final String PORT = "3306";
-    private static final String DATABASE = "brcantina";
+    private static final String DATABASE = "petshop";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
     
     public static Connection getConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
         Class.forName("org.h2.Driver").newInstance();
         String stringConexao = new StringBuilder()
-                .append("jdbc:h2:~/brcantina").toString();
+                .append("jdbc:h2:~/petshop").toString();
         Logger.getLogger(DBUtils.class.getName()).log(Level.INFO, stringConexao);
         Connection connection = DriverManager.getConnection(stringConexao, USER, PASSWORD);
         

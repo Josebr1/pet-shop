@@ -1,16 +1,33 @@
 package br.com.cru.petshop.views;
 
-import Telas.*;
+import br.com.cru.petshop.core.JFrameActivity;
+import br.com.cru.petshop.utils.InternalFrameUtils;
+import br.com.cru.petshop.views.internalframe.ClientesIternFrame;
+import br.com.cru.petshop.views.internalframe.ContasPagarInterFrame;
+import br.com.cru.petshop.views.internalframe.ContasReceberInterFrame;
+import br.com.cru.petshop.views.internalframe.FormasPagamentoInterFrame;
+import br.com.cru.petshop.views.internalframe.FornecedoresInterFrame;
+import java.awt.event.WindowEvent;
 
 /**
  * Janela menu da aplicação
  *
  * @author Juliano
  */
-public class Principal extends javax.swing.JFrame {
+public class Principal extends JFrameActivity {
     
     int codigoUsuario;
     
+    private NovoFornecedorJFrame mNovoFornecedorJFrame;
+    private NovoClienteJFrame mNovoClienteJFrame;
+    private NovoColaboradorJFrame mNovoColaboradorJFrame;
+    private NovoProdutoJFrame mNovoProdutoJFrame;
+    
+    private ClientesIternFrame mClientesIternFrame;
+    private ContasReceberInterFrame mContasReceberInterFrame;
+    private ContasPagarInterFrame mContasPagarInterFrame;
+    private FornecedoresInterFrame mFornecedoresInterFrame;
+    private FormasPagamentoInterFrame mFormasPagamentoInterFrame;
     
     public Principal() {
         initComponents();
@@ -73,8 +90,9 @@ public class Principal extends javax.swing.JFrame {
         jMenuAjuda = new javax.swing.JMenu();
         jMenuSair = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PetShop");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setExtendedState(MAXIMIZED_BOTH);
 
         toolBar.setFloatable(false);
@@ -177,6 +195,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemClienteBuscarClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemClienteBuscarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/search-engine.png"))); // NOI18N
         jMenuItemClienteBuscarClientes.setText("Buscar clientes");
+        jMenuItemClienteBuscarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClienteBuscarClientesActionPerformed(evt);
+            }
+        });
         jMenuClientes.add(jMenuItemClienteBuscarClientes);
 
         jMenuItemClienteIncluirCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.SHIFT_MASK));
@@ -229,6 +252,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemProdServIncluirProdutos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemProdServIncluirProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/add-button.png"))); // NOI18N
         jMenuItemProdServIncluirProdutos.setText("Incluir Produtos");
+        jMenuItemProdServIncluirProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemProdServIncluirProdutosActionPerformed(evt);
+            }
+        });
         jMenuProdutosServicos.add(jMenuItemProdServIncluirProdutos);
 
         jMenuItemProdServTabelaServicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -243,11 +271,21 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemFinancContasReceber.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemFinancContasReceber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/finance.png"))); // NOI18N
         jMenuItemFinancContasReceber.setText("Contas a Receber");
+        jMenuItemFinancContasReceber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFinancContasReceberActionPerformed(evt);
+            }
+        });
         jMenuFinanceiro.add(jMenuItemFinancContasReceber);
 
         jMenuItemFinancContasPagar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemFinancContasPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/finance.png"))); // NOI18N
         jMenuItemFinancContasPagar.setText("Contas a Pagar");
+        jMenuItemFinancContasPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFinancContasPagarActionPerformed(evt);
+            }
+        });
         jMenuFinanceiro.add(jMenuItemFinancContasPagar);
 
         jMenuItemFinancIncluirConta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, java.awt.event.InputEvent.CTRL_MASK));
@@ -272,11 +310,21 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemForneListarFornecedores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemForneListarFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/checklist.png"))); // NOI18N
         jMenuItemForneListarFornecedores.setText("Listar Fornecedores");
+        jMenuItemForneListarFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemForneListarFornecedoresActionPerformed(evt);
+            }
+        });
         jMenuFornecedores.add(jMenuItemForneListarFornecedores);
 
         jMenuItemForneIncluirFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemForneIncluirFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/add-button.png"))); // NOI18N
         jMenuItemForneIncluirFornecedor.setText("Incluir um Fornecedor");
+        jMenuItemForneIncluirFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemForneIncluirFornecedorActionPerformed(evt);
+            }
+        });
         jMenuFornecedores.add(jMenuItemForneIncluirFornecedor);
 
         jMenuItemFornePedidos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -330,6 +378,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemConfigColaboradores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         jMenuItemConfigColaboradores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/teamwork.png"))); // NOI18N
         jMenuItemConfigColaboradores.setText("Colaboradores");
+        jMenuItemConfigColaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConfigColaboradoresActionPerformed(evt);
+            }
+        });
         jMenuConfiguracoes.add(jMenuItemConfigColaboradores);
 
         jMenuItemConfigDadosEmpresa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -355,6 +408,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuItemConfigFormPagamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemConfigFormPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/credit-card.png"))); // NOI18N
         jMenuItemConfigFormPagamento.setText("Forma de Pagamento");
+        jMenuItemConfigFormPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConfigFormPagamentoActionPerformed(evt);
+            }
+        });
         jMenuConfiguracoes.add(jMenuItemConfigFormPagamento);
 
         jMenuItemConfigAnimal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
@@ -369,6 +427,11 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/exit.png"))); // NOI18N
         jMenuSair.setText("Sair");
+        jMenuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSairActionPerformed(evt);
+            }
+        });
         jMenuBar.add(jMenuSair);
 
         setJMenuBar(jMenuBar);
@@ -378,48 +441,82 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void miClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miClienteActionPerformed
-        mostraClientes c = new mostraClientes();
-        dkpContainer.add(c);
-        c.setVisible(true);
+        mNovoClienteJFrame = new NovoClienteJFrame();
+        mNovoClienteJFrame.setVisible(true);
+        mNovoClienteJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_miClienteActionPerformed
 
     private void miVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVendaActionPerformed
-        mostraVendas v = new mostraVendas();
-        dkpContainer.add(v);
-        v.setVisible(true);
+        
     }//GEN-LAST:event_miVendaActionPerformed
 
     private void btnServicosmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicosmiProdutoActionPerformed
-        mostraEstoque c = new mostraEstoque();
-        dkpContainer.add(c);
-        c.setVisible(true);
+        
     }//GEN-LAST:event_btnServicosmiProdutoActionPerformed
 
     private void btnAdicionarAnimaismiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAnimaismiSairActionPerformed
-        CadastroUsuario c = new CadastroUsuario();
-        dkpContainer.add(c);
-        c.setVisible(true);
+        
     }//GEN-LAST:event_btnAdicionarAnimaismiSairActionPerformed
 
     private void btnBuscarAtendimentomiVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAtendimentomiVendaActionPerformed
-        mostraCompras c = new mostraCompras();
-        dkpContainer.add(c);
-        c.setVisible(true);
+        
     }//GEN-LAST:event_btnBuscarAtendimentomiVendaActionPerformed
 
     private void btnProdutosmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosmiProdutoActionPerformed
-        mostraFornecedores c = new mostraFornecedores();
-        dkpContainer.add(c);
-        c.setVisible(true);
+        
     }//GEN-LAST:event_btnProdutosmiProdutoActionPerformed
 
     private void jMenuItemClienteIncluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClienteIncluirClienteActionPerformed
-        // TODO add your handling code here:
+        mNovoClienteJFrame = new NovoClienteJFrame();
+        mNovoClienteJFrame.setVisible(true);
+        mNovoClienteJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_jMenuItemClienteIncluirClienteActionPerformed
 
     private void jMenuItemFinancCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFinancCaixaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemFinancCaixaActionPerformed
+
+    private void jMenuItemForneIncluirFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemForneIncluirFornecedorActionPerformed
+        mNovoFornecedorJFrame = new NovoFornecedorJFrame();
+        mNovoFornecedorJFrame.setVisible(true);
+        mNovoFornecedorJFrame.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jMenuItemForneIncluirFornecedorActionPerformed
+
+    private void jMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSairActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_jMenuSairActionPerformed
+
+    private void jMenuItemConfigColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigColaboradoresActionPerformed
+        mNovoColaboradorJFrame = new NovoColaboradorJFrame();
+        mNovoColaboradorJFrame.setVisible(true);
+        mNovoColaboradorJFrame.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jMenuItemConfigColaboradoresActionPerformed
+
+    private void jMenuItemClienteBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClienteBuscarClientesActionPerformed
+        InternalFrameUtils.init(mClientesIternFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemClienteBuscarClientesActionPerformed
+
+    private void jMenuItemProdServIncluirProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProdServIncluirProdutosActionPerformed
+        mNovoProdutoJFrame = new NovoProdutoJFrame();
+        mNovoProdutoJFrame.setVisible(true);
+        mNovoProdutoJFrame.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jMenuItemProdServIncluirProdutosActionPerformed
+
+    private void jMenuItemFinancContasReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFinancContasReceberActionPerformed
+        InternalFrameUtils.init(mContasReceberInterFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemFinancContasReceberActionPerformed
+
+    private void jMenuItemFinancContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFinancContasPagarActionPerformed
+        InternalFrameUtils.init(mContasPagarInterFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemFinancContasPagarActionPerformed
+
+    private void jMenuItemForneListarFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemForneListarFornecedoresActionPerformed
+        InternalFrameUtils.init(mFornecedoresInterFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemForneListarFornecedoresActionPerformed
+
+    private void jMenuItemConfigFormPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigFormPagamentoActionPerformed
+        InternalFrameUtils.init(mFormasPagamentoInterFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemConfigFormPagamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -507,4 +604,40 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuSair;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(WindowEvent evt) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void onCreateControllers() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void onCreateViews() {
+        
+        this.mNovoFornecedorJFrame = new NovoFornecedorJFrame();
+        this.mNovoClienteJFrame = new NovoClienteJFrame();
+        this.mNovoColaboradorJFrame = new NovoColaboradorJFrame();
+        this.mNovoProdutoJFrame = new NovoProdutoJFrame();
+        
+        this.mClientesIternFrame = new ClientesIternFrame();
+        this.mContasReceberInterFrame = new ContasReceberInterFrame();
+        this.mContasPagarInterFrame = new ContasPagarInterFrame();
+        this.mFornecedoresInterFrame = new FornecedoresInterFrame();
+        this.mFormasPagamentoInterFrame = new FormasPagamentoInterFrame();
+        
+    }
 }
