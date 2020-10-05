@@ -28,8 +28,8 @@ public class menuGerente extends javax.swing.JFrame {
         btCliente = new javax.swing.JButton();
         btFornecedor = new javax.swing.JButton();
         btEstoque = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        btSair = new javax.swing.JButton();
+        btnConta = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
         desktopPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -40,7 +40,7 @@ public class menuGerente extends javax.swing.JFrame {
 
         btUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/usuario.png"))); // NOI18N
         btUsuario.setText("Usuario");
-        btUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btUsuario.setFocusable(false);
         btUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btUsuario.setMargin(new java.awt.Insets(2, 12, 2, 12));
@@ -54,7 +54,7 @@ public class menuGerente extends javax.swing.JFrame {
 
         btVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/venda.png"))); // NOI18N
         btVenda.setText("Vendas");
-        btVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btVenda.setFocusable(false);
         btVenda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btVenda.setMargin(new java.awt.Insets(2, 12, 2, 12));
@@ -69,7 +69,7 @@ public class menuGerente extends javax.swing.JFrame {
 
         btCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/compra.png"))); // NOI18N
         btCompra.setText("Compras");
-        btCompra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCompra.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btCompra.setFocusable(false);
         btCompra.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btCompra.setMargin(new java.awt.Insets(2, 12, 2, 12));
@@ -84,7 +84,7 @@ public class menuGerente extends javax.swing.JFrame {
 
         btCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cliente.png"))); // NOI18N
         btCliente.setText("Cliente");
-        btCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btCliente.setFocusable(false);
         btCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btCliente.setMargin(new java.awt.Insets(2, 12, 2, 12));
@@ -98,7 +98,7 @@ public class menuGerente extends javax.swing.JFrame {
 
         btFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/fornecedor.png"))); // NOI18N
         btFornecedor.setText("Fornecedor");
-        btFornecedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btFornecedor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btFornecedor.setFocusable(false);
         btFornecedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btFornecedor.setMargin(new java.awt.Insets(2, 12, 2, 12));
@@ -112,7 +112,7 @@ public class menuGerente extends javax.swing.JFrame {
 
         btEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/estoque.png"))); // NOI18N
         btEstoque.setText("Estoque");
-        btEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btEstoque.setFocusable(false);
         btEstoque.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btEstoque.setMargin(new java.awt.Insets(2, 12, 2, 12));
@@ -124,30 +124,30 @@ public class menuGerente extends javax.swing.JFrame {
         });
         toolBar.add(btEstoque);
 
-        jButton1.setText("Conta");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConta.setText("Conta");
+        btnConta.setFocusable(false);
+        btnConta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnConta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnContaActionPerformed(evt);
             }
         });
-        toolBar.add(jButton1);
+        toolBar.add(btnConta);
 
-        btSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/sair.png"))); // NOI18N
-        btSair.setText("Sair");
-        btSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btSair.setFocusable(false);
-        btSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btSair.setMargin(new java.awt.Insets(2, 12, 2, 12));
-        btSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btSair.addActionListener(new java.awt.event.ActionListener() {
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/sair.png"))); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSair.setFocusable(false);
+        btnSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSair.setMargin(new java.awt.Insets(2, 12, 2, 12));
+        btnSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miSairActionPerformed(evt);
             }
         });
-        toolBar.add(btSair);
+        toolBar.add(btnSair);
 
         getContentPane().add(toolBar, java.awt.BorderLayout.PAGE_START);
 
@@ -199,23 +199,23 @@ public class menuGerente extends javax.swing.JFrame {
         c.setVisible(true);
     }//GEN-LAST:event_btFornecedormiProdutoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContaActionPerformed
         ConfigLogin c = new ConfigLogin();
         desktopPane.add(c);
         c.setVisible(true);
         c.recebeC(codigoUsuario);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnContaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCliente;
     private javax.swing.JButton btCompra;
     private javax.swing.JButton btEstoque;
     private javax.swing.JButton btFornecedor;
-    private javax.swing.JButton btSair;
     private javax.swing.JButton btUsuario;
     private javax.swing.JButton btVenda;
+    private javax.swing.JButton btnConta;
+    private javax.swing.JButton btnSair;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JButton jButton1;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }

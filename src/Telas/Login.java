@@ -112,7 +112,8 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         UsuarioDAO ud = new UsuarioDAO();
-        
+        mg = new menuGerente();
+                    mg.setVisible(true);
         try {
             if(ud.verLogin(login.getText(), senha.getText())){
                 if(ud.pegaAcesso(login.getText(), senha.getText()) == 4){
@@ -135,6 +136,8 @@ public class Login extends javax.swing.JFrame {
                     me.setVisible(true);
                     me.recebe(ud.pegaCod(login.getText(), senha.getText()));
                 }
+                
+                
                 this.dispose();
             }else {
                 JOptionPane.showMessageDialog(null, "Dados Inválidos");
