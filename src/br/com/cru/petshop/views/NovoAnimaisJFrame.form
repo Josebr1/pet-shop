@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <Properties>
+    <Property name="title" type="java.lang.String" value="Cadastrar Animal"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="btnVoltar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="paneGeral" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="paneGeral" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVoltar" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="btnVoltar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Voltar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JPanel" name="paneGeral">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Geral"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="lblSexo" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="comboSexo" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="lblCep" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEndereco" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblBairro" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCidade" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblReferencia" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblObs" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="txtReferencia" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="txtCidade" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="txtBairro" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="txtEndereco" alignment="1" min="-2" pref="253" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblUf" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblComplemento" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblNumero" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtComple" alignment="0" pref="135" max="32767" attributes="0"/>
+                                      <Component id="txtNumero" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="comboUF" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="txtCep" min="-2" pref="109" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="jScrollPaneObs" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblDadosPrincipais" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEnderecoPrincipal" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDadosPrincipais" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblSexo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboSexo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lblEnderecoPrincipal" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtCep" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCep" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtBairro" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblComplemento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtComple" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblBairro" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtCidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboUF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblUf" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtReferencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblReferencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="lblObs" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPaneObs" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblDadosPrincipais">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Dados Cliente:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblEnderecoPrincipal">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Dados do animal:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtCep">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{&#xa;   javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter(&quot;#####-###&quot;);&#xa;   txtCep = new javax.swing.JFormattedTextField(data);&#xa;}catch (Exception e){&#xa;    log.error(e);&#xa;} "/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCep">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Reg.Geral:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtEndereco">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblNumero">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cor:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtNumero">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtBairro">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblComplemento">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Apelido:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtComple">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtCidade">
+        </Component>
+        <Component class="javax.swing.JComboBox" name="comboUF">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="5">
+                <StringItem index="0" value="Macho"/>
+                <StringItem index="1" value="Femea"/>
+                <StringItem index="2" value="Femea Castrada"/>
+                <StringItem index="3" value="Indefinido"/>
+                <StringItem index="4" value="Macho Castrado"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblUf">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Sexo:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtReferencia">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblEndereco">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Especie:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblBairro">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ra&#xe7;a:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCidade">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ano Nasc/Mes Nasc:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblReferencia">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Porte:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSexo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cliente"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="comboSexo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblObs">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Obs.:"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPaneObs">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="jtextAObs">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="btnSalvar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salvar"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

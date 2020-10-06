@@ -27,69 +27,86 @@ public class NovaContaJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        panelConta = new javax.swing.JPanel();
+        lblDescricao = new javax.swing.JLabel();
+        txtDescricao = new javax.swing.JTextField();
+        lblTipo = new javax.swing.JLabel();
+        cbTipo = new javax.swing.JComboBox<>();
+        lblValor = new javax.swing.JLabel();
+        txtValor = new javax.swing.JTextField();
+        lblVencimento = new javax.swing.JLabel();
+        datePickerVencimento = new com.github.lgooddatepicker.components.DatePicker();
+        btnSalvar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Incluir Conta");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nova Categoria de Conta"));
+        panelConta.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Conta"));
 
-        jLabel1.setText("Descrição:");
+        lblDescricao.setText("Descrição:");
 
-        jLabel2.setText("Subcategora de:");
+        lblTipo.setText("Tipo:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jCheckBox1.setText("Salvar como categoria principal");
+        lblValor.setText("Valor:");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        lblVencimento.setText("Vencimento:");
+
+        javax.swing.GroupLayout panelContaLayout = new javax.swing.GroupLayout(panelConta);
+        panelConta.setLayout(panelContaLayout);
+        panelContaLayout.setHorizontalGroup(
+            panelContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 34, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(8, 8, 8)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addComponent(jCheckBox1)
+                .addGroup(panelContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDescricao)
+                    .addComponent(lblValor)
+                    .addComponent(lblTipo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(panelContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelContaLayout.createSequentialGroup()
+                        .addComponent(cbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(8, 8, 8))
+                    .addGroup(panelContaLayout.createSequentialGroup()
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblVencimento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(datePickerVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(panelContaLayout.createSequentialGroup()
+                        .addComponent(txtDescricao)
+                        .addContainerGap())))
+        );
+        panelContaLayout.setVerticalGroup(
+            panelContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTipo)
+                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblValor)
+                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblVencimento))
+                    .addComponent(datePickerVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescricao)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Salvar");
+        btnSalvar.setText("Salvar");
 
-        jButton2.setText("Voltar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -99,33 +116,33 @@ public class NovaContaJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnVoltar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnSalvar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnVoltar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,13 +181,16 @@ public class NovaContaJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.JComboBox<String> cbTipo;
+    private com.github.lgooddatepicker.components.DatePicker datePickerVencimento;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblTipo;
+    private javax.swing.JLabel lblValor;
+    private javax.swing.JLabel lblVencimento;
+    private javax.swing.JPanel panelConta;
+    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }
