@@ -2,6 +2,7 @@ package br.com.cru.petshop.views;
 
 import br.com.cru.petshop.core.JFrameActivity;
 import br.com.cru.petshop.utils.InternalFrameUtils;
+import br.com.cru.petshop.views.internalframe.AnimaisIternFrame;
 import br.com.cru.petshop.views.internalframe.ClientesIternFrame;
 import br.com.cru.petshop.views.internalframe.ContasPagarInterFrame;
 import br.com.cru.petshop.views.internalframe.ContasReceberInterFrame;
@@ -22,12 +23,14 @@ public class Principal extends JFrameActivity {
     private NovoClienteJFrame mNovoClienteJFrame;
     private NovoColaboradorJFrame mNovoColaboradorJFrame;
     private NovoProdutoJFrame mNovoProdutoJFrame;
+    private NovoAnimalJFrame mNovoAnimalJFrame;
     
     private ClientesIternFrame mClientesIternFrame;
     private ContasReceberInterFrame mContasReceberInterFrame;
     private ContasPagarInterFrame mContasPagarInterFrame;
     private FornecedoresInterFrame mFornecedoresInterFrame;
     private FormasPagamentoInterFrame mFormasPagamentoInterFrame;
+    private AnimaisIternFrame mAnimaisIternFrame;
     
     public Principal() {
         initComponents();
@@ -219,11 +222,21 @@ public class Principal extends JFrameActivity {
         jMenuItemAnimaBuscarAnimais.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAnimaBuscarAnimais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/search-engine.png"))); // NOI18N
         jMenuItemAnimaBuscarAnimais.setText("Buscar Animais");
+        jMenuItemAnimaBuscarAnimais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAnimaBuscarAnimaisActionPerformed(evt);
+            }
+        });
         jMenuAnimais.add(jMenuItemAnimaBuscarAnimais);
 
         jMenuItemAnimaIncluirAnimais.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAnimaIncluirAnimais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/add-button.png"))); // NOI18N
         jMenuItemAnimaIncluirAnimais.setText("Incluir Animais");
+        jMenuItemAnimaIncluirAnimais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAnimaIncluirAnimaisActionPerformed(evt);
+            }
+        });
         jMenuAnimais.add(jMenuItemAnimaIncluirAnimais);
 
         jMenuBar.add(jMenuAnimais);
@@ -455,7 +468,9 @@ public class Principal extends JFrameActivity {
     }//GEN-LAST:event_btnServicosmiProdutoActionPerformed
 
     private void btnAdicionarAnimaismiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAnimaismiSairActionPerformed
-        
+mNovoAnimalJFrame = new NovoAnimalJFrame();
+        mNovoAnimalJFrame.setVisible(true);
+        mNovoAnimalJFrame.setLocationRelativeTo(this);        
     }//GEN-LAST:event_btnAdicionarAnimaismiSairActionPerformed
 
     private void btnBuscarAtendimentomiVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAtendimentomiVendaActionPerformed
@@ -517,6 +532,16 @@ public class Principal extends JFrameActivity {
     private void jMenuItemConfigFormPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigFormPagamentoActionPerformed
         InternalFrameUtils.init(mFormasPagamentoInterFrame, dkpContainer);
     }//GEN-LAST:event_jMenuItemConfigFormPagamentoActionPerformed
+
+    private void jMenuItemAnimaIncluirAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnimaIncluirAnimaisActionPerformed
+        mNovoAnimalJFrame = new NovoAnimalJFrame();
+        mNovoAnimalJFrame.setVisible(true);
+        mNovoAnimalJFrame.setLocationRelativeTo(this);   
+    }//GEN-LAST:event_jMenuItemAnimaIncluirAnimaisActionPerformed
+
+    private void jMenuItemAnimaBuscarAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnimaBuscarAnimaisActionPerformed
+        InternalFrameUtils.init(mAnimaisIternFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemAnimaBuscarAnimaisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -632,12 +657,14 @@ public class Principal extends JFrameActivity {
         this.mNovoClienteJFrame = new NovoClienteJFrame();
         this.mNovoColaboradorJFrame = new NovoColaboradorJFrame();
         this.mNovoProdutoJFrame = new NovoProdutoJFrame();
+        this.mNovoAnimalJFrame = new NovoAnimalJFrame();
         
         this.mClientesIternFrame = new ClientesIternFrame();
         this.mContasReceberInterFrame = new ContasReceberInterFrame();
         this.mContasPagarInterFrame = new ContasPagarInterFrame();
         this.mFornecedoresInterFrame = new FornecedoresInterFrame();
         this.mFormasPagamentoInterFrame = new FormasPagamentoInterFrame();
+        this.mAnimaisIternFrame = new AnimaisIternFrame();
         
     }
 }
