@@ -6,13 +6,16 @@ import br.com.cru.petshop.views.internalframe.AnimaisIternFrame;
 import br.com.cru.petshop.views.internalframe.AnimalInterFrame;
 import br.com.cru.petshop.views.internalframe.AtendimentoIternFrame;
 import br.com.cru.petshop.views.internalframe.CaixaInterFrame;
+import br.com.cru.petshop.views.internalframe.CategoriasInterFrame;
 import br.com.cru.petshop.views.internalframe.ClientesIternFrame;
 import br.com.cru.petshop.views.internalframe.ContasPagarInterFrame;
 import br.com.cru.petshop.views.internalframe.ContasReceberInterFrame;
 import br.com.cru.petshop.views.internalframe.FormasPagamentoInterFrame;
 import br.com.cru.petshop.views.internalframe.FornecedoresInterFrame;
+import br.com.cru.petshop.views.internalframe.PedidosFornecedoresIternFrame;
 import br.com.cru.petshop.views.internalframe.ProdutosInterFrame;
 import br.com.cru.petshop.views.internalframe.ServicosInterFrame;
+import br.com.cru.petshop.views.internalframe.SituacaoInterFrame;
 import java.awt.event.WindowEvent;
 
 /**
@@ -31,6 +34,7 @@ public class Principal extends JFrameActivity {
     private NovoAnimaisJFrame mNovoAnimalJFrame;
     private NovoAtendimentoJFrame mNovoAtendimentoJFrame;
     private NovaContaJFrame mNovaContaJFrame;
+    private NovoPedidoFornecedorJFrame mNovoPedidoFornecedorJFrame;
 
     private ClientesIternFrame mClientesIternFrame;
     private ContasReceberInterFrame mContasReceberInterFrame;
@@ -43,6 +47,9 @@ public class Principal extends JFrameActivity {
     private ProdutosInterFrame mProdutosInterFrame;
     private CaixaInterFrame mCaixaInterFrame;
     private AnimalInterFrame mAnimalInterFrame;
+    private SituacaoInterFrame mSituacaoInterFrame;
+    private CategoriasInterFrame mCategoriasInterFrame;
+    private PedidosFornecedoresIternFrame mPedidosFornecedoresIternFrame;
 
     public Principal() {
         initComponents();
@@ -100,7 +107,6 @@ public class Principal extends JFrameActivity {
         jMenuItemConfigDadosEmpresa = new javax.swing.JMenuItem();
         jMenuItemConfigCategorias = new javax.swing.JMenuItem();
         jMenuItemConfigListaSituacao = new javax.swing.JMenuItem();
-        jMenuItemConfigContas = new javax.swing.JMenuItem();
         jMenuItemConfigFormPagamento = new javax.swing.JMenuItem();
         jMenuItemConfigAnimal = new javax.swing.JMenuItem();
         jMenuAjuda = new javax.swing.JMenu();
@@ -395,11 +401,21 @@ public class Principal extends JFrameActivity {
         jMenuItemFornePedidos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemFornePedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/box.png"))); // NOI18N
         jMenuItemFornePedidos.setText("Pedidos");
+        jMenuItemFornePedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFornePedidosActionPerformed(evt);
+            }
+        });
         jMenuFornecedores.add(jMenuItemFornePedidos);
 
         jMenuItemForneIncluirPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemForneIncluirPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/add-button.png"))); // NOI18N
         jMenuItemForneIncluirPedido.setText("Incluir Pedido");
+        jMenuItemForneIncluirPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemForneIncluirPedidoActionPerformed(evt);
+            }
+        });
         jMenuFornecedores.add(jMenuItemForneIncluirPedido);
 
         jMenuBar.add(jMenuFornecedores);
@@ -458,17 +474,22 @@ public class Principal extends JFrameActivity {
         jMenuItemConfigCategorias.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemConfigCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/list.png"))); // NOI18N
         jMenuItemConfigCategorias.setText("Categorias");
+        jMenuItemConfigCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConfigCategoriasActionPerformed(evt);
+            }
+        });
         jMenuConfiguracoes.add(jMenuItemConfigCategorias);
 
         jMenuItemConfigListaSituacao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemConfigListaSituacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/checklist.png"))); // NOI18N
         jMenuItemConfigListaSituacao.setText("Lista de Situação");
+        jMenuItemConfigListaSituacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConfigListaSituacaoActionPerformed(evt);
+            }
+        });
         jMenuConfiguracoes.add(jMenuItemConfigListaSituacao);
-
-        jMenuItemConfigContas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemConfigContas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/bank.png"))); // NOI18N
-        jMenuItemConfigContas.setText("Contas");
-        jMenuConfiguracoes.add(jMenuItemConfigContas);
 
         jMenuItemConfigFormPagamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemConfigFormPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/credit-card.png"))); // NOI18N
@@ -521,7 +542,7 @@ public class Principal extends JFrameActivity {
     }//GEN-LAST:event_miVendaActionPerformed
 
     private void btnServicosmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicosmiProdutoActionPerformed
-
+        InternalFrameUtils.init(mServicosInterFrame, dkpContainer);
     }//GEN-LAST:event_btnServicosmiProdutoActionPerformed
 
     private void btnAdicionarAnimaismiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAnimaismiSairActionPerformed
@@ -537,7 +558,7 @@ public class Principal extends JFrameActivity {
     }//GEN-LAST:event_btnBuscarAtendimentomiVendaActionPerformed
 
     private void btnProdutosmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosmiProdutoActionPerformed
-
+        InternalFrameUtils.init(mProdutosInterFrame, dkpContainer);
     }//GEN-LAST:event_btnProdutosmiProdutoActionPerformed
 
     private void jMenuItemClienteIncluirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClienteIncluirClienteActionPerformed
@@ -634,6 +655,24 @@ public class Principal extends JFrameActivity {
         InternalFrameUtils.init(mAnimalInterFrame, dkpContainer);
     }//GEN-LAST:event_jMenuItemConfigAnimalActionPerformed
 
+    private void jMenuItemConfigListaSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigListaSituacaoActionPerformed
+        InternalFrameUtils.init(mSituacaoInterFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemConfigListaSituacaoActionPerformed
+
+    private void jMenuItemConfigCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigCategoriasActionPerformed
+        InternalFrameUtils.init(mCategoriasInterFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemConfigCategoriasActionPerformed
+
+    private void jMenuItemForneIncluirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemForneIncluirPedidoActionPerformed
+        mNovoPedidoFornecedorJFrame = new NovoPedidoFornecedorJFrame();
+        mNovoPedidoFornecedorJFrame.setVisible(true);
+        mNovoPedidoFornecedorJFrame.setLocationRelativeTo(this);
+    }//GEN-LAST:event_jMenuItemForneIncluirPedidoActionPerformed
+
+    private void jMenuItemFornePedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFornePedidosActionPerformed
+        InternalFrameUtils.init(mPedidosFornecedoresIternFrame, dkpContainer);
+    }//GEN-LAST:event_jMenuItemFornePedidosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -695,7 +734,6 @@ public class Principal extends JFrameActivity {
     private javax.swing.JMenuItem jMenuItemConfigAnimal;
     private javax.swing.JMenuItem jMenuItemConfigCategorias;
     private javax.swing.JMenuItem jMenuItemConfigColaboradores;
-    private javax.swing.JMenuItem jMenuItemConfigContas;
     private javax.swing.JMenuItem jMenuItemConfigDadosEmpresa;
     private javax.swing.JMenuItem jMenuItemConfigFormPagamento;
     private javax.swing.JMenuItem jMenuItemConfigListaSituacao;
@@ -752,6 +790,7 @@ public class Principal extends JFrameActivity {
         this.mNovoAnimalJFrame = new NovoAnimaisJFrame();
         this.mNovoAtendimentoJFrame = new NovoAtendimentoJFrame();
         this.mNovaContaJFrame = new NovaContaJFrame();
+        this.mNovoPedidoFornecedorJFrame = new NovoPedidoFornecedorJFrame();
 
         this.mClientesIternFrame = new ClientesIternFrame();
         this.mContasReceberInterFrame = new ContasReceberInterFrame();
@@ -764,6 +803,9 @@ public class Principal extends JFrameActivity {
         this.mProdutosInterFrame = new ProdutosInterFrame();
         this.mCaixaInterFrame = new CaixaInterFrame();
         this.mAnimalInterFrame = new AnimalInterFrame();
+        this.mSituacaoInterFrame = new SituacaoInterFrame();
+        this.mCategoriasInterFrame = new CategoriasInterFrame();
+        this.mPedidosFornecedoresIternFrame = new PedidosFornecedoresIternFrame();
 
     }
 }

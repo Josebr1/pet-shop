@@ -8,8 +8,7 @@ package br.com.cru.petshop.views.internalframe;
 import br.com.cru.petshop.controllers.FormasPagamentoController;
 import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
 import br.com.cru.petshop.models.FormasPagamento;
-import br.com.cru.petshop.views.NovaFormaPagamentoJFrame;
-import br.com.cru.petshop.views.NovoServicoJFrame;
+import br.com.cru.petshop.views.NovaSituacaoJFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -21,14 +20,14 @@ import org.h2.util.StringUtils;
  *
  * @author jose.antonio
  */
-public class ServicosInterFrame extends javax.swing.JInternalFrame {
+public class SituacaoInterFrame extends javax.swing.JInternalFrame {
 
     private IFormasPagamentoController mFormasPagamentoController;
 
     /**
      * Creates new form FormasPagamentoInterFrame
      */
-    public ServicosInterFrame() {
+    public SituacaoInterFrame() {
         initComponents();
 
         this.mFormasPagamentoController = new FormasPagamentoController();
@@ -46,13 +45,13 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
         paneHeader = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        scrollPaneServicos = new javax.swing.JScrollPane();
-        listServicos = new javax.swing.JList<>();
+        scrollPaneSituacao = new javax.swing.JScrollPane();
+        listSituacao = new javax.swing.JList<>();
         lblTitulos = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Lista Serviços");
+        setTitle("Lista de Situação");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -109,19 +108,19 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        listServicos.setModel(new javax.swing.AbstractListModel<String>() {
+        listSituacao.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        listServicos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listSituacao.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listServicosValueChanged(evt);
+                listSituacaoValueChanged(evt);
             }
         });
-        scrollPaneServicos.setViewportView(listServicos);
+        scrollPaneSituacao.setViewportView(listSituacao);
 
-        lblTitulos.setText("Serviços:");
+        lblTitulos.setText("Configurações:");
 
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
@@ -139,10 +138,10 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneServicos)
+                    .addComponent(scrollPaneSituacao)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTitulos)
-                        .addGap(0, 330, Short.MAX_VALUE))
+                        .addGap(0, 301, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnExcluir)))
@@ -155,7 +154,7 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addComponent(lblTitulos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPaneSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -165,10 +164,10 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        NovoServicoJFrame servicoJFrame = new NovoServicoJFrame();
-        servicoJFrame.setVisible(true);
-        servicoJFrame.setLocationRelativeTo(null);
-        servicoJFrame.addWindowListener(new WindowAdapter() {
+        NovaSituacaoJFrame novaSituacaoJFrame = new NovaSituacaoJFrame();
+        novaSituacaoJFrame.setVisible(true);
+        novaSituacaoJFrame.setLocationRelativeTo(null);
+        novaSituacaoJFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 super.windowClosed(e);
@@ -178,9 +177,9 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       String selected = listServicos.getSelectedValue();
+       String selected = listSituacao.getSelectedValue();
         if(!StringUtils.isNullOrEmpty(selected)) {
-            /*NovoServicoJFrame frame = new NovoServicoJFrame(new FormasPagamento(selected));
+            /*NovaFormaPagamentoJFrame frame = new NovaFormaPagamentoJFrame(new FormasPagamento(selected));
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
             frame.addWindowListener(new WindowAdapter() {
@@ -193,14 +192,14 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void listServicosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listServicosValueChanged
+    private void listSituacaoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listSituacaoValueChanged
         this.enabledActions();
-    }//GEN-LAST:event_listServicosValueChanged
+    }//GEN-LAST:event_listSituacaoValueChanged
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir esse item?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_NO_OPTION) {
-            this.mFormasPagamentoController.delete(listServicos.getSelectedValue());
+            this.mFormasPagamentoController.delete(listSituacao.getSelectedValue());
             JOptionPane.showMessageDialog(null, "Item excluido com sucesso!");
         }
         updateList();
@@ -220,7 +219,7 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
             model.addElement(f.getDescricao());
         }
 
-        listServicos.setModel(model);
+        listSituacao.setModel(model);
         disabledActions();
     }
 
@@ -238,8 +237,8 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JLabel lblTitulos;
-    private javax.swing.JList<String> listServicos;
+    private javax.swing.JList<String> listSituacao;
     private javax.swing.JPanel paneHeader;
-    private javax.swing.JScrollPane scrollPaneServicos;
+    private javax.swing.JScrollPane scrollPaneSituacao;
     // End of variables declaration//GEN-END:variables
 }

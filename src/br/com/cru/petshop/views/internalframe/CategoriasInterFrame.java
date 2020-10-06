@@ -8,7 +8,7 @@ package br.com.cru.petshop.views.internalframe;
 import br.com.cru.petshop.controllers.FormasPagamentoController;
 import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
 import br.com.cru.petshop.models.FormasPagamento;
-import br.com.cru.petshop.views.NovaFormaPagamentoJFrame;
+import br.com.cru.petshop.views.NovaCategoriaJFrame;
 import br.com.cru.petshop.views.NovoServicoJFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -21,14 +21,14 @@ import org.h2.util.StringUtils;
  *
  * @author jose.antonio
  */
-public class ServicosInterFrame extends javax.swing.JInternalFrame {
+public class CategoriasInterFrame extends javax.swing.JInternalFrame {
 
     private IFormasPagamentoController mFormasPagamentoController;
 
     /**
      * Creates new form FormasPagamentoInterFrame
      */
-    public ServicosInterFrame() {
+    public CategoriasInterFrame() {
         initComponents();
 
         this.mFormasPagamentoController = new FormasPagamentoController();
@@ -52,7 +52,7 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
         btnExcluir = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Lista Serviços");
+        setTitle("Categoria de Produtos");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -165,10 +165,10 @@ public class ServicosInterFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        NovoServicoJFrame servicoJFrame = new NovoServicoJFrame();
-        servicoJFrame.setVisible(true);
-        servicoJFrame.setLocationRelativeTo(null);
-        servicoJFrame.addWindowListener(new WindowAdapter() {
+        NovaCategoriaJFrame novaCategoriaJFrame = new NovaCategoriaJFrame();
+        novaCategoriaJFrame.setVisible(true);
+        novaCategoriaJFrame.setLocationRelativeTo(null);
+        novaCategoriaJFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
                 super.windowClosed(e);
