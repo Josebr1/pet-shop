@@ -89,6 +89,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Buscar Atendimento Agendado"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAtendimeBuscarAgendadoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemAtendimeCadastrarAtendimento">
               <Properties>
@@ -100,6 +103,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar atendimento"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemAtendimeCadastrarAtendimentoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -143,6 +149,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Tabela de Servi&#xe7;os"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemProdServTabelaServicosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -533,7 +542,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/cru/petshop/imgs/attendance-32.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Buscar Atendimento"/>
+            <Property name="text" type="java.lang.String" value="Adicionar Atendimento"/>
             <Property name="toolTipText" type="java.lang.String" value="Buscar Atendimento"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Default Cursor"/>
@@ -555,7 +564,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/cru/petshop/imgs/checklist-32.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Atendimento"/>
+            <Property name="text" type="java.lang.String" value="Buscar Atendimento"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Default Cursor"/>
             </Property>
