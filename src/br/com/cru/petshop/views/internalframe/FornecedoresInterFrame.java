@@ -73,6 +73,7 @@ public class FornecedoresInterFrame extends JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setResizable(true);
         setTitle("Fornecedores");
         setToolTipText("Fornecedores");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {

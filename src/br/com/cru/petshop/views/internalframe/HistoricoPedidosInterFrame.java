@@ -50,6 +50,7 @@ public class HistoricoPedidosInterFrame extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setResizable(true);
         setTitle("Histórico de Pedidos");
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));

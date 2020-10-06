@@ -64,6 +64,7 @@ public class ContasPagarInterFrame extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setResizable(true);
         setTitle("Contas a Pagar");
         setToolTipText("Contas a Pagar");
 

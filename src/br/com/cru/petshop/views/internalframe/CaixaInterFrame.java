@@ -53,6 +53,7 @@ public class CaixaInterFrame extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setResizable(true);
         setTitle("Gerenciamento de Caixa");
         setToolTipText("Gerenciamento de Caixa");
 

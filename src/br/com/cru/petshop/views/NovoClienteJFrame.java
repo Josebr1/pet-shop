@@ -79,6 +79,9 @@ public class NovoClienteJFrame extends javax.swing.JDialog {
         comboSexo = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Cliente");
+
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -78,6 +78,7 @@ public class ContasReceberInterFrame extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setResizable(true);
         setTitle("Contas a Receber");
         setToolTipText("Contas a Receber");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {

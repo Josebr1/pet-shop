@@ -41,6 +41,8 @@ public class ProdutosInterFrame extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setResizable(true);
+        setTitle("Produtos");
 
         paneFooter.setBackground(new java.awt.Color(102, 102, 102));
 

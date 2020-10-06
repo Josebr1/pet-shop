@@ -39,6 +39,8 @@ public class AnimaisIternFrame extends javax.swing.JInternalFrame {
         btnNovo = new javax.swing.JButton();
 
         setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Animais");
 
         paneFooter.setBackground(new java.awt.Color(102, 102, 102));

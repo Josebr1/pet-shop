@@ -54,6 +54,8 @@ public class ColaboradoresIternFrame extends javax.swing.JInternalFrame {
         tableColaboradores = new javax.swing.JTable();
 
         setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Colaboradores");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
