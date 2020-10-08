@@ -60,6 +60,11 @@ public class LoginInterFrame extends JInternalFrameActivity {
         });
 
         btnSair.setText("Cancelar");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,6 +118,10 @@ public class LoginInterFrame extends JInternalFrameActivity {
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSairActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
@@ -135,7 +144,7 @@ public class LoginInterFrame extends JInternalFrameActivity {
 
     @Override
     public void onClose(WindowEvent evt) {
-        
+        System.exit(0);
     }
 
     @Override
