@@ -1,6 +1,8 @@
 package br.com.cru.petshop.views;
 
+import br.com.cru.petshop.controllers.UserController;
 import br.com.cru.petshop.core.JFrameActivity;
+import br.com.cru.petshop.database.DataBase;
 import br.com.cru.petshop.utils.InternalFrameUtils;
 import br.com.cru.petshop.views.internalframe.AnimaisIternFrame;
 import br.com.cru.petshop.views.internalframe.AnimalInterFrame;
@@ -12,11 +14,17 @@ import br.com.cru.petshop.views.internalframe.ContasPagarInterFrame;
 import br.com.cru.petshop.views.internalframe.ContasReceberInterFrame;
 import br.com.cru.petshop.views.internalframe.FormasPagamentoInterFrame;
 import br.com.cru.petshop.views.internalframe.FornecedoresInterFrame;
+import br.com.cru.petshop.views.internalframe.LoginInterFrame;
 import br.com.cru.petshop.views.internalframe.PedidosFornecedoresIternFrame;
 import br.com.cru.petshop.views.internalframe.ProdutosInterFrame;
 import br.com.cru.petshop.views.internalframe.ServicosInterFrame;
 import br.com.cru.petshop.views.internalframe.SituacaoInterFrame;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  * Janela menu da aplicação
@@ -25,6 +33,9 @@ import java.awt.event.WindowEvent;
  */
 public class Principal extends JFrameActivity {
 
+    static Logger log = Logger.getLogger(
+                      Principal.class.getName());
+    
     int codigoUsuario;
 
     private NovoFornecedorJFrame mNovoFornecedorJFrame;
@@ -51,6 +62,9 @@ public class Principal extends JFrameActivity {
     private CategoriasInterFrame mCategoriasInterFrame;
     private PedidosFornecedoresIternFrame mPedidosFornecedoresIternFrame;
 
+    /*CONTROLLERS*/
+    private UserController mUserController;
+    
     public Principal() {
         initComponents();
     }
@@ -762,12 +776,48 @@ public class Principal extends JFrameActivity {
 
     @Override
     public void onCreate(WindowEvent evt) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void onResume(WindowEvent evt) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            DataBase db = new DataBase();
+            db.initialize();
+            if(this.mUserController.primeiroAdm()){
+                JOptionPane.showMessageDialog(rootPane, "Você precisa cadastrar um usuário administrador para conseguir acessar o sistema");
+                NovoColaboradorJFrame colaboradorJFrame = new NovoColaboradorJFrame();
+                colaboradorJFrame.setVisible(true);
+                colaboradorJFrame.setLocationRelativeTo(this);
+                colaboradorJFrame.addWindowListener(new WindowListener() {
+                    @Override
+                    public void windowOpened(WindowEvent e) {}
+                    @Override
+                    public void windowClosing(WindowEvent e) {}
+
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        if(mUserController.primeiroAdm()) {
+                            log.info("Primeiro usuário administrador não cadastrado");
+                            //System.exit(0);
+                        }
+                    }
+
+                    @Override
+                    public void windowIconified(WindowEvent e) {}
+                    @Override
+                    public void windowDeiconified(WindowEvent e) {}
+                    @Override
+                    public void windowActivated(WindowEvent e) {}
+                    @Override
+                    public void windowDeactivated(WindowEvent e) {}
+                });
+            } else {
+                InternalFrameUtils.init(new LoginInterFrame(), dkpContainer);
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
+            java.util.logging.Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -777,7 +827,7 @@ public class Principal extends JFrameActivity {
 
     @Override
     public void onCreateControllers() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.mUserController = new UserController();
     }
 
     @Override

@@ -61,4 +61,14 @@ public class UserController implements IUserController {
         return null;
     }
 
+    @Override
+    public boolean login(Usuario u) {
+        try {
+            return this.mUsuarioDAO.login(u);
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

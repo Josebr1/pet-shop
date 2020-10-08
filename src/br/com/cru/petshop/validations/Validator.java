@@ -7,6 +7,7 @@ import br.com.cru.petshop.annotations.Required;
 import br.com.cru.petshop.exceptions.RequiredFieldException;
 import br.com.cru.petshop.utils.DocumentUtils;
 import br.com.cru.petshop.utils.EmailUtils;
+import br.com.cru.petshop.utils.BCrypt;
 import br.com.cru.petshop.utils.PasswordUtils;
 import com.mysql.cj.util.StringUtils;
 

@@ -4,7 +4,7 @@ import br.com.cru.petshop.annotations.Email;
 import br.com.cru.petshop.annotations.Password;
 import br.com.cru.petshop.annotations.Required;
 import br.com.cru.petshop.models.enums.TipoUsuario;
-import br.com.cru.petshop.utils.PasswordUtils;
+import br.com.cru.petshop.utils.BCrypt;
 import java.util.UUID;
 
 public class Usuario{
@@ -38,6 +38,8 @@ public class Usuario{
         this.tipoUsuario = tipoUsuario;
     }
 
+    String salt = BCrypt.gensalt();
+    
     public UUID getIdUsuario() {
         return idUsuario;
     }
@@ -88,8 +90,12 @@ public class Usuario{
         this.login = login;
     }
 
+    public String getSenha(boolean BCrypt) {
+        return BCrypt ? getSenha() : senha ;
+    }
+    
     public String getSenha() {
-        return PasswordUtils.generateSecurePassword(senha);
+        return BCrypt.hashpw(senha, salt);
     }
 
     public void setSenha(String senha) {

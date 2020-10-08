@@ -1,9 +1,11 @@
 package br.com.cru.petshop.dao;
 
 import br.com.cru.petshop.dao.interfaces.IUsuarioDAO;
+import br.com.cru.petshop.database.DataBase;
 import br.com.cru.petshop.models.Usuario;
 import br.com.cru.petshop.models.enums.TipoUsuario;
 import br.com.cru.petshop.utils.DBUtils;
+import br.com.cru.petshop.utils.BCrypt;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -13,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
+import java.util.logging.Level;
 
 public class UsuarioDAO implements IUsuarioDAO{
 
@@ -29,7 +33,7 @@ public class UsuarioDAO implements IUsuarioDAO{
             
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
             statement.setInt(1, TipoUsuario.ADMINISTRADOR.getValue());
-            
+            LOGGER.info(statement);
             resultSet = statement.executeQuery();
             LOGGER.info(resultSet);
             return !resultSet.next();
@@ -148,6 +152,28 @@ public class UsuarioDAO implements IUsuarioDAO{
                 LOGGER.info(usuario.toString());
             }
             return usuarios;
+        } finally {
+            if (mConnection != null)
+                mConnection.close();
+        }
+    }
+
+    @Override
+    public boolean login(Usuario usuario) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+        ResultSet resultSet;
+        
+        try {
+            mConnection = DBUtils.getConnection();
+            String sql = "SELECT senha FROM usuario WHERE usuario.login = ?";
+            
+            PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
+            statement.setString(1, usuario.getLogin());
+            resultSet = statement.executeQuery();
+            
+            while(resultSet.next()) {
+                return BCrypt.checkpw(usuario.getSenha(false), resultSet.getString("senha"));
+            }
+            return false;
         } finally {
             if (mConnection != null)
                 mConnection.close();

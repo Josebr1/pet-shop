@@ -5,12 +5,26 @@
  */
 package br.com.cru.petshop.views.internalframe;
 
+import br.com.cru.petshop.controllers.UserController;
+import br.com.cru.petshop.controllers.interfaces.IUserController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
+import br.com.cru.petshop.models.Usuario;
+import br.com.cru.petshop.utils.BCrypt;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+import org.h2.util.StringUtils;
+
 /**
  *
  * @author jose.antonio
  */
-public class LoginInterFrame extends javax.swing.JInternalFrame {
+public class LoginInterFrame extends JInternalFrameActivity {
 
+    private Usuario mUsuario = new Usuario();
+    
+    
+     private IUserController mUserController;
+    
     /**
      * Creates new form LoginInterFrame
      */
@@ -27,20 +41,25 @@ public class LoginInterFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lblUsuario = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        btnEntrar = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
 
-        jLabel1.setText("Usuário:");
+        lblUsuario.setText("Usuário:");
 
-        jLabel2.setText("Senha:");
+        lblSenha.setText("Senha:");
 
-        jButton1.setText("ENTRAR");
+        btnEntrar.setText("ENTRAR");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        btnSair.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,43 +69,82 @@ public class LoginInterFrame extends javax.swing.JInternalFrame {
                 .addGap(94, 94, 94)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnSair)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(jLabel1)
+                .addComponent(lblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblSenha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
-                .addComponent(jButton2)
+                .addComponent(btnSair)
                 .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        
+        mUsuario.setLogin(txtUser.getText());
+        mUsuario.setSenha(String.valueOf(txtPassword.getPassword()));
+
+        if(this.mUserController.login(mUsuario)) {
+            this.dispose();
+            JOptionPane.showMessageDialog(rootPane, "Login realizado com sucesso! <"+ mUsuario.getLogin() +">");
+        } else {
+            txtPassword.setText("");
+            JOptionPane.showMessageDialog(rootPane, "O nome do usuário ou a senha está incorreta.");
+        }
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton btnEntrar;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(WindowEvent evt) {
+        
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+        
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+        
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mUserController = new UserController();
+    }
+
+    @Override
+    public void onCreateViews() {
+        
+    }
 }

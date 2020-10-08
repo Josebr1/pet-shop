@@ -12,7 +12,6 @@ import br.com.cru.petshop.core.Dialog;
 import br.com.cru.petshop.exceptions.RequiredFieldException;
 import br.com.cru.petshop.models.Usuario;
 import br.com.cru.petshop.models.enums.TipoUsuario;
-import br.com.cru.petshop.utils.GroupButtonUtils;
 import br.com.cru.petshop.validations.Validator;
 import com.mysql.cj.util.StringUtils;
 
@@ -61,7 +60,7 @@ public class NovoColaboradorJFrame extends Dialog {
     
     
     private void initControllers() {
-        this.mUserController = new UserController();
+        
     }
     
     private void CreateOrUpdate(){
@@ -303,7 +302,11 @@ public class NovoColaboradorJFrame extends Dialog {
     }//GEN-LAST:event_txtFonePrincipalActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        this.dispose();
+       boolean isFirstAccess = this.mUserController.primeiroAdm();
+        if(isFirstAccess)
+            System.exit(0);
+        else 
+            this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -393,31 +396,35 @@ public class NovoColaboradorJFrame extends Dialog {
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtSenha;
+    // End of variables declaration//GEN-END:variables
 
     @Override
     public void onCreate(WindowEvent evt) {
-
+        
     }
 
     @Override
     public void onResume(WindowEvent evt) {
-
+        
     }
 
     @Override
     public void onClose(WindowEvent evt) {
-
+        boolean isFirstAccess = this.mUserController.primeiroAdm();
+        if(isFirstAccess)
+            System.exit(0);
+        else 
+            this.dispose();
     }
 
     @Override
     public void onCreateControllers() {
-
+        this.mUserController = new UserController();
     }
 
     @Override
     public void onCreateViews() {
-
+        
     }
-    // End of variables declaration//GEN-END:variables
 
 }
