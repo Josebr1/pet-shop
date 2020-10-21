@@ -1,41 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.cru.petshop.views.internalframe;
 
 import br.com.cru.petshop.controllers.UserController;
 import br.com.cru.petshop.controllers.interfaces.IUserController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Usuario;
 import br.com.cru.petshop.models.enums.TipoUsuario;
 import br.com.cru.petshop.views.NovoColaboradorJFrame;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.List;
 import org.h2.util.StringUtils;
 
-/**
- *
- * @author jose.antonio
- */
-public class ColaboradoresIternFrame extends javax.swing.JInternalFrame {
+public class ColaboradoresIternFrame extends JInternalFrameActivity {
 
     private IUserController mUserController;
     private String UUID;
 
-    /**
-     * Creates new form ColaboradoresIternFrame
-     */
     public ColaboradoresIternFrame() {
         initComponents();
         initControllers();
     }
 
     private void initControllers() {
-        this.mUserController = new UserController();
+        
     }
 
     /**
@@ -157,7 +145,9 @@ public class ColaboradoresIternFrame extends javax.swing.JInternalFrame {
         NovoColaboradorJFrame colaboradorJFrame = new NovoColaboradorJFrame();
         colaboradorJFrame.setVisible(true);
         colaboradorJFrame.setLocationRelativeTo(this);
-        colaboradorJFrame.addWindowListener(new CallbackUpdateTable());
+        
+        populatorTable();
+        btnEditar.setEnabled(false);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -198,47 +188,32 @@ public class ColaboradoresIternFrame extends javax.swing.JInternalFrame {
             colaboradorJFrame.setVisible(true);
             colaboradorJFrame.setLocationRelativeTo(this);
 
-            colaboradorJFrame.addWindowListener(new CallbackUpdateTable());
-        }
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-
-    private class CallbackUpdateTable implements WindowListener {
-        @Override
-        public void windowOpened(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowClosing(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowClosed(WindowEvent windowEvent) {
             populatorTable();
             btnEditar.setEnabled(false);
         }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
-        @Override
-        public void windowIconified(WindowEvent windowEvent) {
+    @Override
+    public void onCreate(WindowEvent evt) {
+    }
 
-        }
+    @Override
+    public void onResume(WindowEvent evt) {
+    }
 
-        @Override
-        public void windowDeiconified(WindowEvent windowEvent) {
+    @Override
+    public void onClose(WindowEvent evt) {
+        populatorTable();
+        btnEditar.setEnabled(false);
+    }
 
-        }
+    @Override
+    public void onCreateControllers() {
+        this.mUserController = new UserController();
+    }
 
-        @Override
-        public void windowActivated(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowDeactivated(WindowEvent windowEvent) {
-
-        }
+    @Override
+    public void onCreateViews() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

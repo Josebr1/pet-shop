@@ -11,6 +11,7 @@ import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Usuario;
 import br.com.cru.petshop.utils.BCrypt;
 import java.awt.event.WindowEvent;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import org.h2.util.StringUtils;
 

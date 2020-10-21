@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.cru.petshop.views.internalframe;
 
+import br.com.cru.petshop.controllers.ClienteController;
+import br.com.cru.petshop.controllers.interfaces.IClienteController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
+import br.com.cru.petshop.models.Cliente;
 import br.com.cru.petshop.views.NovoClienteJFrame;
+import java.awt.event.WindowEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author joses
- */
-public class ClientesIternFrame extends javax.swing.JInternalFrame {
+public class ClientesIternFrame extends JInternalFrameActivity {
 
-    /**
-     * Creates new form ClientesIternFrame
-     */
+    private IClienteController mClienteController;
+
     public ClientesIternFrame() {
         initComponents();
     }
@@ -42,6 +40,23 @@ public class ClientesIternFrame extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Clientes");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         paneFooter.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -66,13 +81,13 @@ public class ClientesIternFrame extends javax.swing.JInternalFrame {
 
         tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "Fone Principal", "Celular", "Endereço", "Num.", "E-Mail", "Qtd. Pedidos"
+                "Nome", "E-Mail", "Celular", "Num.", "Fone Principal", "Endereço"
             }
         ));
         scrollPaneClientes.setViewportView(tableClientes);
@@ -146,7 +161,25 @@ public class ClientesIternFrame extends javax.swing.JInternalFrame {
 	novoClienteJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        this.populatorTable();
+    }//GEN-LAST:event_formInternalFrameOpened
 
+
+    private void populatorTable() {
+        List<Cliente> all = this.mClienteController.all();
+     
+        DefaultTableModel model = new DefaultTableModel(new String [] {
+                "Nome", "Documento", "Email", "Fone", "Endereço"
+        }, 0);
+        
+        for (Cliente c : all) {
+            model.addRow(new Object[]{ c.getNome(), c.getDocumento(), c.getEmail(), c.getFone(), c.getEndereco().toString() });
+        }
+        
+        tableClientes.setModel(model);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnImprimir;
@@ -157,4 +190,28 @@ public class ClientesIternFrame extends javax.swing.JInternalFrame {
     private javax.swing.JTable tableClientes;
     private javax.swing.JTextField txtPesquisarCliente;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(WindowEvent evt) {
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+        this.populatorTable();
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+        populatorTable();
+        btnEditar.setEnabled(false);
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mClienteController = new ClienteController();
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
 }

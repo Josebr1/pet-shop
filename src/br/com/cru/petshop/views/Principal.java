@@ -10,6 +10,7 @@ import br.com.cru.petshop.views.internalframe.AtendimentoIternFrame;
 import br.com.cru.petshop.views.internalframe.CaixaInterFrame;
 import br.com.cru.petshop.views.internalframe.CategoriasInterFrame;
 import br.com.cru.petshop.views.internalframe.ClientesIternFrame;
+import br.com.cru.petshop.views.internalframe.ColaboradoresIternFrame;
 import br.com.cru.petshop.views.internalframe.ContasPagarInterFrame;
 import br.com.cru.petshop.views.internalframe.ContasReceberInterFrame;
 import br.com.cru.petshop.views.internalframe.FormasPagamentoInterFrame;
@@ -23,6 +24,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
@@ -47,6 +49,7 @@ public class Principal extends JFrameActivity {
     private NovaContaJFrame mNovaContaJFrame;
     private NovoPedidoFornecedorJFrame mNovoPedidoFornecedorJFrame;
 
+    private ColaboradoresIternFrame mColaboradoresIternFrame;
     private ClientesIternFrame mClientesIternFrame;
     private ContasReceberInterFrame mContasReceberInterFrame;
     private ContasPagarInterFrame mContasPagarInterFrame;
@@ -238,6 +241,7 @@ public class Principal extends JFrameActivity {
         getContentPane().add(toolBar, java.awt.BorderLayout.PAGE_START);
 
         dkpContainer.setOpaque(false);
+        dkpContainer.setLayout(null);
         getContentPane().add(dkpContainer, java.awt.BorderLayout.CENTER);
 
         jMenuClientes.setText("Clientes");
@@ -541,7 +545,7 @@ public class Principal extends JFrameActivity {
 
         setJMenuBar(jMenuBar);
 
-        pack();
+        setSize(new java.awt.Dimension(1000, 800));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -596,9 +600,7 @@ public class Principal extends JFrameActivity {
     }//GEN-LAST:event_jMenuSairActionPerformed
 
     private void jMenuItemConfigColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigColaboradoresActionPerformed
-        mNovoColaboradorJFrame = new NovoColaboradorJFrame();
-        mNovoColaboradorJFrame.setVisible(true);
-        mNovoColaboradorJFrame.setLocationRelativeTo(this);
+        InternalFrameUtils.init(mColaboradoresIternFrame, dkpContainer);
     }//GEN-LAST:event_jMenuItemConfigColaboradoresActionPerformed
 
     private void jMenuItemClienteBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClienteBuscarClientesActionPerformed
@@ -687,6 +689,12 @@ public class Principal extends JFrameActivity {
         InternalFrameUtils.init(mPedidosFornecedoresIternFrame, dkpContainer);
     }//GEN-LAST:event_jMenuItemFornePedidosActionPerformed
 
+    private void display() {
+        this.setDefaultCloseOperation(Principal.EXIT_ON_CLOSE);
+        //this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_HORIZ);
+        this.setVisible(true);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -717,7 +725,7 @@ public class Principal extends JFrameActivity {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().setVisible(true);
+                new Principal().display();
             }
         });
     }
@@ -856,6 +864,7 @@ public class Principal extends JFrameActivity {
         this.mSituacaoInterFrame = new SituacaoInterFrame();
         this.mCategoriasInterFrame = new CategoriasInterFrame();
         this.mPedidosFornecedoresIternFrame = new PedidosFornecedoresIternFrame();
+        this.mColaboradoresIternFrame = new ColaboradoresIternFrame();
 
     }
 }

@@ -1,6 +1,7 @@
 package br.com.cru.petshop.core;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JInternalFrame;
@@ -10,10 +11,9 @@ public abstract class JInternalFrameActivity extends JInternalFrame implements A
     public JInternalFrameActivity(){
         this.initialize();
         onCreateControllers();
-        onCreateViews();
+        onCreateViews();    
     }
-
-
+    
     private void initialize() {
 
         addWindowListener(new WindowAdapter() {

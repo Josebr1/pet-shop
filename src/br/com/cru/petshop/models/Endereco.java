@@ -28,6 +28,20 @@ public class Endereco {
     @Required
     private String uf;
 
+    public Endereco(){}
+    
+    public Endereco(int id, String cep, String logradouro, String bairro, String cidade, String referencia, String numero, String complemento, String uf) {
+        this.id = id;
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.referencia = referencia;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.uf = uf;
+    }
+    
     public int getId() {
         return id;
     }
@@ -101,6 +115,11 @@ public class Endereco {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    @Override
+    public String toString() {
+        return logradouro + " " + numero + ", " + bairro + ", " + cidade + "-" + uf;
     }
     
     
