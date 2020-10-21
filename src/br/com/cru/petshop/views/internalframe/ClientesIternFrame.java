@@ -5,9 +5,8 @@ import br.com.cru.petshop.controllers.interfaces.IClienteController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Cliente;
 import br.com.cru.petshop.views.NovoClienteJFrame;
-import java.awt.event.WindowEvent;
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class ClientesIternFrame extends JInternalFrameActivity {
@@ -40,23 +39,6 @@ public class ClientesIternFrame extends JInternalFrameActivity {
         setMaximizable(true);
         setResizable(true);
         setTitle("Clientes");
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-        });
 
         paneFooter.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -161,10 +143,6 @@ public class ClientesIternFrame extends JInternalFrameActivity {
 	novoClienteJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        this.populatorTable();
-    }//GEN-LAST:event_formInternalFrameOpened
-
 
     private void populatorTable() {
         List<Cliente> all = this.mClienteController.all();
@@ -192,17 +170,18 @@ public class ClientesIternFrame extends JInternalFrameActivity {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void onCreate(WindowEvent evt) {
+    public void onCreate(InternalFrameEvent evt) {
+        this.populatorTable();
+        btnEditar.setEnabled(false);
     }
 
     @Override
-    public void onResume(WindowEvent evt) {
+    public void onResume(InternalFrameEvent evt) {
         this.populatorTable();
     }
 
     @Override
-    public void onClose(WindowEvent evt) {
-        populatorTable();
+    public void onClose(InternalFrameEvent evt) {
         btnEditar.setEnabled(false);
     }
 

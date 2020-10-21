@@ -22,8 +22,6 @@ public enum Sexo {
                 return Sexo.MASCULINO;
             case 2:
                 return Sexo.FEMININO;
-            case 3:
-                return Sexo.OUTROS;
             default:
                 return Sexo.OUTROS;
         }
@@ -32,9 +30,9 @@ public enum Sexo {
     public static String get(Sexo sexo) {
         switch(sexo) {
             case MASCULINO:
-                return "Masculino";
+                return "MASCULINO";
             case FEMININO:
-                return "Feminino";
+                return "FEMININO";
             case OUTROS:
                 return null;
             default:
@@ -43,10 +41,11 @@ public enum Sexo {
     }
     
     public static Sexo get(String sexo) {
+        if(sexo == null) sexo = "";
         switch(sexo) {
-            case "Masculino":
+            case "MASCULINO":
                 return MASCULINO;
-            case "Feminino":
+            case "FEMININO":
                 return FEMININO;
             default:
                 return OUTROS;

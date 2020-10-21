@@ -1,12 +1,10 @@
 package br.com.cru.petshop.core;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
-import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 
-public abstract class JInternalFrameActivity extends JInternalFrame implements Activity  {
+public abstract class JInternalFrameActivity extends JInternalFrame implements Activity<InternalFrameEvent>  {
     
     public JInternalFrameActivity(){
         this.initialize();
@@ -16,57 +14,37 @@ public abstract class JInternalFrameActivity extends JInternalFrame implements A
     
     private void initialize() {
 
-        addWindowListener(new WindowAdapter() {
+        addInternalFrameListener(new InternalFrameListener() {
             @Override
-            public void windowOpened(WindowEvent e) {
-                onResume(e);
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-                onClose(e);
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-                super.windowIconified(e);
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-                super.windowDeiconified(e);
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
+            public void internalFrameOpened(InternalFrameEvent e) {
                 onCreate(e);
             }
 
             @Override
-            public void windowDeactivated(WindowEvent e) {
-                super.windowDeactivated(e);
+            public void internalFrameClosing(InternalFrameEvent e) {
             }
 
             @Override
-            public void windowStateChanged(WindowEvent e) {
-                super.windowStateChanged(e);
+            public void internalFrameClosed(InternalFrameEvent e) {
+                onClose(e);
             }
 
             @Override
-            public void windowGainedFocus(WindowEvent e) {
-                super.windowGainedFocus(e);
+            public void internalFrameIconified(InternalFrameEvent e) {
             }
 
             @Override
-            public void windowLostFocus(WindowEvent e) {
-                super.windowLostFocus(e);
+            public void internalFrameDeiconified(InternalFrameEvent e) {
+            }
+
+            @Override
+            public void internalFrameActivated(InternalFrameEvent e) {
+                onResume(e);
+            }
+
+            @Override
+            public void internalFrameDeactivated(InternalFrameEvent e) {
             }
         });
-
     }
 }

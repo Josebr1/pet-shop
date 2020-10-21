@@ -92,7 +92,7 @@ public class DataBase {
 
         tableSQL.add(
                 "CREATE TABLE IF NOT EXISTS `cliente` (\n"
-                + "  `id_cliente` int(11) NOT NULL,\n"
+                + "  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,\n"
                 + "  `nome` varchar(150) DEFAULT NULL,\n"
                 + "  `documento` varchar(14) NOT NULL UNIQUE,\n"
                 + "  `email` varchar(45) NOT NULL UNIQUE,\n"

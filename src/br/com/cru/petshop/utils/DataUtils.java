@@ -22,4 +22,8 @@ public class DataUtils {
             return null;
         }
     }
+    
+    public static java.sql.Date convertDate(java.util.Date date) {
+        return new java.sql.Date(date.getTime());
+    }
 }

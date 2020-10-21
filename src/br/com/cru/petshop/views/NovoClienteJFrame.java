@@ -8,9 +8,11 @@ package br.com.cru.petshop.views;
 import br.com.cru.petshop.controllers.ClienteController;
 import br.com.cru.petshop.controllers.interfaces.IClienteController;
 import br.com.cru.petshop.core.Dialog;
+import br.com.cru.petshop.exceptions.RequiredFieldException;
 import br.com.cru.petshop.models.Cliente;
 import br.com.cru.petshop.models.Endereco;
 import br.com.cru.petshop.models.enums.Sexo;
+import br.com.cru.petshop.validations.Validator;
 import br.com.parg.viacep.ViaCEP;
 import br.com.parg.viacep.ViaCEPEvents;
 import br.com.parg.viacep.ViaCEPException;
@@ -26,9 +28,9 @@ import org.apache.log4j.Logger;
 public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
 
     static Logger log = Logger.getLogger(NovoClienteJFrame.class.getName());
-    
+
     private IClienteController mClienteController;
-    
+
     /**
      * Creates new form NovoClienteJFrame
      */
@@ -156,6 +158,7 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
         lblSexo.setText("Sexo:");
 
         comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MASCULINO", "FEMININO", "OUTROS" }));
+        comboSexo.setSelectedIndex(0);
 
         lblEmail.setText("E-Mail:");
 
@@ -334,6 +337,7 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -343,33 +347,47 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         Cliente newCliente = new Cliente();
-        
+
         newCliente.setNome(txtNome.getText());
-        newCliente.setDocumento(txtDocumento.getText().replaceAll(".", "").replaceAll("-", ""));
+        newCliente.setDocumento(txtDocumento.getText());
         newCliente.setEmail(txtEmail.getText());
         newCliente.setDataNascimento(datePickerNascimento.getDate());
-        newCliente.setSexo(Sexo.get(comboSexo.getSelectedItem().toString()));
+        newCliente.setSexo(Sexo.get((String) comboSexo.getSelectedItem()));
         newCliente.setFone(txtCelular.getText());
-        
+
         Endereco enderecoCliente = new Endereco();
-        enderecoCliente.setCep(txtCep.getText().replaceAll("-",""));
+        enderecoCliente.setCep(txtCep.getText().replaceAll("-", ""));
         enderecoCliente.setBairro(txtBairro.getText());
-        enderecoCliente.setCidade(txtEndereco.getText());
+        enderecoCliente.setLogradouro(txtEndereco.getText());
         enderecoCliente.setCidade(txtCidade.getText());
         enderecoCliente.setReferencia(txtReferencia.getText());
         enderecoCliente.setNumero(txtNumero.getText());
         enderecoCliente.setComplemento(txtComple.getText());
         enderecoCliente.setUf(comboUF.getSelectedItem().toString());
-        
+
         newCliente.setEndereco(enderecoCliente);
-        
-        this.mClienteController.insertAndUpdate(newCliente);
-        
+
+        try {
+            if (Validator.validateForNulls(newCliente)) {
+                if (Validator.validateForNulls(enderecoCliente)) {
+                    this.mClienteController.insertAndUpdate(newCliente);
+                    JOptionPane.showMessageDialog(rootPane, "Cliente criado com sucesso!");
+                    this.dispose();
+                }
+            }
+        } catch (RequiredFieldException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            ex.notifyUserWithToast();
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCepFocusLost
         ViaCEP viaCep = new ViaCEP(this);
-        
+
         try {
             viaCep.buscar(txtCep.getText().replace("-", ""));
         } catch (ViaCEPException ex) {
@@ -439,7 +457,7 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
 
     @Override
     public void onCEPSuccess(ViaCEP viacep) {
-        
+
         txtEndereco.setText(viacep.getLogradouro());
         txtBairro.setText(viacep.getBairro());
         txtCidade.setText(viacep.getLocalidade());

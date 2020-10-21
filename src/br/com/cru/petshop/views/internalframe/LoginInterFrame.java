@@ -9,11 +9,8 @@ import br.com.cru.petshop.controllers.UserController;
 import br.com.cru.petshop.controllers.interfaces.IUserController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Usuario;
-import br.com.cru.petshop.utils.BCrypt;
-import java.awt.event.WindowEvent;
-import java.util.Locale;
 import javax.swing.JOptionPane;
-import org.h2.util.StringUtils;
+import javax.swing.event.InternalFrameEvent;
 
 /**
  *
@@ -134,17 +131,17 @@ public class LoginInterFrame extends JInternalFrameActivity {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void onCreate(WindowEvent evt) {
+    public void onCreate(InternalFrameEvent evt) {
         
     }
 
     @Override
-    public void onResume(WindowEvent evt) {
+    public void onResume(InternalFrameEvent evt) {
         
     }
 
     @Override
-    public void onClose(WindowEvent evt) {
+    public void onClose(InternalFrameEvent evt) {
         System.exit(0);
     }
 

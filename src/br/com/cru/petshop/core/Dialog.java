@@ -4,9 +4,10 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public abstract class Dialog extends JDialog implements Activity {
+public abstract class Dialog extends JDialog implements Activity<WindowEvent> {
 
     public Dialog(){
+        this.setModal(true);
         this.initialize();
         onCreateControllers();
         onCreateViews();

@@ -1,17 +1,28 @@
 package br.com.cru.petshop.models;
 
+import br.com.cru.petshop.annotations.Email;
+import br.com.cru.petshop.annotations.MaskRequired;
+import br.com.cru.petshop.annotations.Required;
 import br.com.cru.petshop.models.enums.Sexo;
 import java.util.Date;
 
 public class Cliente {
     
     private int idCliente;
+    @Required
     private String nome;
+    @MaskRequired
     private String documento;
+    @Required
+    @Email
     private String email;
+    @Required
     private Date dataNascimento;
+    @Required
     private Sexo sexo;
+    @MaskRequired
     private String fone;
+    @Required
     private Endereco endereco;
 
     public Cliente() {
@@ -46,7 +57,7 @@ public class Cliente {
     }
 
     public String getDocumento() {
-        return documento;
+        return documento.replaceAll("[^0-9+]", "");
     }
 
     public void setDocumento(String documento) {
@@ -78,7 +89,8 @@ public class Cliente {
     }
 
     public String getFone() {
-        return fone;
+        return fone
+                .replaceAll("[^0-9+]", "");
     }
 
     public void setFone(String fone) {

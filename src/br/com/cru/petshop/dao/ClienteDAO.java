@@ -31,14 +31,14 @@ public class ClienteDAO implements IClienteDAO{
             
             model.setEndereco(mEnderecoDAO.insert(model.getEndereco()));
             
-            String sql = "INSERT INTO cliente (nome, documento, email, data_nascimento, sexo, fone, fk_endereco) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO cliente (NOME, DOCUMENTO, EMAIL, DATA_NASCIEMENTO, SEXO, FONE, FK_ENDERECO) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
             
             statement.setString(1, model.getNome());
             statement.setString(2, model.getDocumento());
             statement.setString(3, model.getEmail());
-            statement.setString(4, DataUtils.convertSql(model.getDataNascimento()));
+            statement.setDate(4, DataUtils.convertDate(model.getDataNascimento()));
             statement.setString(5, Sexo.get(model.getSexo()));
             statement.setString(6, model.getFone());
             statement.setInt(7, model.getEndereco().getId());
@@ -63,7 +63,7 @@ public class ClienteDAO implements IClienteDAO{
         ResultSet resultSet;
 
         try {
-            String sql = "SELECT * FROM CLIENTE INNER JOIN ENDERECO";
+            String sql = "select * from cliente inner join endereco on cliente.fk_endereco = endereco.id_endereco";
 
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
             
@@ -75,7 +75,7 @@ public class ClienteDAO implements IClienteDAO{
                         resultSet.getString("NOME"),
                         resultSet.getString("DOCUMENTO"),
                         resultSet.getString("EMAIL"),
-                        resultSet.getDate("DATA_NASCIMENTO"),
+                        resultSet.getDate("DATA_NASCIEMENTO"),
                         Sexo.get(resultSet.getString("SEXO")),
                         resultSet.getString("FONE"),
                         new Endereco(

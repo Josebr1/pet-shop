@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public abstract class JFrameActivity extends JFrame implements Activity {
+public abstract class JFrameActivity extends JFrame implements Activity<WindowEvent> {
 
     public JFrameActivity(){
         this.initialize();

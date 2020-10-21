@@ -8,8 +8,8 @@ import br.com.cru.petshop.models.enums.TipoUsuario;
 import br.com.cru.petshop.views.NovoColaboradorJFrame;
 
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.WindowEvent;
 import java.util.List;
+import javax.swing.event.InternalFrameEvent;
 import org.h2.util.StringUtils;
 
 public class ColaboradoresIternFrame extends JInternalFrameActivity {
@@ -19,12 +19,8 @@ public class ColaboradoresIternFrame extends JInternalFrameActivity {
 
     public ColaboradoresIternFrame() {
         initComponents();
-        initControllers();
     }
 
-    private void initControllers() {
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,23 +41,6 @@ public class ColaboradoresIternFrame extends JInternalFrameActivity {
         setMaximizable(true);
         setResizable(true);
         setTitle("Colaboradores");
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-        });
 
         paneAcoes.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -135,7 +114,7 @@ public class ColaboradoresIternFrame extends JInternalFrameActivity {
                 .addComponent(paneAcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
                 .addComponent(scrolPaneColaboradores, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         setBounds(0, 0, 631, 304);
@@ -149,12 +128,6 @@ public class ColaboradoresIternFrame extends JInternalFrameActivity {
         populatorTable();
         btnEditar.setEnabled(false);
     }//GEN-LAST:event_btnNovoActionPerformed
-
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-
-        this.populatorTable();
-
-    }//GEN-LAST:event_formInternalFrameOpened
 
     private void populatorTable() {
         List<Usuario> all = this.mUserController.all();
@@ -194,15 +167,16 @@ public class ColaboradoresIternFrame extends JInternalFrameActivity {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     @Override
-    public void onCreate(WindowEvent evt) {
+    public void onCreate(InternalFrameEvent evt) {
     }
 
     @Override
-    public void onResume(WindowEvent evt) {
+    public void onResume(InternalFrameEvent evt) {
+        this.populatorTable();
     }
 
     @Override
-    public void onClose(WindowEvent evt) {
+    public void onClose(InternalFrameEvent evt) {
         populatorTable();
         btnEditar.setEnabled(false);
     }
