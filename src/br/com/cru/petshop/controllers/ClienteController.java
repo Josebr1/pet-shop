@@ -49,5 +49,15 @@ public class ClienteController implements IClienteController{
         }
         return new ArrayList<>();
     }
+
+    @Override
+    public Cliente findById(int id) {
+        try {
+            return this.mClienteDAO.findbyid(id);
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new Cliente();
+    }
     
 }

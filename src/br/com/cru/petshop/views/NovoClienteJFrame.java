@@ -30,12 +30,20 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
     static Logger log = Logger.getLogger(NovoClienteJFrame.class.getName());
 
     private IClienteController mClienteController;
+    
+    private Cliente mCliente = new Cliente();
 
     /**
      * Creates new form NovoClienteJFrame
      */
     public NovoClienteJFrame() {
         initComponents();
+    }
+    
+    public NovoClienteJFrame(int idCliente) {
+        this.mCliente.setIdCliente(idCliente);
+        initComponents();
+        CreateOrUpdate();
     }
 
     /**
@@ -344,18 +352,41 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    
+    private void CreateOrUpdate(){
+        if (mCliente.getIdCliente() != 0) {
+            mCliente = this.mClienteController.findById(mCliente.getIdCliente());
+            
+            txtCodigo.setText(String.valueOf(mCliente.getIdCliente()));
+            datePickerNascimento.setDate(mCliente.getDataNascimento());
+            txtNome.setText(mCliente.getNome());
+            txtCelular.setText(mCliente.getFone());
+            txtEmail.setText(mCliente.getEmail());
+            comboSexo.setSelectedItem(Sexo.get(mCliente.getSexo()));
+            txtDocumento.setText(mCliente.getDocumento());
+            
+            txtCep.setText(mCliente.getEndereco().getCep());
+            txtEndereco.setText(mCliente.getEndereco().getLogradouro());
+            txtNumero.setText(mCliente.getEndereco().getNumero());
+            txtBairro.setText(mCliente.getEndereco().getNumero());
+            txtComple.setText(mCliente.getEndereco().getComplemento());
+            txtCidade.setText(mCliente.getEndereco().getCidade());
+            comboUF.setSelectedItem(mCliente.getEndereco().getUf());
+            txtReferencia.setText(mCliente.getEndereco().getReferencia());
+        }
+    }
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
-        Cliente newCliente = new Cliente();
-
-        newCliente.setNome(txtNome.getText());
-        newCliente.setDocumento(txtDocumento.getText());
-        newCliente.setEmail(txtEmail.getText());
-        newCliente.setDataNascimento(datePickerNascimento.getDate());
-        newCliente.setSexo(Sexo.get((String) comboSexo.getSelectedItem()));
-        newCliente.setFone(txtCelular.getText());
+        mCliente.setNome(txtNome.getText());
+        mCliente.setDocumento(txtDocumento.getText());
+        mCliente.setEmail(txtEmail.getText());
+        mCliente.setDataNascimento(datePickerNascimento.getDate());
+        mCliente.setSexo(Sexo.get((String) comboSexo.getSelectedItem()));
+        mCliente.setFone(txtCelular.getText());
 
         Endereco enderecoCliente = new Endereco();
+        if(mCliente.getEndereco().getId() != 0) enderecoCliente.setId(mCliente.getEndereco().getId());
         enderecoCliente.setCep(txtCep.getText().replaceAll("-", ""));
         enderecoCliente.setBairro(txtBairro.getText());
         enderecoCliente.setLogradouro(txtEndereco.getText());
@@ -365,12 +396,12 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
         enderecoCliente.setComplemento(txtComple.getText());
         enderecoCliente.setUf(comboUF.getSelectedItem().toString());
 
-        newCliente.setEndereco(enderecoCliente);
+        mCliente.setEndereco(enderecoCliente);
 
         try {
-            if (Validator.validateForNulls(newCliente)) {
+            if (Validator.validateForNulls(mCliente)) {
                 if (Validator.validateForNulls(enderecoCliente)) {
-                    this.mClienteController.insertAndUpdate(newCliente);
+                    this.mClienteController.insertAndUpdate(mCliente);
                     JOptionPane.showMessageDialog(rootPane, "Cliente criado com sucesso!");
                     this.dispose();
                 }

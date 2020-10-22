@@ -6,12 +6,23 @@ import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Cliente;
 import br.com.cru.petshop.views.NovoClienteJFrame;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import org.h2.util.StringUtils;
 
 public class ClientesIternFrame extends JInternalFrameActivity {
 
     private IClienteController mClienteController;
+
+    private TableRowSorter<TableModel> mRowSorter;
+
+    private String idCliente;
 
     public ClientesIternFrame() {
         initComponents();
@@ -63,22 +74,36 @@ public class ClientesIternFrame extends JInternalFrameActivity {
 
         tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "E-Mail", "Celular", "Num.", "Fone Principal", "Endereço"
+                "Codigo", "Nome", "E-Mail", "Celular", "Num.", "Fone Principal", "Endereço"
             }
         ));
+        tableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClientesMouseClicked(evt);
+            }
+        });
         scrollPaneClientes.setViewportView(tableClientes);
 
         paneHeader.setBackground(new java.awt.Color(102, 102, 102));
 
-        txtPesquisarCliente.setText("Nome, telefone ou endereço....");
+        txtPesquisarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPesquisarClienteKeyPressed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -140,24 +165,51 @@ public class ClientesIternFrame extends JInternalFrameActivity {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         NovoClienteJFrame novoClienteJFrame = new NovoClienteJFrame();
         novoClienteJFrame.setVisible(true);
-	novoClienteJFrame.setLocationRelativeTo(this);
+        novoClienteJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (!StringUtils.isNullOrEmpty(this.idCliente)) {
+            NovoClienteJFrame novoClienteJFrame = new NovoClienteJFrame(Integer.parseInt(this.idCliente));
+            novoClienteJFrame.setVisible(true);
+            novoClienteJFrame.setLocationRelativeTo(this);
+
+            populatorTable();
+            btnEditar.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientesMouseClicked
+        btnEditar.setEnabled(true);
+
+        DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+
+        int selectedRowIndex = tableClientes.getSelectedRow();
+        this.idCliente = model.getValueAt(selectedRowIndex, 0).toString();
+    }//GEN-LAST:event_tableClientesMouseClicked
+
+    private void txtPesquisarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarClienteKeyPressed
+        if (txtPesquisarCliente.getText().trim().length() == 0) {
+            mRowSorter.setRowFilter(null);
+        } else {
+            mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtPesquisarCliente.getText()));
+        }
+    }//GEN-LAST:event_txtPesquisarClienteKeyPressed
 
     private void populatorTable() {
         List<Cliente> all = this.mClienteController.all();
-     
-        DefaultTableModel model = new DefaultTableModel(new String [] {
-                "Nome", "Documento", "Email", "Fone", "Endereço"
+
+        DefaultTableModel model = new DefaultTableModel(new String[]{
+            "Codigo", "Nome", "Documento", "Email", "Fone", "Endereço"
         }, 0);
-        
+
         for (Cliente c : all) {
-            model.addRow(new Object[]{ c.getNome(), c.getDocumento(), c.getEmail(), c.getFone(), c.getEndereco().toString() });
+            model.addRow(new Object[]{c.getIdCliente(), c.getNome(), c.getDocumento(), c.getEmail(), c.getFone(), c.getEndereco().toString()});
         }
-        
+
         tableClientes.setModel(model);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnImprimir;
@@ -173,7 +225,40 @@ public class ClientesIternFrame extends JInternalFrameActivity {
     public void onCreate(InternalFrameEvent evt) {
         this.populatorTable();
         btnEditar.setEnabled(false);
+
+        mRowSorter = new TableRowSorter<>(tableClientes.getModel());
+        tableClientes.setRowSorter(mRowSorter);
+
+        txtPesquisarCliente.getDocument().addDocumentListener(listenerPesquisar);
     }
+
+    DocumentListener listenerPesquisar = new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            String text = txtPesquisarCliente.getText();
+
+            if (text.trim().length() == 0) {
+                mRowSorter.setRowFilter(null);
+            } else {
+                mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            }
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            String text = txtPesquisarCliente.getText();
+
+            if (text.trim().length() == 0) {
+                mRowSorter.setRowFilter(null);
+            } else {
+                mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            }
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+        }
+    };
 
     @Override
     public void onResume(InternalFrameEvent evt) {
@@ -193,4 +278,5 @@ public class ClientesIternFrame extends JInternalFrameActivity {
     @Override
     public void onCreateViews() {
     }
+
 }
