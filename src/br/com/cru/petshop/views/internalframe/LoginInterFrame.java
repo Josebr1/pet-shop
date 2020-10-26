@@ -108,8 +108,8 @@ public class LoginInterFrame extends JInternalFrameActivity {
         mUsuario.setSenha(String.valueOf(txtPassword.getPassword()));
 
         if(this.mUserController.login(mUsuario)) {
-            this.dispose();
             JOptionPane.showMessageDialog(rootPane, "Login realizado com sucesso! <"+ mUsuario.getLogin() +">");
+            LoginInterFrame.this.setVisible(false);
         } else {
             txtPassword.setText("");
             JOptionPane.showMessageDialog(rootPane, "O nome do usuário ou a senha está incorreta.");
