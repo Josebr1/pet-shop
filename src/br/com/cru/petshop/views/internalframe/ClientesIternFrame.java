@@ -6,7 +6,6 @@ import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Cliente;
 import br.com.cru.petshop.views.NovoClienteJFrame;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

@@ -9,20 +9,26 @@ import br.com.cru.petshop.controllers.EnderecoController;
 import br.com.cru.petshop.controllers.FornecedorController;
 import br.com.cru.petshop.controllers.interfaces.IEnderecoController;
 import br.com.cru.petshop.controllers.interfaces.IFornecedorController;
+import br.com.cru.petshop.core.Dialog;
 import br.com.cru.petshop.exceptions.RequiredFieldException;
 import br.com.cru.petshop.models.Endereco;
 import br.com.cru.petshop.models.Fornecedor;
 import br.com.cru.petshop.validations.Validator;
+import br.com.parg.viacep.ViaCEP;
+import br.com.parg.viacep.ViaCEPEvents;
+import br.com.parg.viacep.ViaCEPException;
+import java.awt.event.WindowEvent;
 import org.h2.util.StringUtils;
 
 import javax.swing.*;
 import java.util.Objects;
+import java.util.logging.Level;
 
 /**
  *
  * @author jose.antonio
  */
-public class NovoFornecedorJFrame extends javax.swing.JDialog {
+public class NovoFornecedorJFrame extends Dialog implements ViaCEPEvents {
 
     private IFornecedorController mFornecedorController;
     private IEnderecoController mEnderecoController;
@@ -45,13 +51,7 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
     private void init() {
         //this.setModal(true);
         initComponents();
-        this.initControllers();
         this.initModels();
-    }
-
-    private void initControllers() {
-        this.mFornecedorController = new FornecedorController();
-        this.mEnderecoController = new EnderecoController();
     }
 
     private void initModels() {
@@ -132,6 +132,12 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
 
         lblEnderecoPrincipal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblEnderecoPrincipal.setText("Endereço Principal:");
+
+        txtCep.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCepFocusLost(evt);
+            }
+        });
 
         lblCep.setText("<html><body><span>CEP:<span style='color:red;'>*</span></span></body></html>");
 
@@ -311,6 +317,7 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void createOrUpdate() {
@@ -370,12 +377,24 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
                }
             }
         } catch (RequiredFieldException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
             ex.notifyUserWithToast();
         } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void txtCepFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCepFocusLost
+        ViaCEP viaCep = new ViaCEP(this);
+
+        try {
+            viaCep.buscar(txtCep.getText().replace("-", ""));
+        } catch (ViaCEPException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txtCepFocusLost
 
     /**
      * @param args the command line arguments
@@ -450,4 +469,39 @@ public class NovoFornecedorJFrame extends javax.swing.JDialog {
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtReferencia;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(WindowEvent evt) {
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mFornecedorController = new FornecedorController();
+        this.mEnderecoController = new EnderecoController();
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
+
+    @Override
+    public void onCEPSuccess(ViaCEP viacep) {
+        txtEndereco.setText(viacep.getLogradouro());
+        txtBairro.setText(viacep.getBairro());
+        txtCidade.setText(viacep.getLocalidade());
+        comboUF.setSelectedItem(viacep.getUf());
+    }
+
+    @Override
+    public void onCEPError(String string) {
+        JOptionPane.showMessageDialog(rootPane, "Infelizmente não foi possivel encontrar seu endereoço com o CEP fornecido!");
+    }
 }

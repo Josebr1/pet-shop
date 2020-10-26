@@ -8,14 +8,10 @@ package br.com.cru.petshop.views.internalframe;
 import br.com.cru.petshop.views.NovoFornecedorJFrame;
 import br.com.cru.petshop.controllers.FornecedorController;
 import br.com.cru.petshop.controllers.interfaces.IFornecedorController;
-import br.com.cru.petshop.core.JFrameActivity;
+import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Fornecedor;
-import br.com.cru.petshop.models.Usuario;
-import br.com.cru.petshop.models.enums.TipoUsuario;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.List;
-import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
 import org.h2.util.StringUtils;
 
@@ -23,7 +19,7 @@ import org.h2.util.StringUtils;
  *
  * @author jose.antonio
  */
-public class FornecedoresInterFrame extends JInternalFrame {
+public class FornecedoresInterFrame extends JInternalFrameActivity{
 
     private IFornecedorController mFornecedorController;
     
@@ -175,8 +171,9 @@ public class FornecedoresInterFrame extends JInternalFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         NovoFornecedorJFrame fornecedorJFrame = new NovoFornecedorJFrame();
         fornecedorJFrame.setVisible(true);
-        /*fornecedorJFrame.setLocationRelativeTo(this);
-        fornecedorJFrame.addWindowListener(new CallbackUpdateTable());*/
+        fornecedorJFrame.setLocationRelativeTo(this);
+        populatorTable();
+        btnEditar.setEnabled(false);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
@@ -189,12 +186,14 @@ public class FornecedoresInterFrame extends JInternalFrame {
         int row = tableFornecedores.getSelectedRow();
         String value = tableFornecedores.getModel().getValueAt(row, column).toString();
         
-        /*if (!StringUtils.isNullOrEmpty(value)) {
-            NovoFornecedorInterJFrame frame = new NovoFornecedorInterJFrame(Integer.parseInt(value));
+        if (!StringUtils.isNullOrEmpty(value)) {
+            NovoFornecedorJFrame frame = new NovoFornecedorJFrame(Integer.parseInt(value));
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
-            frame.addWindowListener(new CallbackUpdateTable());
-        }*/
+        }
+        
+        populatorTable();
+        btnEditar.setEnabled(false);
         
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -204,44 +203,28 @@ public class FornecedoresInterFrame extends JInternalFrame {
         
     }//GEN-LAST:event_tableFornecedoresMouseClicked
 
+    @Override
+    public void onCreate(InternalFrameEvent evt) {
+    }
 
-    private class CallbackUpdateTable implements WindowListener {
-
-        @Override
-        public void windowOpened(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowClosing(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowClosed(WindowEvent windowEvent) {
+    @Override
+    public void onResume(InternalFrameEvent evt) {
             populatorTable();
             btnEditar.setEnabled(false);
-        }
+    }
 
-        @Override
-        public void windowIconified(WindowEvent windowEvent) {
+    @Override
+    public void onClose(InternalFrameEvent evt) {
+        populatorTable();
+        btnEditar.setEnabled(false);
+    }
 
-        }
+    @Override
+    public void onCreateControllers() {
+    }
 
-        @Override
-        public void windowDeiconified(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowActivated(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowDeactivated(WindowEvent windowEvent) {
-
-        }
+    @Override
+    public void onCreateViews() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
