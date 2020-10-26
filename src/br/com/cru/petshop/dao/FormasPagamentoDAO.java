@@ -109,4 +109,9 @@ public class FormasPagamentoDAO implements IFormasPagamentoDAO {
                 mConnection.close();
         }
     }
+
+    @Override
+    public FormasPagamento findById(int id) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

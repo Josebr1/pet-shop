@@ -179,5 +179,10 @@ public class UsuarioDAO implements IUsuarioDAO{
                 mConnection.close();
         }
     }
+
+    @Override
+    public Usuario findById(int id) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
