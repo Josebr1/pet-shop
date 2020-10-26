@@ -105,6 +105,29 @@ public class DataBase {
                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         tableSQL.add(
+                "CREATE TABLE IF NOT EXISTS `especie` (\n"
+                    + " `id_especie` int(11) NOT NULL AUTO_INCREMENT,\n"
+                    + " `descricao` varchar(255) NOT NULL UNIQUE,\n"
+                    + " PRIMARY KEY (`id_especie`)\n"
+                    + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        
+        tableSQL.add("CREATE TABLE IF NOT EXISTS `animal` (\n"
+                    + " `id_animal` int(11) NOT NULL AUTO_INCREMENT,\n"
+                    + " `cor` varchar(35) NOT NULL,\n"
+                    + " `raca` varchar(255) NOT NULL,\n"
+                    + " `apelido` varchar(255),\n"
+                    + " `nascimento` datetime DEFAULT NULL,\n"
+                    + " `sexo` enum('MACHO','FEMEA', 'FEMEA_CASTRADA', 'INDEFINIDO', 'MACHO_CASTRADO') DEFAULT NULL,\n"
+                    + " `porte` varchar(35) NOT NULL,\n"
+                    + " `obs` varchar(255),\n"
+                    + " `fk_cliente` int(11) NOT NULL,\n"
+                    + " `fk_especie` int(11) NOT NULL,\n"
+                    + " PRIMARY KEY (`id_animal`),\n"
+                    + " FOREIGN KEY (`fk_cliente`) REFERENCES `cliente` (`id_cliente`),\n"
+                    + " FOREIGN KEY (`fk_especie`) REFERENCES `especie` (`id_especie`)\n"
+                    + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        
+        tableSQL.add(
                 "CREATE TABLE IF NOT EXISTS `fornecedor` (\n"
                 + "  `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT,\n"
                 + "  `nome` varchar(45) DEFAULT NULL,\n"
