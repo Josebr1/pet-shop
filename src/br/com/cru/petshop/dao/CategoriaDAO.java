@@ -16,7 +16,7 @@ public class CategoriaDAO implements ICategoriaDAO {
     private Connection mConnection = null;
 
     @Override
-    public void insert(Categoria categoria) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+    public Categoria insert(Categoria categoria) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
         mConnection = DBUtils.getConnection();
 
         try {
@@ -24,7 +24,20 @@ public class CategoriaDAO implements ICategoriaDAO {
 
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
             statement.setString(1, categoria.getDescricao());
-            statement.execute();
+            
+            int affectedRows = statement.executeUpdate();
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+            
+            ResultSet generetedKeys = statement.getGeneratedKeys();
+            if(generetedKeys.next()) {
+                categoria.setId(generetedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
+            return categoria;
         } finally {
             if (mConnection != null)
                 mConnection.close();

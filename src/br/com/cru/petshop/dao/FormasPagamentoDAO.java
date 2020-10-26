@@ -17,7 +17,7 @@ public class FormasPagamentoDAO implements IFormasPagamentoDAO {
     private Connection mConnection = null;
 
     @Override
-    public void insert(FormasPagamento formasPagamento) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+    public FormasPagamento insert(FormasPagamento formasPagamento) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
         mConnection = DBUtils.getConnection();
 
         try {
@@ -25,7 +25,20 @@ public class FormasPagamentoDAO implements IFormasPagamentoDAO {
 
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
             statement.setString(1, formasPagamento.getDescricao());
-            statement.execute();
+            
+            int affectedRows = statement.executeUpdate();
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+            
+            ResultSet generetedKeys = statement.getGeneratedKeys();
+            if(generetedKeys.next()) {
+                formasPagamento.setIdFormaPagamento(generetedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
+            return formasPagamento;            
         } finally {
             if (mConnection != null)
                 mConnection.close();

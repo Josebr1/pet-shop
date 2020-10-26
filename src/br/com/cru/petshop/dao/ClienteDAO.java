@@ -25,7 +25,7 @@ public class ClienteDAO implements IClienteDAO{
     }
     
     @Override
-    public void insert(Cliente model) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+    public Cliente insert(Cliente model) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
         
         mConnection = DBUtils.getConnection();
         
@@ -45,7 +45,19 @@ public class ClienteDAO implements IClienteDAO{
             statement.setString(6, model.getFone());
             statement.setInt(7, model.getEndereco().getId());
 
-            statement.execute();
+            int affectedRows = statement.executeUpdate();
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+            
+            ResultSet generetedKeys = statement.getGeneratedKeys();
+            if(generetedKeys.next()) {
+                model.setIdCliente(generetedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
+            return model;
         } finally {
             if (mConnection != null)
                 mConnection.close();

@@ -18,7 +18,7 @@ public class ContaReceberDAO implements IContaReceberDAO {
     private Connection mConnection = null;
 
     @Override
-    public void insert(ContaReceber model) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+    public ContaReceber insert(ContaReceber model) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
         mConnection = DBUtils.getConnection();
 
         try {
@@ -31,7 +31,19 @@ public class ContaReceberDAO implements IContaReceberDAO {
             statement.setString(4, model.getObservacao());
             statement.setInt(5, model.getFormaPagamento().getIdFormaPagamento());
 
-            statement.execute();
+            int affectedRows = statement.executeUpdate();
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+            
+            ResultSet generetedKeys = statement.getGeneratedKeys();
+            if(generetedKeys.next()) {
+                model.setId(generetedKeys.getInt(1));
+            } else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
+            return model;
         } finally {
             if (mConnection != null)
                 mConnection.close();

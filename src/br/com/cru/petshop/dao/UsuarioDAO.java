@@ -80,7 +80,7 @@ public class UsuarioDAO implements IUsuarioDAO{
     }
 
     @Override
-    public void insert(Usuario usuario) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+    public Usuario insert(Usuario usuario) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
         mConnection = DBUtils.getConnection();
         
         try {
@@ -97,8 +97,19 @@ public class UsuarioDAO implements IUsuarioDAO{
             statement.setBoolean(8, usuario.isAtivo());
             statement.setInt(9, usuario.getTipoUsuario().getValue());
             
-            statement.execute();
-            LOGGER.info(statement);
+            int affectedRows = statement.executeUpdate();
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+            
+            ResultSet generetedKeys = statement.getGeneratedKeys();
+            if(generetedKeys.next()) {
+                usuario.setIdUsuario(UUID.fromString(generetedKeys.getString(1)));
+            } else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
+            return usuario;
         } finally {
             if (mConnection != null)
                 mConnection.close();
