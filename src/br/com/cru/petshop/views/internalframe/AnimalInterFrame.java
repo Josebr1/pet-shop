@@ -7,21 +7,22 @@ package br.com.cru.petshop.views.internalframe;
 
 import br.com.cru.petshop.controllers.FormasPagamentoController;
 import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.FormasPagamento;
-import br.com.cru.petshop.views.NovaFormaPagamentoJFrame;
 import br.com.cru.petshop.views.NovoAnimalJFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import java.util.List;
+import javax.swing.event.InternalFrameEvent;
 import org.h2.util.StringUtils;
 
 /**
  *
  * @author jose.antonio
  */
-public class AnimalInterFrame extends javax.swing.JInternalFrame {
+public class AnimalInterFrame extends JInternalFrameActivity {
 
     private IFormasPagamentoController mFormasPagamentoController;
 
@@ -244,4 +245,24 @@ public class AnimalInterFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel paneHeader;
     private javax.swing.JScrollPane scrollPaneAnimal;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(InternalFrameEvent evt) {
+    }
+
+    @Override
+    public void onResume(InternalFrameEvent evt) {
+    }
+
+    @Override
+    public void onClose(InternalFrameEvent evt) {
+    }
+
+    @Override
+    public void onCreateControllers() {
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
 }
