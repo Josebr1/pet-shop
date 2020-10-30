@@ -74,7 +74,7 @@ public class EspecieDAO implements IEspecieDAO{
         mConnection = DBUtils.getConnection();
 
         try {
-            String sql = "UPDATE ESPECIE SET DESCRICAO = ? WHERE ID_CATEGORIA = ?;";
+            String sql = "UPDATE ESPECIE SET DESCRICAO = ? WHERE ID_ESPECIE = ?;";
 
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
             statement.setString(1, model.getDescricao());

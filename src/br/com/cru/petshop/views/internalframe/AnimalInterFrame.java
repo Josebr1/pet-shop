@@ -5,9 +5,12 @@
  */
 package br.com.cru.petshop.views.internalframe;
 
+import br.com.cru.petshop.controllers.EspecieController;
 import br.com.cru.petshop.controllers.FormasPagamentoController;
+import br.com.cru.petshop.controllers.interfaces.IEspecieController;
 import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
+import br.com.cru.petshop.models.Especie;
 import br.com.cru.petshop.models.FormasPagamento;
 import br.com.cru.petshop.views.NovoAnimalJFrame;
 import java.awt.event.WindowAdapter;
@@ -24,15 +27,13 @@ import org.h2.util.StringUtils;
  */
 public class AnimalInterFrame extends JInternalFrameActivity {
 
-    private IFormasPagamentoController mFormasPagamentoController;
+    private IEspecieController mEspecieController;
 
     /**
      * Creates new form FormasPagamentoInterFrame
      */
     public AnimalInterFrame() {
         initComponents();
-
-        this.mFormasPagamentoController = new FormasPagamentoController();
     }
 
     /**
@@ -56,23 +57,6 @@ public class AnimalInterFrame extends JInternalFrameActivity {
         setMaximizable(true);
         setResizable(true);
         setTitle("Animal");
-        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
-            }
-        });
 
         paneHeader.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -183,7 +167,7 @@ public class AnimalInterFrame extends JInternalFrameActivity {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
        String selected = listAnimal.getSelectedValue();
         if(!StringUtils.isNullOrEmpty(selected)) {
-            /*NovaFormaPagamentoJFrame frame = new NovaFormaPagamentoJFrame(new FormasPagamento(selected));
+            NovoAnimalJFrame frame = new NovoAnimalJFrame(new Especie(selected));
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
             frame.addWindowListener(new WindowAdapter() {
@@ -192,7 +176,7 @@ public class AnimalInterFrame extends JInternalFrameActivity {
                     updateList();
                     super.windowClosed(e);
                 }
-            });*/
+            });
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -203,23 +187,19 @@ public class AnimalInterFrame extends JInternalFrameActivity {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir esse item?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_NO_OPTION) {
-            this.mFormasPagamentoController.delete(listAnimal.getSelectedValue());
+            this.mEspecieController.delete(listAnimal.getSelectedValue());
             JOptionPane.showMessageDialog(null, "Item excluido com sucesso!");
         }
         updateList();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        this.updateList();
-    }//GEN-LAST:event_formInternalFrameOpened
-
 
     private void updateList() {
-        List<FormasPagamento> all = this.mFormasPagamentoController.all();
+        List<Especie> all = this.mEspecieController.all();
 
         DefaultListModel model = new DefaultListModel();
 
-        for (FormasPagamento f: all) {
+        for (Especie f: all) {
             model.addElement(f.getDescricao());
         }
 
@@ -252,6 +232,7 @@ public class AnimalInterFrame extends JInternalFrameActivity {
 
     @Override
     public void onResume(InternalFrameEvent evt) {
+        this.updateList();
     }
 
     @Override
@@ -260,6 +241,7 @@ public class AnimalInterFrame extends JInternalFrameActivity {
 
     @Override
     public void onCreateControllers() {
+        this.mEspecieController = new EspecieController();
     }
 
     @Override

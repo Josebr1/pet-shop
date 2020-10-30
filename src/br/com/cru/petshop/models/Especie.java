@@ -15,6 +15,10 @@ public class Especie {
         this.idEspecie = idEspecie;
         this.descricao = descricao;
     }
+    
+     public Especie(String descricao) {
+        this.descricao = descricao;
+    }
 
     public int getIdEspecie() {
         return idEspecie;
