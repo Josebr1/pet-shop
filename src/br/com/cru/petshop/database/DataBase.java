@@ -239,6 +239,25 @@ public class DataBase {
                 + "  FOREIGN KEY (`fk_foma_pagamento`) REFERENCES `foma_pagamento` (`id_foma_pagamento`)\n"
                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
+        tableSQL.add(
+                "CREATE TABLE IF NOT EXISTS `situacao` (\n"
+                        + " id_situacao int(11) NOT NULL AUTO_INCREMENT,\n"
+                        + " descricao varchar(50) NOT NULL UNIQUE,\n"
+                        + "PRIMARY KEY (`id_situacao`)\n"
+                        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        
+        tableSQL.add(
+                "CREATE TABLE IF NOT EXISTS `pedido_fornecedor` (\n"
+                        + " `id_pedido` int(11) NOT NULL AUTO_INCREMENT,\n"
+                        + " `previsao` date DEFAULT NULL,\n"
+                        + " `descricao` varchar(255) NOT NULL,\n"
+                        + " `fk_fornecedor` int(11) NOT NULL,\n"
+                        + " `fk_usuario` UUID NOT NULL,\n"
+                        + " PRIMARY KEY (`id_pedido`),\n"
+                        + " FOREIGN KEY (`fk_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`),\n"
+                        + " FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`id_usuario`)\n"
+                        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+               
         return tableSQL;
     }
 

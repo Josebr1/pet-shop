@@ -1,7 +1,5 @@
 package br.com.cru.petshop.dao.interfaces;
 
-import br.com.cru.petshop.models.Categoria;
-
 import java.sql.SQLException;
 import java.util.List;
 

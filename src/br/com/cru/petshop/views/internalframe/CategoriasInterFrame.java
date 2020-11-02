@@ -5,33 +5,32 @@
  */
 package br.com.cru.petshop.views.internalframe;
 
-import br.com.cru.petshop.controllers.FormasPagamentoController;
-import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
-import br.com.cru.petshop.models.FormasPagamento;
+import br.com.cru.petshop.controllers.CategoriaController;
+import br.com.cru.petshop.controllers.interfaces.ICategoriaController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
+import br.com.cru.petshop.models.Categoria;
 import br.com.cru.petshop.views.NovaCategoriaJFrame;
-import br.com.cru.petshop.views.NovoServicoJFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import java.util.List;
+import javax.swing.event.InternalFrameEvent;
 import org.h2.util.StringUtils;
 
 /**
  *
  * @author jose.antonio
  */
-public class CategoriasInterFrame extends javax.swing.JInternalFrame {
+public class CategoriasInterFrame extends JInternalFrameActivity {
 
-    private IFormasPagamentoController mFormasPagamentoController;
+    private ICategoriaController mCategoriaController;
 
     /**
      * Creates new form FormasPagamentoInterFrame
      */
     public CategoriasInterFrame() {
         initComponents();
-
-        this.mFormasPagamentoController = new FormasPagamentoController();
     }
 
     /**
@@ -180,7 +179,7 @@ public class CategoriasInterFrame extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
        String selected = listServicos.getSelectedValue();
         if(!StringUtils.isNullOrEmpty(selected)) {
-            /*NovoServicoJFrame frame = new NovoServicoJFrame(new FormasPagamento(selected));
+            NovaCategoriaJFrame frame = new NovaCategoriaJFrame(new Categoria(selected));
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
             frame.addWindowListener(new WindowAdapter() {
@@ -189,7 +188,7 @@ public class CategoriasInterFrame extends javax.swing.JInternalFrame {
                     updateList();
                     super.windowClosed(e);
                 }
-            });*/
+            });
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -200,23 +199,23 @@ public class CategoriasInterFrame extends javax.swing.JInternalFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir esse item?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_NO_OPTION) {
-            this.mFormasPagamentoController.delete(listServicos.getSelectedValue());
+            this.mCategoriaController.delete(listServicos.getSelectedValue());
             JOptionPane.showMessageDialog(null, "Item excluido com sucesso!");
         }
         updateList();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        this.updateList();
+        
     }//GEN-LAST:event_formInternalFrameOpened
 
 
     private void updateList() {
-        List<FormasPagamento> all = this.mFormasPagamentoController.all();
+        List<Categoria> all = this.mCategoriaController.all();
 
         DefaultListModel model = new DefaultListModel();
 
-        for (FormasPagamento f: all) {
+        for (Categoria f: all) {
             model.addElement(f.getDescricao());
         }
 
@@ -242,4 +241,29 @@ public class CategoriasInterFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel paneHeader;
     private javax.swing.JScrollPane scrollPaneServicos;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(InternalFrameEvent evt) {
+        
+    }
+
+    @Override
+    public void onResume(InternalFrameEvent evt) {
+        this.updateList();
+    }
+
+    @Override
+    public void onClose(InternalFrameEvent evt) {
+        
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mCategoriaController = new CategoriaController();
+    }
+
+    @Override
+    public void onCreateViews() {
+        
+    }
 }

@@ -106,9 +106,9 @@ public class UsuarioDAO implements IUsuarioDAO{
             ResultSet generetedKeys = statement.getGeneratedKeys();
             if(generetedKeys.next()) {
                 usuario.setIdUsuario(UUID.fromString(generetedKeys.getString(1)));
-            } else {
+            } /*else {
                 throw new SQLException("Creating user failed, no ID obtained.");
-            }
+            }*/
             return usuario;
         } finally {
             if (mConnection != null)

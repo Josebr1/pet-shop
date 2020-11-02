@@ -5,24 +5,26 @@
  */
 package br.com.cru.petshop.views.internalframe;
 
-import br.com.cru.petshop.controllers.FormasPagamentoController;
-import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
-import br.com.cru.petshop.models.FormasPagamento;
+import br.com.cru.petshop.controllers.SituacaoController;
+import br.com.cru.petshop.controllers.interfaces.ISituacaoController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
+import br.com.cru.petshop.models.Situacao;
 import br.com.cru.petshop.views.NovaSituacaoJFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import java.util.List;
+import javax.swing.event.InternalFrameEvent;
 import org.h2.util.StringUtils;
 
 /**
  *
  * @author jose.antonio
  */
-public class SituacaoInterFrame extends javax.swing.JInternalFrame {
+public class SituacaoInterFrame extends JInternalFrameActivity {
 
-    private IFormasPagamentoController mFormasPagamentoController;
+    private ISituacaoController mSituacaoController;
 
     /**
      * Creates new form FormasPagamentoInterFrame
@@ -30,7 +32,7 @@ public class SituacaoInterFrame extends javax.swing.JInternalFrame {
     public SituacaoInterFrame() {
         initComponents();
 
-        this.mFormasPagamentoController = new FormasPagamentoController();
+        
     }
 
     /**
@@ -179,7 +181,7 @@ public class SituacaoInterFrame extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
        String selected = listSituacao.getSelectedValue();
         if(!StringUtils.isNullOrEmpty(selected)) {
-            /*NovaFormaPagamentoJFrame frame = new NovaFormaPagamentoJFrame(new FormasPagamento(selected));
+            NovaSituacaoJFrame frame = new NovaSituacaoJFrame(new Situacao(selected));
             frame.setVisible(true);
             frame.setLocationRelativeTo(null);
             frame.addWindowListener(new WindowAdapter() {
@@ -188,7 +190,7 @@ public class SituacaoInterFrame extends javax.swing.JInternalFrame {
                     updateList();
                     super.windowClosed(e);
                 }
-            });*/
+            });
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -199,24 +201,24 @@ public class SituacaoInterFrame extends javax.swing.JInternalFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int confirm = JOptionPane.showConfirmDialog(null, "Deseja excluir esse item?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_NO_OPTION) {
-            this.mFormasPagamentoController.delete(listSituacao.getSelectedValue());
+            this.mSituacaoController.delete(listSituacao.getSelectedValue());
             JOptionPane.showMessageDialog(null, "Item excluido com sucesso!");
         }
         updateList();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        this.updateList();
+        
     }//GEN-LAST:event_formInternalFrameOpened
 
 
     private void updateList() {
-        List<FormasPagamento> all = this.mFormasPagamentoController.all();
+        List<Situacao> all = this.mSituacaoController.all();
 
         DefaultListModel model = new DefaultListModel();
 
-        for (FormasPagamento f: all) {
-            model.addElement(f.getDescricao());
+        for (Situacao s: all) {
+            model.addElement(s.getDescricao());
         }
 
         listSituacao.setModel(model);
@@ -241,4 +243,29 @@ public class SituacaoInterFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel paneHeader;
     private javax.swing.JScrollPane scrollPaneSituacao;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(InternalFrameEvent evt) {
+        
+    }
+
+    @Override
+    public void onResume(InternalFrameEvent evt) {
+        this.updateList();
+    }
+
+    @Override
+    public void onClose(InternalFrameEvent evt) {
+        
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mSituacaoController = new SituacaoController();
+    }
+
+    @Override
+    public void onCreateViews() {
+        
+    }
 }

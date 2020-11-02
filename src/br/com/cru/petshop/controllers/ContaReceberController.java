@@ -48,4 +48,9 @@ public class ContaReceberController implements IContaReceberController {
         }
         return new ArrayList<>();
     }
+
+    @Override
+    public ContaReceber findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

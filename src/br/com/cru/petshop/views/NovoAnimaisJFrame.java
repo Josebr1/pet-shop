@@ -1,25 +1,65 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.cru.petshop.views;
 
+import br.com.cru.petshop.controllers.AnimalController;
+import br.com.cru.petshop.controllers.ClienteController;
+import br.com.cru.petshop.controllers.EspecieController;
+import br.com.cru.petshop.controllers.interfaces.IAnimalController;
+import br.com.cru.petshop.controllers.interfaces.IClienteController;
+import br.com.cru.petshop.controllers.interfaces.IEspecieController;
+import br.com.cru.petshop.core.Dialog;
+import br.com.cru.petshop.exceptions.RequiredFieldException;
+import br.com.cru.petshop.models.Animal;
+import br.com.cru.petshop.models.Cliente;
+import br.com.cru.petshop.models.Especie;
+import br.com.cru.petshop.models.enums.SexoAnimal;
+import br.com.cru.petshop.validations.Validator;
+import java.awt.event.WindowEvent;
+import java.util.List;
+import java.util.logging.Level;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
-/**
- *
- * @author joses
- */
-public class NovoAnimaisJFrame extends javax.swing.JDialog {
+public class NovoAnimaisJFrame extends Dialog {
 
     static Logger log = Logger.getLogger(NovoAnimaisJFrame.class.getName());
-    
+
+    private IClienteController mClienteController;
+    private IEspecieController mEspecieController;
+    private IAnimalController mAnimalController;
+
+    private Animal mAnimal = new Animal();
+
     /**
      * Creates new form NovoClienteJFrame
      */
     public NovoAnimaisJFrame() {
         initComponents();
+    }
+
+    public NovoAnimaisJFrame(int idAnimal) {
+        this.mAnimal.setId(idAnimal);
+        initComponents();
+        
+    }
+
+    private void createOrUpdate() {
+        if (this.mAnimal.getId() != 0) {
+
+            this.mAnimal = this.mAnimalController.findById(this.mAnimal.getId());
+
+            txtCor.setText(mAnimal.getCor());
+            txtRaca.setText(mAnimal.getRaca());
+            txtApelido.setText(mAnimal.getApelido());
+            dateNascimento.setDate(mAnimal.getNascimento());
+            txtPorte.setText(mAnimal.getPorte());
+            jtextAObs.setText(mAnimal.getObs());
+
+            comboCliente.setSelectedItem(mAnimal.getCliente());
+            comboEspecie.setSelectedItem(mAnimal.getEspecie());
+            comboSexo.setSelectedItem(SexoAnimal.get(mAnimal.getSexo()));
+
+        }
     }
 
     /**
@@ -33,37 +73,30 @@ public class NovoAnimaisJFrame extends javax.swing.JDialog {
 
         btnVoltar = new javax.swing.JButton();
         paneGeral = new javax.swing.JPanel();
-        lblDadosPrincipais = new javax.swing.JLabel();
-        lblEnderecoPrincipal = new javax.swing.JLabel();
-        txtCep = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("#####-###");
-            txtCep = new javax.swing.JFormattedTextField(data);
-        }catch (Exception e){
-            log.error(e);
-        }
-        lblCep = new javax.swing.JLabel();
-        txtEndereco = new javax.swing.JTextField();
-        lblNumero = new javax.swing.JLabel();
-        txtNumero = new javax.swing.JTextField();
-        txtBairro = new javax.swing.JTextField();
-        lblComplemento = new javax.swing.JLabel();
-        txtComple = new javax.swing.JTextField();
-        txtCidade = new javax.swing.JTextField();
-        comboUF = new javax.swing.JComboBox<>();
-        lblUf = new javax.swing.JLabel();
-        txtReferencia = new javax.swing.JTextField();
-        lblEndereco = new javax.swing.JLabel();
-        lblBairro = new javax.swing.JLabel();
-        lblCidade = new javax.swing.JLabel();
-        lblReferencia = new javax.swing.JLabel();
-        lblSexo = new javax.swing.JLabel();
+        lblDadosCliente = new javax.swing.JLabel();
+        lbDadosAnimal = new javax.swing.JLabel();
+        lblCor = new javax.swing.JLabel();
+        txtCor = new javax.swing.JTextField();
+        txtRaca = new javax.swing.JTextField();
+        lblApelido = new javax.swing.JLabel();
+        txtApelido = new javax.swing.JTextField();
         comboSexo = new javax.swing.JComboBox<>();
+        lblSexo = new javax.swing.JLabel();
+        txtPorte = new javax.swing.JTextField();
+        lblEspecie = new javax.swing.JLabel();
+        lblRaca = new javax.swing.JLabel();
+        lblDataNascimento = new javax.swing.JLabel();
+        lblPorte = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
+        comboCliente = new javax.swing.JComboBox<>();
         lblObs = new javax.swing.JLabel();
         jScrollPaneObs = new javax.swing.JScrollPane();
         jtextAObs = new javax.swing.JTextArea();
+        comboEspecie = new javax.swing.JComboBox<>();
+        dateNascimento = new com.toedter.calendar.JDateChooser();
         btnSalvar = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Animal");
 
         btnVoltar.setText("Voltar");
@@ -75,33 +108,35 @@ public class NovoAnimaisJFrame extends javax.swing.JDialog {
 
         paneGeral.setBorder(javax.swing.BorderFactory.createTitledBorder("Geral"));
 
-        lblDadosPrincipais.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblDadosPrincipais.setText("Dados Cliente:");
+        lblDadosCliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblDadosCliente.setText("Dados Cliente:");
 
-        lblEnderecoPrincipal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblEnderecoPrincipal.setText("Dados do animal:");
+        lbDadosAnimal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbDadosAnimal.setText("Dados do animal:");
 
-        lblCep.setText("Reg.Geral:");
+        lblCor.setText("Cor:");
 
-        lblNumero.setText("Cor:");
+        txtRaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRacaActionPerformed(evt);
+            }
+        });
 
-        lblComplemento.setText("Apelido:");
+        lblApelido.setText("Apelido:");
 
-        comboUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Macho", "Femea", "Femea Castrada", "Indefinido", "Macho Castrado" }));
+        comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MACHO", "MACHO_CASTRADO", "FEMEA", "FEMEA_CASTRADA", "INDEFINIDO" }));
 
-        lblUf.setText("Sexo:");
+        lblSexo.setText("<html><body><span>Sexo:<span style='color:red;'>*</span></span></body></html>");
 
-        lblEndereco.setText("Especie:");
+        lblEspecie.setText("<html><body><span>Especie:<span style='color:red;'>*</span></span></body></html>");
 
-        lblBairro.setText("Raça:");
+        lblRaca.setText("<html><body><span>Raça:<span style='color:red;'>*</span></span></body></html>");
 
-        lblCidade.setText("Ano Nasc/Mes Nasc:");
+        lblDataNascimento.setText("Ano Nasc/Mes Nasc:");
 
-        lblReferencia.setText("Porte:");
+        lblPorte.setText("Porte:");
 
-        lblSexo.setText("Cliente");
-
-        comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblCliente.setText("<html><body><span>Cliente:<span style='color:red;'>*</span></span></body></html>");
 
         lblObs.setText("Obs.:");
 
@@ -118,44 +153,40 @@ public class NovoAnimaisJFrame extends javax.swing.JDialog {
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneGeralLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(lblSexo)
+                        .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(comboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(paneGeralLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblCep)
-                            .addComponent(lblEndereco)
-                            .addComponent(lblBairro)
-                            .addComponent(lblCidade)
-                            .addComponent(lblReferencia)
+                            .addComponent(lblEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataNascimento)
+                            .addComponent(lblPorte)
                             .addComponent(lblObs))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneGeralLayout.createSequentialGroup()
                                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtReferencia)
-                                    .addComponent(txtCidade)
-                                    .addComponent(txtBairro)
-                                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPorte, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                                    .addComponent(txtRaca)
+                                    .addComponent(comboEspecie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dateNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblUf, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblComplemento, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblNumero, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(lblSexo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblApelido, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCor, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtComple, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                    .addComponent(txtNumero)
-                                    .addComponent(comboUF, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(paneGeralLayout.createSequentialGroup()
-                                .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtApelido, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                    .addComponent(txtCor)
+                                    .addComponent(comboSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jScrollPaneObs)))
                     .addGroup(paneGeralLayout.createSequentialGroup()
                         .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDadosPrincipais)
-                            .addComponent(lblEnderecoPrincipal))
+                            .addComponent(lblDadosCliente)
+                            .addComponent(lbDadosAnimal))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -163,49 +194,52 @@ public class NovoAnimaisJFrame extends javax.swing.JDialog {
             paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneGeralLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblDadosPrincipais)
+                .addComponent(lblDadosCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSexo)
-                    .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lblEnderecoPrincipal)
+                .addComponent(lbDadosAnimal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(paneGeralLayout.createSequentialGroup()
+                        .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCor)
+                            .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtRaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblApelido)
+                            .addComponent(txtApelido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataNascimento)))
+                    .addComponent(dateNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCep))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNumero)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEndereco))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblComplemento)
-                    .addComponent(txtComple, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBairro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUf)
-                    .addComponent(lblCidade))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblReferencia))
+                    .addComponent(txtPorte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPorte))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneGeralLayout.createSequentialGroup()
                         .addComponent(lblObs)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPaneObs))
+                    .addComponent(jScrollPaneObs, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -235,39 +269,120 @@ public class NovoAnimaisJFrame extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void txtRacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRacaActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        mAnimal.setCliente(new Cliente(((Cliente) comboCliente.getSelectedItem()).getIdCliente()));
+        mAnimal.setEspecie(new Especie(((Especie) comboEspecie.getSelectedItem()).getIdEspecie()));
+        mAnimal.setRaca(txtRaca.getText());
+        mAnimal.setCor(txtCor.getText());
+        mAnimal.setApelido(txtApelido.getText());
+        mAnimal.setNascimento(dateNascimento.getDate());
+        mAnimal.setSexo(SexoAnimal.get((String) comboSexo.getSelectedItem()));
+        mAnimal.setPorte(txtPorte.getText());
+        mAnimal.setObs(jtextAObs.getText());
+
+        try {
+            if (Validator.validateForNulls(mAnimal)) {
+                this.mAnimalController.insertAndUpdate(mAnimal);
+                JOptionPane.showMessageDialog(rootPane, "Animal cadastrado com sucesso!");
+                this.dispose();
+            }
+        } catch (RequiredFieldException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            ex.notifyUserWithToast();
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JComboBox<Cliente> comboCliente;
+    private javax.swing.JComboBox<Especie> comboEspecie;
     private javax.swing.JComboBox<String> comboSexo;
-    private javax.swing.JComboBox<String> comboUF;
+    private com.toedter.calendar.JDateChooser dateNascimento;
     private javax.swing.JScrollPane jScrollPaneObs;
     private javax.swing.JTextArea jtextAObs;
-    private javax.swing.JLabel lblBairro;
-    private javax.swing.JLabel lblCep;
-    private javax.swing.JLabel lblCidade;
-    private javax.swing.JLabel lblComplemento;
-    private javax.swing.JLabel lblDadosPrincipais;
-    private javax.swing.JLabel lblEndereco;
-    private javax.swing.JLabel lblEnderecoPrincipal;
-    private javax.swing.JLabel lblNumero;
+    private javax.swing.JLabel lbDadosAnimal;
+    private javax.swing.JLabel lblApelido;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblCor;
+    private javax.swing.JLabel lblDadosCliente;
+    private javax.swing.JLabel lblDataNascimento;
+    private javax.swing.JLabel lblEspecie;
     private javax.swing.JLabel lblObs;
-    private javax.swing.JLabel lblReferencia;
+    private javax.swing.JLabel lblPorte;
+    private javax.swing.JLabel lblRaca;
     private javax.swing.JLabel lblSexo;
-    private javax.swing.JLabel lblUf;
     private javax.swing.JPanel paneGeral;
-    private javax.swing.JTextField txtBairro;
-    private javax.swing.JTextField txtCep;
-    private javax.swing.JTextField txtCidade;
-    private javax.swing.JTextField txtComple;
-    private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtNumero;
-    private javax.swing.JTextField txtReferencia;
+    private javax.swing.JTextField txtApelido;
+    private javax.swing.JTextField txtCor;
+    private javax.swing.JTextField txtPorte;
+    private javax.swing.JTextField txtRaca;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(WindowEvent evt) {
+        
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+        this.populatorClientesCombo();
+        this.populatorEspeciesCombo();
+        
+        if(mAnimal.getId() != 0) {
+            createOrUpdate();
+        }
+    }
+
+    private void populatorClientesCombo() {
+        List<Cliente> allClientes = this.mClienteController.all();
+
+        DefaultComboBoxModel<Cliente> clientes = new DefaultComboBoxModel<>();
+
+        allClientes.forEach((c) -> {
+            clientes.addElement(c);
+        });
+        comboCliente.setModel(clientes);
+    }
+
+    private void populatorEspeciesCombo() {
+        List<Especie> allEspecies = this.mEspecieController.all();
+
+        DefaultComboBoxModel<Especie> especies = new DefaultComboBoxModel<>();
+
+        allEspecies.forEach((c) -> {
+            especies.addElement(c);
+        });
+        comboEspecie.setModel(especies);
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mClienteController = new ClienteController();
+        this.mEspecieController = new EspecieController();
+        this.mAnimalController = new AnimalController();
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
 }

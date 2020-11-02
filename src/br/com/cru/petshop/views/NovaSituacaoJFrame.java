@@ -6,25 +6,27 @@
 
 package br.com.cru.petshop.views;
 
-import br.com.cru.petshop.controllers.FormasPagamentoController;
-import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
+import br.com.cru.petshop.controllers.SituacaoController;
+import br.com.cru.petshop.controllers.interfaces.ISituacaoController;
+import br.com.cru.petshop.core.Dialog;
 import br.com.cru.petshop.exceptions.RequiredFieldException;
-import br.com.cru.petshop.models.FormasPagamento;
+import br.com.cru.petshop.models.Situacao;
 import br.com.cru.petshop.validations.Validator;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author jose.antonio
  */
-public class NovaSituacaoJFrame extends javax.swing.JDialog {
+public class NovaSituacaoJFrame extends Dialog {
 
-    private FormasPagamento mFormasPagamento;
-    private IFormasPagamentoController mFormasPagamentoController;
+    private Situacao mSituacao;
+    private ISituacaoController mSituacaoController;
     
-    public NovaSituacaoJFrame(FormasPagamento fp) {
+    public NovaSituacaoJFrame(Situacao st) {
         init();
-        this.mFormasPagamento = fp;
+        this.mSituacao = st;
     }
     
     /** Creates new form NovaFormaPagamentoJFrame */
@@ -35,7 +37,7 @@ public class NovaSituacaoJFrame extends javax.swing.JDialog {
     private void init() {
         this.setModal(true);
         initComponents();
-        this.mFormasPagamentoController = new FormasPagamentoController();
+        
     }
     
     /** This method is called from within the constructor to
@@ -132,11 +134,11 @@ public class NovaSituacaoJFrame extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        FormasPagamento categoria = new FormasPagamento(txtDescricao.getText());
-        if (mFormasPagamento != null) categoria.setIdFormaPagamento(mFormasPagamento.getIdFormaPagamento());
+        Situacao situacao = new Situacao(txtDescricao.getText());
+        if (mSituacao != null) situacao.setId(mSituacao.getId());
         try {
-            if (Validator.validateForNulls(categoria)) {
-                this.mFormasPagamentoController.insertAndUpdate(categoria);
+            if (Validator.validateForNulls(situacao)) {
+                this.mSituacaoController.insertAndUpdate(situacao);
                 JOptionPane.showMessageDialog(null, "Item adicionado com sucesso!");
                 this.dispose();
             }
@@ -152,12 +154,7 @@ public class NovaSituacaoJFrame extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(this.mFormasPagamento != null) {
-            this.mFormasPagamento = this.mFormasPagamentoController.getByDescription(mFormasPagamento.getDescricao());
-            if (mFormasPagamento != null) {
-                txtDescricao.setText(mFormasPagamento.getDescricao());
-            }
-        }
+        
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -205,5 +202,35 @@ public class NovaSituacaoJFrame extends javax.swing.JDialog {
     private javax.swing.JPanel paneInformacoes;
     private javax.swing.JTextField txtDescricao;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(WindowEvent evt) {
+        
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+        if(this.mSituacao != null) {
+            this.mSituacao = this.mSituacaoController.getByDescription(mSituacao.getDescricao());
+            if (mSituacao != null) {
+                txtDescricao.setText(mSituacao.getDescricao());
+            }
+        }
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+        
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mSituacaoController = new SituacaoController();
+    }
+
+    @Override
+    public void onCreateViews() {
+        
+    }
 
 }

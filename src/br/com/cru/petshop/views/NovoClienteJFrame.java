@@ -386,7 +386,7 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
         mCliente.setFone(txtCelular.getText());
 
         Endereco enderecoCliente = new Endereco();
-        if(mCliente.getEndereco().getId() != 0) enderecoCliente.setId(mCliente.getEndereco().getId());
+        if(mCliente != null && mCliente.getEndereco() != null && mCliente.getEndereco().getId() != 0) enderecoCliente.setId(mCliente.getEndereco().getId());
         enderecoCliente.setCep(txtCep.getText().replaceAll("-", ""));
         enderecoCliente.setBairro(txtBairro.getText());
         enderecoCliente.setLogradouro(txtEndereco.getText());

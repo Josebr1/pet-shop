@@ -28,6 +28,10 @@ public class Cliente {
     public Cliente() {
         
     }
+    
+    public Cliente(int id) {
+        this.idCliente = id;
+    }
 
     public Cliente(int idCliente, String nome, String documento, String email, Date dataNascimento, Sexo sexo, String fone, Endereco endereco) {
         this.idCliente = idCliente;
@@ -103,6 +107,28 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return nome + " - " + documento;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if(obj instanceof Cliente){
+            Cliente o = (Cliente) obj;
+            return o.getIdCliente() == this.idCliente;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + this.idCliente;
+        return hash;
     }
     
     

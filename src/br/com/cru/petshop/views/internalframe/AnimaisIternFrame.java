@@ -5,14 +5,33 @@
  */
 package br.com.cru.petshop.views.internalframe;
 
+import br.com.cru.petshop.controllers.AnimalController;
+import br.com.cru.petshop.controllers.interfaces.IAnimalController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
+import br.com.cru.petshop.models.Animal;
+import br.com.cru.petshop.views.NovoAnimaisJFrame;
 import br.com.cru.petshop.views.NovoClienteJFrame;
+import java.util.List;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import org.h2.util.StringUtils;
 
 /**
  *
  * @author joses
  */
-public class AnimaisIternFrame extends javax.swing.JInternalFrame {
+public class AnimaisIternFrame extends JInternalFrameActivity {
 
+    private IAnimalController mAnimalController;
+
+    private TableRowSorter<TableModel> mRowSorter;
+
+    private int idAnimal;
     /**
      * Creates new form ClientesIternFrame
      */
@@ -66,22 +85,36 @@ public class AnimaisIternFrame extends javax.swing.JInternalFrame {
 
         tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Reg. Geral", "Apelido", "Raça", "Cliente", "Código"
+                "Código", "Cliente", "Especie", "Apelido", "Cor", "Sexo"
             }
         ));
+        tableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClientesMouseClicked(evt);
+            }
+        });
         scrollPaneClientes.setViewportView(tableClientes);
 
         paneHeader.setBackground(new java.awt.Color(102, 102, 102));
 
-        txtPesquisarCliente.setText("Nome, telefone ou endereço....");
+        txtPesquisarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPesquisarClienteKeyPressed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -141,11 +174,53 @@ public class AnimaisIternFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        NovoClienteJFrame novoClienteJFrame = new NovoClienteJFrame();
-        novoClienteJFrame.setVisible(true);
-	novoClienteJFrame.setLocationRelativeTo(this);
+        NovoAnimaisJFrame novoAnimaisJFrame = new NovoAnimaisJFrame();
+        novoAnimaisJFrame.setVisible(true);
+	novoAnimaisJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void txtPesquisarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarClienteKeyPressed
+        if (txtPesquisarCliente.getText().trim().length() == 0) {
+            mRowSorter.setRowFilter(null);
+        } else {
+            mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtPesquisarCliente.getText()));
+        }
+    }//GEN-LAST:event_txtPesquisarClienteKeyPressed
+
+    private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientesMouseClicked
+        btnEditar.setEnabled(true);
+
+        DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+
+        int selectedRowIndex = tableClientes.getSelectedRow();
+        this.idAnimal = (int) model.getValueAt(selectedRowIndex, 0);
+    }//GEN-LAST:event_tableClientesMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (idAnimal != 0) {
+            NovoAnimaisJFrame novoAnimaisJFrame = new NovoAnimaisJFrame(this.idAnimal);
+            novoAnimaisJFrame.setVisible(true);
+            novoAnimaisJFrame.setLocationRelativeTo(this);
+
+            populatorTable();
+            btnEditar.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void populatorTable() {
+        List<Animal> all = this.mAnimalController.all();
+
+        DefaultTableModel model = new DefaultTableModel(new String[]{
+            "Código", "Cliente", "Especie", "Apelido", "Cor", "Sexo",
+        }, 0);
+
+        for (Animal c : all) {
+            model.addRow(new Object[]{c.getId(), c.getCliente().getNome(), c.getEspecie().getDescricao(), c.getApelido(), c.getCor(), c.getSexo()});
+        }
+
+        tableClientes.setModel(model);
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -157,4 +232,63 @@ public class AnimaisIternFrame extends javax.swing.JInternalFrame {
     private javax.swing.JTable tableClientes;
     private javax.swing.JTextField txtPesquisarCliente;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(InternalFrameEvent evt) {
+        this.populatorTable();
+        
+        btnEditar.setEnabled(false);
+
+        mRowSorter = new TableRowSorter<>(tableClientes.getModel());
+        tableClientes.setRowSorter(mRowSorter);
+
+        txtPesquisarCliente.getDocument().addDocumentListener(listenerPesquisar);
+    }
+    
+    DocumentListener listenerPesquisar = new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            String text = txtPesquisarCliente.getText();
+
+            if (text.trim().length() == 0) {
+                mRowSorter.setRowFilter(null);
+            } else {
+                mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            }
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            String text = txtPesquisarCliente.getText();
+
+            if (text.trim().length() == 0) {
+                mRowSorter.setRowFilter(null);
+            } else {
+                mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            }
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+        }
+    };
+
+    @Override
+    public void onResume(InternalFrameEvent evt) {
+        this.populatorTable();
+    }
+
+    @Override
+    public void onClose(InternalFrameEvent evt) {
+        btnEditar.setEnabled(false);
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mAnimalController = new AnimalController();
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
 }
