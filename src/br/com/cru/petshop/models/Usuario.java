@@ -38,6 +38,21 @@ public class Usuario{
         this.tipoUsuario = tipoUsuario;
     }
 
+    public Usuario(UUID idUsuario, String nome, String email, String login, boolean ativo, TipoUsuario tipoUsuario) {
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.email = email;
+        this.login = login;
+        this.ativo = ativo;
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    
+    public Usuario(UUID idUsuario, String nome) {
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+    }
+    
     String salt = BCrypt.gensalt();
     
     public UUID getIdUsuario() {
@@ -120,16 +135,6 @@ public class Usuario{
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "idUsuario=" + idUsuario +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", fone='" + fone + '\'' +
-                ", temAcessoAoSistema=" + temAcessoAoSistema +
-                ", login='" + login + '\'' +
-                ", senha='" + senha + '\'' +
-                ", ativo=" + ativo +
-                ", tipoUsuario=" + tipoUsuario +
-                '}';
+        return nome + ", " + login;
     }
 }

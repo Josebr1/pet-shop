@@ -37,6 +37,15 @@ public class Animal {
     public Animal() {
     }
 
+    public Animal(int id, String raca, String apelido, Date nascimento) {
+        this.id = id;
+        this.raca = raca;
+        this.apelido = apelido;
+        this.nascimento = nascimento;
+    }
+    
+    
+
     public int getId() {
         return id;
     }
@@ -116,4 +125,11 @@ public class Animal {
     public void setEspecie(Especie especie) {
         this.especie = especie;
     }
+
+    @Override
+    public String toString() {
+        return apelido + ", " + sexo + ", nascimento: " + nascimento + ", especie: " + especie;
+    }
+    
+    
 }

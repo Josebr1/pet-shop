@@ -154,6 +154,7 @@ public class UsuarioDAO implements IUsuarioDAO{
 
             while (resultSet.next()) {
                 Usuario usuario = new Usuario(
+                           UUID.fromString(resultSet.getString("id_usuario")),
                            resultSet.getString("nome"),
                            resultSet.getString("email"),
                            resultSet.getString("login"),

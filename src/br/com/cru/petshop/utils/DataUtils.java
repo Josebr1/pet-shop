@@ -2,7 +2,9 @@ package br.com.cru.petshop.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 public class DataUtils {
     public static String convertSql(Date date) {
@@ -25,5 +27,13 @@ public class DataUtils {
     
     public static java.sql.Date convertDate(java.util.Date date) {
         return new java.sql.Date(date.getTime());
+    }
+    
+    public static Date convertDateTime(LocalDateTime time) {
+        Date s = Date.from(time.atZone(ZoneId.systemDefault()).toInstant());
+        
+        System.err.println(s.getTime());
+        
+        return s;
     }
 }

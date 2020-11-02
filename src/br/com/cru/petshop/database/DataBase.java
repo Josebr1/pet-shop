@@ -258,6 +258,27 @@ public class DataBase {
                         + " FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`id_usuario`)\n"
                         + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
                
+        tableSQL.add(
+                "CREATE TABLE IF NOT EXISTS `atendimento` (\n"
+                        + " `id_atendimento` int(11) NOT NULL AUTO_INCREMENT,\n"
+                        + " `data_entrada` date DEFAULT NOT NULL,\n"
+                        + " `data_previsao` date DEFAULT NOT NULL,\n"
+                        + " `localizacao` enum('AREA DE TOSA','AREA DE BANHO','CANIL','NA RESPONSABILIDADE DO CLIENTE','SALA DE ESPERA','NO CONSULTORIO') DEFAULT NULL,\n"
+                        + " `idade` varchar(10) NOT NULL,\n"
+                        + " `retorno` TINYINT(1),\n"
+                        + " `ambulancia` TINYINT(1),\n"
+                        + " `obs` VARCHAR(255),\n"
+                        + " `fk_cliente` int(11) NOT NULL,\n"
+                        + " `fk_animal` int(11) NOT NULL,\n"
+                        + " `fk_usuario` UUID NOT NULL,\n"
+                        + " `fk_situacao` int(11) NOT NULL,\n"
+                        + " PRIMARY KEY(`id_atendimento`),\n"
+                        + " FOREIGN KEY (`fk_cliente`) REFERENCES `cliente` (`id_cliente`),\n"
+                        + " FOREIGN KEY (`fk_animal`) REFERENCES `animal` (`id_animal`),\n"
+                        + " FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`id_usuario`),\n"
+                        + " FOREIGN KEY (`fk_situacao`) REFERENCES `situacao` (`id_situacao`)\n"
+                        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        
         return tableSQL;
     }
 

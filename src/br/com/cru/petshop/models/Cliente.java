@@ -43,6 +43,12 @@ public class Cliente {
         this.fone = fone;
         this.endereco = endereco;
     }
+
+    public Cliente(int idCliente, String nome, String documento) {
+        this.idCliente = idCliente;
+        this.nome = nome;
+        this.documento = documento;
+    }
     
     public int getIdCliente() {
         return idCliente;

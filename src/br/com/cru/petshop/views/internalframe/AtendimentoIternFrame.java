@@ -5,14 +5,32 @@
  */
 package br.com.cru.petshop.views.internalframe;
 
+import br.com.cru.petshop.controllers.AtendimentoController;
+import br.com.cru.petshop.controllers.interfaces.IAtendimentoController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
+import br.com.cru.petshop.models.Atendimento;
 import br.com.cru.petshop.views.NovoClienteJFrame;
+import java.util.List;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author joses
  */
-public class AtendimentoIternFrame extends javax.swing.JInternalFrame {
+public class AtendimentoIternFrame extends JInternalFrameActivity {
 
+    private IAtendimentoController mAtendimentoController;
+
+    private TableRowSorter<TableModel> mRowSorter;
+
+    private int mIdAtendimento;
+    
     /**
      * Creates new form ClientesIternFrame
      */
@@ -66,20 +84,30 @@ public class AtendimentoIternFrame extends javax.swing.JInternalFrame {
 
         tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Atendente", "Reg Geral", "Cliente", "Animal", "Especialista", "Data Entrada"
+                "Código", "Animal", "Cliente", "Documento", "Data Entrada", "Retorno", "Situação"
             }
         ));
+        tableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClientesMouseClicked(evt);
+            }
+        });
         scrollPaneClientes.setViewportView(tableClientes);
 
         paneHeader.setBackground(new java.awt.Color(102, 102, 102));
 
         txtPesquisarCliente.setText("Nome, telefone ou endereço....");
+        txtPesquisarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPesquisarClienteKeyPressed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
 
@@ -146,6 +174,37 @@ public class AtendimentoIternFrame extends javax.swing.JInternalFrame {
 	novoClienteJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
+    private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientesMouseClicked
+        btnEditar.setEnabled(true);
+
+        DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+
+        int selectedRowIndex = tableClientes.getSelectedRow();
+        this.mIdAtendimento = (Integer)model.getValueAt(selectedRowIndex, 0);
+    }//GEN-LAST:event_tableClientesMouseClicked
+
+    private void txtPesquisarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarClienteKeyPressed
+        if (txtPesquisarCliente.getText().trim().length() == 0) {
+            mRowSorter.setRowFilter(null);
+        } else {
+            mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtPesquisarCliente.getText()));
+        }
+    }//GEN-LAST:event_txtPesquisarClienteKeyPressed
+
+    
+    private void populatorTable() {
+        List<Atendimento> all = this.mAtendimentoController.all();
+
+        DefaultTableModel model = new DefaultTableModel(new String[]{
+            "Codigo", "Animal", "Cliente", "Documento", "Data Entrada", "Retorno", "Situação"
+        }, 0);
+
+        for (Atendimento c : all) {
+            model.addRow(new Object[]{c.getId(), c.getAnimal().getApelido(), c.getCliente().getNome(), c.getCliente().getDocumento(), c.getDataEntrega(), c.isRetorno() ? "Sim" : "Não", c.getSituacao().getDescricao()});
+        }
+
+        tableClientes.setModel(model);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -157,4 +216,63 @@ public class AtendimentoIternFrame extends javax.swing.JInternalFrame {
     private javax.swing.JTable tableClientes;
     private javax.swing.JTextField txtPesquisarCliente;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(InternalFrameEvent evt) {
+        this.populatorTable();
+        btnEditar.setEnabled(false);
+
+        mRowSorter = new TableRowSorter<>(tableClientes.getModel());
+        tableClientes.setRowSorter(mRowSorter);
+
+        txtPesquisarCliente.getDocument().addDocumentListener(listenerPesquisar);
+
+    }
+    
+    DocumentListener listenerPesquisar = new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            String text = txtPesquisarCliente.getText();
+
+            if (text.trim().length() == 0) {
+                mRowSorter.setRowFilter(null);
+            } else {
+                mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            }
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            String text = txtPesquisarCliente.getText();
+
+            if (text.trim().length() == 0) {
+                mRowSorter.setRowFilter(null);
+            } else {
+                mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+            }
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+        }
+    };
+
+    @Override
+    public void onResume(InternalFrameEvent evt) {
+        this.populatorTable();
+    }
+
+    @Override
+    public void onClose(InternalFrameEvent evt) {
+        btnEditar.setEnabled(false);
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mAtendimentoController = new AtendimentoController();
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
 }

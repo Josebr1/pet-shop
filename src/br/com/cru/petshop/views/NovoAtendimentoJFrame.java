@@ -5,16 +5,50 @@
  */
 package br.com.cru.petshop.views;
 
+import br.com.cru.petshop.controllers.AnimalController;
+import br.com.cru.petshop.controllers.AtendimentoController;
+import br.com.cru.petshop.controllers.ClienteController;
+import br.com.cru.petshop.controllers.SituacaoController;
+import br.com.cru.petshop.controllers.UserController;
+import br.com.cru.petshop.controllers.interfaces.IAnimalController;
+import br.com.cru.petshop.controllers.interfaces.IAtendimentoController;
+import br.com.cru.petshop.controllers.interfaces.IClienteController;
+import br.com.cru.petshop.controllers.interfaces.ISituacaoController;
+import br.com.cru.petshop.controllers.interfaces.IUserController;
+import br.com.cru.petshop.core.Dialog;
+import br.com.cru.petshop.exceptions.RequiredFieldException;
+import br.com.cru.petshop.models.Animal;
+import br.com.cru.petshop.models.Atendimento;
+import br.com.cru.petshop.models.Cliente;
+import br.com.cru.petshop.models.Situacao;
+import br.com.cru.petshop.models.Usuario;
+import br.com.cru.petshop.models.enums.LocalizaoEnum;
+import br.com.cru.petshop.utils.DataUtils;
+import br.com.cru.petshop.validations.Validator;
+import java.awt.event.WindowEvent;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.logging.Level;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 
 /**
  *
  * @author joses
  */
-public class NovoAtendimentoJFrame extends javax.swing.JDialog {
+public class NovoAtendimentoJFrame extends Dialog {
 
     static Logger log = Logger.getLogger(NovoAtendimentoJFrame.class.getName());
     
+    
+    private IClienteController mClienteController;
+    private IAnimalController mAnimalController;
+    private IUserController mUsuarioController;
+    private ISituacaoController mSituacaoController;
+    private IAtendimentoController mAtendimentoController;
+    
+    private Atendimento mAtendimento = new Atendimento();
     /**
      * Creates new form NovoClienteJFrame
      */
@@ -33,30 +67,32 @@ public class NovoAtendimentoJFrame extends javax.swing.JDialog {
 
         btnVoltar = new javax.swing.JButton();
         paneGeral = new javax.swing.JPanel();
-        lblNome = new javax.swing.JLabel();
-        lblCodigo = new javax.swing.JLabel();
-        comboSexo = new javax.swing.JComboBox<>();
-        comboSexo1 = new javax.swing.JComboBox<>();
+        lblAnimal = new javax.swing.JLabel();
+        lblCliente = new javax.swing.JLabel();
+        comboCliente = new javax.swing.JComboBox<>();
+        comboAnimal = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        paneDadosAtendimento = new javax.swing.JPanel();
+        lblFuncionario = new javax.swing.JLabel();
+        comboFuncionario = new javax.swing.JComboBox<>();
+        lblSituacao = new javax.swing.JLabel();
+        comboSituacao = new javax.swing.JComboBox<>();
+        lblLocalizacao = new javax.swing.JLabel();
+        comboLocalizacao = new javax.swing.JComboBox<>();
+        lblDataPrevisao = new javax.swing.JLabel();
+        datePrevisao = new com.github.lgooddatepicker.components.DateTimePicker();
+        lblDataEntrada = new javax.swing.JLabel();
+        dateEntrada = new com.github.lgooddatepicker.components.DateTimePicker();
+        lblIdade = new javax.swing.JLabel();
+        checkRetorno = new javax.swing.JCheckBox();
+        checkAmbulancia = new javax.swing.JCheckBox();
+        lblObs = new javax.swing.JLabel();
+        scrollObs = new javax.swing.JScrollPane();
+        jtextAObs = new javax.swing.JTextArea();
+        txtIdade = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        dateTimePicker1 = new com.github.lgooddatepicker.components.DateTimePicker();
-        jLabel5 = new javax.swing.JLabel();
-        dateTimePicker2 = new com.github.lgooddatepicker.components.DateTimePicker();
-        jLabel6 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Atendimento");
 
         btnVoltar.setText("Voltar");
@@ -68,13 +104,9 @@ public class NovoAtendimentoJFrame extends javax.swing.JDialog {
 
         paneGeral.setBorder(javax.swing.BorderFactory.createTitledBorder("Geral"));
 
-        lblNome.setText("Animal:");
+        lblAnimal.setText("Animal:");
 
-        lblCodigo.setText("Cliente:");
-
-        comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        comboSexo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblCliente.setText("Cliente:");
 
         javax.swing.GroupLayout paneGeralLayout = new javax.swing.GroupLayout(paneGeral);
         paneGeral.setLayout(paneGeralLayout);
@@ -83,12 +115,12 @@ public class NovoAtendimentoJFrame extends javax.swing.JDialog {
             .addGroup(paneGeralLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblNome)
-                    .addComponent(lblCodigo))
+                    .addComponent(lblAnimal)
+                    .addComponent(lblCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboSexo1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(comboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboAnimal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         paneGeralLayout.setVerticalGroup(
@@ -96,121 +128,131 @@ public class NovoAtendimentoJFrame extends javax.swing.JDialog {
             .addGroup(paneGeralLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigo)
-                    .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCliente)
+                    .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome)
-                    .addComponent(comboSexo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAnimal)
+                    .addComponent(comboAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do atendimento:"));
+        paneDadosAtendimento.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do atendimento:"));
 
-        jLabel1.setText("Funcionario:");
+        lblFuncionario.setText("Funcionario:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblSituacao.setText("Situação:");
 
-        jLabel2.setText("Situação:");
+        lblLocalizacao.setText("Localização:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboLocalizacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AREA DE TOSA", "AREA DE BANHO", "CANIL", "NA RESIDENCIA DO CLIENTE", "SALA DE ESPERA", "NO CONSULTORIO" }));
 
-        jLabel3.setText("Localização:");
+        lblDataPrevisao.setText("Data previsão:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        lblDataEntrada.setText("Data Entrada:");
 
-        jLabel4.setText("Data previsão:");
+        dateEntrada.setMinimumSize(new java.awt.Dimension(29, 20));
 
-        jLabel5.setText("Data Entrada:");
+        lblIdade.setText("Idade:");
 
-        jLabel6.setText("Idade:");
+        checkRetorno.setText("Retorno");
 
-        jCheckBox1.setText("Retorno");
+        checkAmbulancia.setText("Ambulancia");
 
-        jCheckBox2.setText("Ambulancia");
+        lblObs.setText("Observação interna.:");
 
-        jLabel7.setText("Obs.:");
+        jtextAObs.setColumns(20);
+        jtextAObs.setRows(5);
+        scrollObs.setViewportView(jtextAObs);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtIdade.setToolTipText("Ex.: 1,3");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jLabel1.setText("anos");
+
+        javax.swing.GroupLayout paneDadosAtendimentoLayout = new javax.swing.GroupLayout(paneDadosAtendimento);
+        paneDadosAtendimento.setLayout(paneDadosAtendimentoLayout);
+        paneDadosAtendimentoLayout.setHorizontalGroup(
+            paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1))
+                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                        .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblDataEntrada)
+                            .addComponent(lblLocalizacao)
+                            .addComponent(lblFuncionario))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, 219, Short.MAX_VALUE)
-                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(comboFuncionario, 0, 219, Short.MAX_VALUE)
+                                    .addComponent(comboLocalizacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
+                                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                                        .addComponent(lblSituacao)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
+                                        .addComponent(comboSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                                        .addComponent(lblDataPrevisao)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(datePrevisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(dateTimePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                                .addComponent(dateEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
+                                .addComponent(lblIdade)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addComponent(checkRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox2))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                                .addComponent(checkAmbulancia))))
+                    .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                        .addComponent(lblObs)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(scrollObs))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        paneDadosAtendimentoLayout.setVerticalGroup(
+            paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFuncionario)
+                    .addComponent(comboFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSituacao)
+                    .addComponent(comboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addComponent(dateTimePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblLocalizacao)
+                        .addComponent(comboLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblDataPrevisao))
+                    .addComponent(datePrevisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(dateTimePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jCheckBox1)
-                        .addComponent(jCheckBox2)))
+                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblIdade)
+                        .addComponent(checkRetorno)
+                        .addComponent(checkAmbulancia)
+                        .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
+                    .addComponent(lblDataEntrada)
+                    .addComponent(dateEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
+                .addComponent(lblObs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -221,7 +263,7 @@ public class NovoAtendimentoJFrame extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(paneDadosAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnVoltar)
@@ -236,7 +278,7 @@ public class NovoAtendimentoJFrame extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(paneGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(paneDadosAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -245,38 +287,191 @@ public class NovoAtendimentoJFrame extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+       
+        mAtendimento.setCliente(new Cliente(
+                ((Cliente) comboCliente.getSelectedItem()).getIdCliente(),
+                ((Cliente) comboCliente.getSelectedItem()).getNome(),
+                ((Cliente) comboCliente.getSelectedItem()).getDocumento()
+        ));
+        
+        mAtendimento.setAnimal(new Animal(
+                ((Animal) comboAnimal.getSelectedItem()).getId(),
+                ((Animal) comboAnimal.getSelectedItem()).getRaca(),
+                ((Animal) comboAnimal.getSelectedItem()).getApelido(),
+                ((Animal) comboAnimal.getSelectedItem()).getNascimento()
+        ));
+        
+        
+        
+        mAtendimento.setUsuario(new Usuario(
+                ((Usuario) comboFuncionario.getSelectedItem()).getIdUsuario(),
+                ((Usuario) comboFuncionario.getSelectedItem()).getNome()
+        ));
+        
+        System.err.println(mAtendimento.getUsuario().getIdUsuario());
+        
+        mAtendimento.setSituacao(new Situacao(
+                ((Situacao) comboSituacao.getSelectedItem()).getId(),
+                ((Situacao) comboSituacao.getSelectedItem()).getDescricao()
+        ));
+        
+        mAtendimento.setLocalizao(LocalizaoEnum.get((String) comboLocalizacao.getSelectedItem()));
+        
+        if(datePrevisao.getDateTime() != null) mAtendimento.setDataPrevisao(DataUtils.convertDateTime(datePrevisao.getDateTime()));
+        if(dateEntrada.getDateTime() != null) mAtendimento.setDataEntrega(DataUtils.convertDateTime(dateEntrada.getDateTime()));
+        
+        mAtendimento.setIdade(txtIdade.getText());
+        
+        mAtendimento.setRetorno(checkRetorno.isSelected());
+        mAtendimento.setAmbulancia(checkAmbulancia.isSelected());
+        
+        mAtendimento.setObs(jtextAObs.getText());
+        
+        
+        try {
+            if (Validator.validateForNulls(mAtendimento)) {
+                this.mAtendimentoController.insertAndUpdate(mAtendimento);
+                JOptionPane.showMessageDialog(rootPane, "Operação realizada com sucesso!");
+                this.dispose();
+            }
+        } catch (RequiredFieldException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            ex.notifyUserWithToast();
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox<String> comboSexo;
-    private javax.swing.JComboBox<String> comboSexo1;
-    private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
-    private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JCheckBox checkAmbulancia;
+    private javax.swing.JCheckBox checkRetorno;
+    private javax.swing.JComboBox<Animal> comboAnimal;
+    private javax.swing.JComboBox<Cliente> comboCliente;
+    private javax.swing.JComboBox<Usuario> comboFuncionario;
+    private javax.swing.JComboBox<String> comboLocalizacao;
+    private javax.swing.JComboBox<Situacao> comboSituacao;
+    private com.github.lgooddatepicker.components.DateTimePicker dateEntrada;
+    private com.github.lgooddatepicker.components.DateTimePicker datePrevisao;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel lblCodigo;
-    private javax.swing.JLabel lblNome;
+    private javax.swing.JTextArea jtextAObs;
+    private javax.swing.JLabel lblAnimal;
+    private javax.swing.JLabel lblCliente;
+    private javax.swing.JLabel lblDataEntrada;
+    private javax.swing.JLabel lblDataPrevisao;
+    private javax.swing.JLabel lblFuncionario;
+    private javax.swing.JLabel lblIdade;
+    private javax.swing.JLabel lblLocalizacao;
+    private javax.swing.JLabel lblObs;
+    private javax.swing.JLabel lblSituacao;
+    private javax.swing.JPanel paneDadosAtendimento;
     private javax.swing.JPanel paneGeral;
+    private javax.swing.JScrollPane scrollObs;
+    private javax.swing.JTextField txtIdade;
     // End of variables declaration//GEN-END:variables
+
+    
+     private void populatorClientesCombo() {
+        List<Cliente> allClientes = this.mClienteController.all();
+
+        DefaultComboBoxModel<Cliente> clientes = new DefaultComboBoxModel<>();
+
+        allClientes.forEach((c) -> {
+            clientes.addElement(c);
+        });
+        comboCliente.setModel(clientes);
+    }
+     
+     private void populatorAnimaisCombo() {
+        List<Animal> allAnimais = this.mAnimalController.all();
+
+        DefaultComboBoxModel<Animal> animais = new DefaultComboBoxModel<>();
+
+        allAnimais.forEach((c) -> {
+            animais.addElement(c);
+        });
+        comboAnimal.setModel(animais);
+    }
+     
+     private void populatorFuncionariosCombo() {
+        List<Usuario> allFuncionarios = this.mUsuarioController.all();
+
+        DefaultComboBoxModel<Usuario> funcionarios = new DefaultComboBoxModel<>();
+
+        allFuncionarios.forEach((c) -> {
+            funcionarios.addElement(c);
+        });
+        comboFuncionario.setModel(funcionarios);
+    }
+     
+     private void populatorSituacoesCombo() {
+        List<Situacao> allSituacoes = this.mSituacaoController.all();
+
+        DefaultComboBoxModel<Situacao> situacoes = new DefaultComboBoxModel<>();
+
+        allSituacoes.forEach((c) -> {
+            situacoes.addElement(c);
+        });
+        comboSituacao.setModel(situacoes);
+    }
+    
+    @Override
+    public void onCreate(WindowEvent evt) {
+        populatorClientesCombo();
+        populatorAnimaisCombo();
+        populatorFuncionariosCombo();
+        populatorSituacoesCombo();
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+        
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mClienteController = new ClienteController();
+        this.mAnimalController = new AnimalController();
+        this.mUsuarioController = new UserController();
+        this.mSituacaoController = new SituacaoController();
+        this.mAtendimentoController = new AtendimentoController();
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
+    
+    private void createOrUpdate() {
+        if(mAtendimento.getId() != 0) {
+            comboCliente.setSelectedItem(mAtendimento.getCliente());
+            comboAnimal.setSelectedItem(mAtendimento.getAnimal());
+            comboFuncionario.setSelectedItem(mAtendimento.getUsuario());
+            comboSituacao.setSelectedItem(mAtendimento.getSituacao());
+            comboLocalizacao.setSelectedItem(LocalizaoEnum.get(mAtendimento.getLocalizao()));
+            
+            datePrevisao.setDateTime((mAtendimento.getDataPrevisao().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
+            dateEntrada.setDateTime((mAtendimento.getDataEntrega().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
+            
+            txtIdade.setText(mAtendimento.getIdade());
+            checkRetorno.setSelected(mAtendimento.isRetorno());
+            checkAmbulancia.setSelected(mAtendimento.isAmbulancia());
+            
+            jtextAObs.setText(mAtendimento.getObs());
+            
+        }
+    }
 }
