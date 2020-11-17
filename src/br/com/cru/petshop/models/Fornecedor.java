@@ -22,6 +22,17 @@ public class Fornecedor {
     
     private Endereco endereco;
 
+    public Fornecedor(int id, String documento, String nome, String celular, String rg) {
+        this.id = id;
+        this.documento = documento;
+        this.nome = nome;
+        this.celular = celular;
+        this.rg = rg;
+    }
+
+    public Fornecedor() {
+    }
+
     public int getId() {
         return id;
     }

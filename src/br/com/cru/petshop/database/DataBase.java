@@ -213,7 +213,6 @@ public class DataBase {
         tableSQL.add(
                 "CREATE TABLE IF NOT EXISTS `conta_pagar` (\n"
                 + "  `id_conta_pagar` int(11) NOT NULL,\n"
-                + "  `categoria` varchar(45) DEFAULT NULL,\n"
                 + "  `descricao` varchar(255) DEFAULT NULL,\n"
                 + "  `vencimento` date DEFAULT NULL,\n"
                 + "  `valor` decimal(10,0) DEFAULT NULL,\n"
@@ -221,9 +220,7 @@ public class DataBase {
                 + "  `data_pagamento` date DEFAULT NULL,\n"
                 + "  `valor_pago` decimal(10,0) DEFAULT NULL,\n"
                 + "  `fk_fornecedor_id_fornecedor` int(11) NOT NULL,\n"
-                + "  `fk_categoria_conta` int(11) NOT NULL,\n"
                 + "  PRIMARY KEY (`id_conta_pagar`),\n"
-                + "  FOREIGN KEY (`fk_categoria_conta`) REFERENCES `categoria_conta` (`id_tipo_conta`),\n"
                 + "  FOREIGN KEY (`fk_fornecedor_id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`)\n"
                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 

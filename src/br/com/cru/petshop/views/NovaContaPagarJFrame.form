@@ -82,7 +82,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="lblCategoria" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblFormaPagamento" min="-2" max="-2" attributes="0"/>
                       <Component id="lblDescricao" min="-2" max="-2" attributes="0"/>
                       <Component id="lblFornecedor" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -96,19 +96,17 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
                           <Component id="lblVencimento" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="14" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnNovoFornecedor" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                           <Component id="lblValor" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtValor" max="32767" attributes="0"/>
-                      <Component id="datePickerVencimento" max="32767" attributes="0"/>
+                      <Component id="datePickerVencimento" pref="114" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -119,7 +117,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblVencimento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="comboCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="datePickerVencimento" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -129,23 +127,22 @@
                       <Component id="lblFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtValor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblValor" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnNovoFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="comboFornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="41" max="32767" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblCategoria">
+        <Component class="javax.swing.JLabel" name="lblFormaPagamento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Categoria:"/>
+            <Property name="text" type="java.lang.String" value="Forma pagamento:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblFornecedor">
@@ -172,24 +169,14 @@
             <Property name="text" type="java.lang.String" value="Vencimento:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnNovoFornecedor">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Novo"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JComboBox" name="comboCategoria">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;FormasPagamento&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboFornecedor">

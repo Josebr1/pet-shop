@@ -5,18 +5,41 @@
  */
 package br.com.cru.petshop.views;
 
+import br.com.cru.petshop.controllers.FormasPagamentoController;
+import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
+import br.com.cru.petshop.core.Dialog;
+import br.com.cru.petshop.models.ContaPagar;
+import br.com.cru.petshop.models.FormasPagamento;
+import java.awt.event.WindowEvent;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author jose.antonio
  */
-public class NovaContaPagarJFrame extends javax.swing.JDialog {
+public class NovaContaPagarJFrame extends Dialog {
 
+    private IFormasPagamentoController mFormasPagamentoController;
+    
+    private ContaPagar mContaPagar = new ContaPagar();
+    
     /**
      * Creates new form NovaContaReceberJFrame
      */
     public NovaContaPagarJFrame() {
-        this.setModal(true);
         initComponents();
+        this.setModal(true);
+        //this.setModal(true);
+        datePickerVencimento.setFormats("dd-MM-yyyy");
+    }
+    
+    public NovaContaPagarJFrame(int mIdContaPagar) {
+        initComponents();
+        this.mContaPagar.setId(mIdContaPagar);
+        this.setModal(true);
+        
+        datePickerVencimento.setFormats("dd-MM-yyyy");
     }
 
     /**
@@ -29,14 +52,13 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
     private void initComponents() {
 
         paneDadosPrincipais = new javax.swing.JPanel();
-        lblCategoria = new javax.swing.JLabel();
+        lblFormaPagamento = new javax.swing.JLabel();
         lblFornecedor = new javax.swing.JLabel();
         lblDescricao = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
         lblValor = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         lblVencimento = new javax.swing.JLabel();
-        btnNovoFornecedor = new javax.swing.JButton();
         comboCategoria = new javax.swing.JComboBox<>();
         comboFornecedor = new javax.swing.JComboBox<>();
         datePickerVencimento = new org.jdesktop.swingx.JXDatePicker();
@@ -59,7 +81,7 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
 
         paneDadosPrincipais.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados Principais"));
 
-        lblCategoria.setText("Categoria:");
+        lblFormaPagamento.setText("Forma pagamento:");
 
         lblFornecedor.setText("Fornecedor:");
 
@@ -68,10 +90,6 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
         lblValor.setText("Valor:");
 
         lblVencimento.setText("Vencimento:");
-
-        btnNovoFornecedor.setText("Novo");
-
-        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         comboFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -82,7 +100,7 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
             .addGroup(paneDadosPrincipaisLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(paneDadosPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCategoria)
+                    .addComponent(lblFormaPagamento)
                     .addComponent(lblDescricao)
                     .addComponent(lblFornecedor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -94,16 +112,14 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
                     .addGroup(paneDadosPrincipaisLayout.createSequentialGroup()
                         .addGap(129, 129, 129)
                         .addComponent(lblVencimento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
                     .addGroup(paneDadosPrincipaisLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNovoFornecedor)
-                        .addGap(87, 87, 87)
                         .addComponent(lblValor)
                         .addGap(8, 8, 8)))
                 .addGroup(paneDadosPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtValor)
-                    .addComponent(datePickerVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(datePickerVencimento, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                 .addContainerGap())
         );
         paneDadosPrincipaisLayout.setVerticalGroup(
@@ -111,7 +127,7 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
             .addGroup(paneDadosPrincipaisLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneDadosPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCategoria)
+                    .addComponent(lblFormaPagamento)
                     .addComponent(lblVencimento)
                     .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(datePickerVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -120,13 +136,12 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
                     .addComponent(lblFornecedor)
                     .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblValor)
-                    .addComponent(btnNovoFornecedor)
                     .addComponent(comboFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addGap(8, 8, 8)
                 .addGroup(paneDadosPrincipaisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDescricao)
                     .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         btnSalvar.setText("Salvar");
@@ -170,7 +185,7 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(lblPagoEm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(datePickerPagoEm, javax.swing.GroupLayout.PREFERRED_SIZE, 120, Short.MAX_VALUE)
+                .addComponent(datePickerPagoEm, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDesconto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -298,17 +313,16 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNovoFornecedor;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JCheckBox checkContaPaga;
-    private javax.swing.JComboBox<String> comboCategoria;
+    private javax.swing.JComboBox<FormasPagamento> comboCategoria;
     private javax.swing.JComboBox<String> comboFornecedor;
     private org.jdesktop.swingx.JXDatePicker datePickerPagoEm;
     private org.jdesktop.swingx.JXDatePicker datePickerVencimento;
-    private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblDesconto;
     private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblFormaPagamento;
     private javax.swing.JLabel lblFornecedor;
     private javax.swing.JLabel lblJurosMulta;
     private javax.swing.JLabel lblPagoEm;
@@ -324,4 +338,38 @@ public class NovaContaPagarJFrame extends javax.swing.JDialog {
     private javax.swing.JTextField txtValor;
     private javax.swing.JTextField txtValorPago;
     // End of variables declaration//GEN-END:variables
+
+    
+    private void updateListFormasPagamento() {
+        List<FormasPagamento> allFormas = this.mFormasPagamentoController.all();
+
+        DefaultComboBoxModel<FormasPagamento> formas = new DefaultComboBoxModel<>();
+
+        allFormas.forEach((c) -> {
+            formas.addElement(c);
+        });
+        comboCategoria.setModel(formas);
+    }
+    
+    @Override
+    public void onCreate(WindowEvent evt) {
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+        updateListFormasPagamento();
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mFormasPagamentoController = new FormasPagamentoController();
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
 }
