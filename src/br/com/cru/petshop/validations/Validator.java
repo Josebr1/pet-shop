@@ -44,6 +44,12 @@ public class Validator {
                     if (field.get(objectToValidate) instanceof String)
                         if(StringUtils.isNullOrEmpty((String) field.get(objectToValidate))) listErrors.add(msgError);
 
+                    if (field.get(objectToValidate) instanceof Double) 
+                        if((Double) field.get(objectToValidate) == 0.0d) listErrors.add(msgError);
+                    
+                    if (field.get(objectToValidate) instanceof Float) 
+                        if((Float) field.get(objectToValidate) == 0.0f) listErrors.add(msgError);
+                    
                     if (field.get(objectToValidate) == null)  listErrors.add(msgError);
                 }
             }

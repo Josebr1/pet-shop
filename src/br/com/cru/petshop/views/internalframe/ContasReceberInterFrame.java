@@ -7,6 +7,7 @@ package br.com.cru.petshop.views.internalframe;
 
 import br.com.cru.petshop.controllers.ContaReceberController;
 import br.com.cru.petshop.controllers.interfaces.IContaReceberController;
+import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.ContaReceber;
 import br.com.cru.petshop.models.Usuario;
 import br.com.cru.petshop.models.enums.TipoUsuario;
@@ -15,34 +16,40 @@ import br.com.cru.petshop.views.NovaContaReceberJFrame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.List;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import org.h2.util.StringUtils;
 
 /**
  *
  * @author jose.antonio
  */
-public class ContasReceberInterFrame extends javax.swing.JInternalFrame {
+public class ContasReceberInterFrame extends JInternalFrameActivity {
 
     private IContaReceberController mContaReceberController;
+    
+    private int idContaReceber;
     
     /**
      * Creates new form ContasReceberInterFrame
      */
     public ContasReceberInterFrame() {
         initComponents();
-        this.mContaReceberController = new ContaReceberController();
+        
     }
 
     private void populatorTable() {
         List<ContaReceber> all = this.mContaReceberController.all();
 
         DefaultTableModel model = new DefaultTableModel(new String [] {
-                "Tipo", "Valor Previsto", "%Tava", "Valor Líq.", "Forma Pagamento", "Pagamento", "Crédito", "% do Total do Pedido"
+                "Código", "Tipo", "Valor Previsto",  "Forma Pagamento", "Pagamento", "Crédito"
         }, 0);
 
 
         for (ContaReceber u : all) {
-            model.addRow(new Object[]{u.getTipoConta(), u.getValor(), 0.0, 0.0, u.getFormaPagamento().getDescricao(), 0.0, u.getDataCredito(), 0.0});
+            model.addRow(new Object[]{u.getId(), u.getTipoConta(), u.getValor(), u.getFormaPagamento().getDescricao(), u.isCreditoRealizado() ? "Crédito realizado" : "Crédito não realizado", u.getDataCredito()});
         }
 
         tableContas.setModel(model);
@@ -57,18 +64,6 @@ public class ContasReceberInterFrame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        paneOpcoes = new javax.swing.JPanel();
-        lblPesquisarContasReceber = new javax.swing.JLabel();
-        lblSelecionarPeriodo = new javax.swing.JLabel();
-        btnMes = new javax.swing.JButton();
-        btnHoje = new javax.swing.JButton();
-        btnMenos30Dias = new javax.swing.JButton();
-        btnMais30Dias = new javax.swing.JButton();
-        btnPesquisar = new javax.swing.JButton();
-        datePickerDe = new org.jdesktop.swingx.JXDatePicker();
-        datePickerA = new org.jdesktop.swingx.JXDatePicker();
-        lblDe = new javax.swing.JLabel();
-        lblA = new javax.swing.JLabel();
         paneHeader = new javax.swing.JPanel();
         btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -99,87 +94,6 @@ public class ContasReceberInterFrame extends javax.swing.JInternalFrame {
             }
         });
 
-        paneOpcoes.setBackground(new java.awt.Color(204, 204, 204));
-
-        lblPesquisarContasReceber.setText("Pesquisar Contas a Receber");
-
-        lblSelecionarPeriodo.setText("Selecione o Período:");
-
-        btnMes.setText("Mês");
-
-        btnHoje.setText("Hoje");
-
-        btnMenos30Dias.setText("-30 Dias");
-
-        btnMais30Dias.setText("+30 Dias");
-
-        btnPesquisar.setText("Pesquisar");
-
-        lblDe.setText("De");
-
-        lblA.setText("à");
-
-        javax.swing.GroupLayout paneOpcoesLayout = new javax.swing.GroupLayout(paneOpcoes);
-        paneOpcoes.setLayout(paneOpcoesLayout);
-        paneOpcoesLayout.setHorizontalGroup(
-            paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneOpcoesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneOpcoesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(paneOpcoesLayout.createSequentialGroup()
-                        .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnMenos30Dias, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                            .addComponent(btnMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMais30Dias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHoje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(paneOpcoesLayout.createSequentialGroup()
-                        .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPesquisarContasReceber)
-                            .addComponent(lblSelecionarPeriodo)
-                            .addGroup(paneOpcoesLayout.createSequentialGroup()
-                                .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblA)
-                                    .addComponent(lblDe))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(datePickerA, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(datePickerDe, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        paneOpcoesLayout.setVerticalGroup(
-            paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneOpcoesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblPesquisarContasReceber)
-                .addGap(26, 26, 26)
-                .addComponent(lblSelecionarPeriodo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMes)
-                    .addComponent(btnHoje))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMenos30Dias)
-                    .addComponent(btnMais30Dias))
-                .addGap(18, 18, 18)
-                .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(datePickerDe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDe))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(datePickerA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblA))
-                .addGap(191, 191, 191)
-                .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
-        );
-
         paneHeader.setBackground(new java.awt.Color(153, 153, 153));
 
         btnNovo.setText("Novo");
@@ -190,6 +104,12 @@ public class ContasReceberInterFrame extends javax.swing.JInternalFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.setEnabled(false);
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneHeaderLayout = new javax.swing.GroupLayout(paneHeader);
         paneHeader.setLayout(paneHeaderLayout);
@@ -223,6 +143,11 @@ public class ContasReceberInterFrame extends javax.swing.JInternalFrame {
                 "Tipo", "Valor Previsto", "%Taxa", "Valor Líq.", "Forma Pagamento", "Pagamento", "Crédito", "% do Total do Pedido"
             }
         ));
+        tableContas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableContasMouseClicked(evt);
+            }
+        });
         scrollConta.setViewportView(tableContas);
 
         txtTotal.setText("0,00");
@@ -231,29 +156,26 @@ public class ContasReceberInterFrame extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(paneHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(paneOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(paneHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollConta, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(scrollConta, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
+                        .addGap(10, 10, 10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(paneHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollConta, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         pack();
@@ -263,68 +185,63 @@ public class ContasReceberInterFrame extends javax.swing.JInternalFrame {
         NovaContaReceberJFrame contaReceberJFrame = new NovaContaReceberJFrame();
         contaReceberJFrame.setVisible(true);
         contaReceberJFrame.setLocationRelativeTo(null);
-        contaReceberJFrame.addWindowListener(new CallbackUpdateTable());
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         populatorTable();
     }//GEN-LAST:event_formInternalFrameOpened
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (this.idContaReceber != 0) {
+            NovaContaReceberJFrame contaReceberJFrame = new NovaContaReceberJFrame(this.idContaReceber);
+            contaReceberJFrame.setVisible(true);
+            contaReceberJFrame.setLocationRelativeTo(this);
 
-    private class CallbackUpdateTable implements WindowListener {
-        @Override
-        public void windowOpened(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowClosing(WindowEvent windowEvent) {
-
-        }
-
-        @Override
-        public void windowClosed(WindowEvent windowEvent) {
             populatorTable();
             btnEditar.setEnabled(false);
         }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
-        @Override
-        public void windowIconified(WindowEvent windowEvent) {
+    private void tableContasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableContasMouseClicked
+        btnEditar.setEnabled(true);
 
-        }
+        DefaultTableModel model = (DefaultTableModel) tableContas.getModel();
 
-        @Override
-        public void windowDeiconified(WindowEvent windowEvent) {
+        int selectedRowIndex = tableContas.getSelectedRow();
+        this.idContaReceber = Integer.parseInt(model.getValueAt(selectedRowIndex, 0).toString());
+    }//GEN-LAST:event_tableContasMouseClicked
 
-        }
+    
+    @Override
+    public void onCreate(InternalFrameEvent evt) {
+        
+    }
 
-        @Override
-        public void windowActivated(WindowEvent windowEvent) {
+    @Override
+    public void onResume(InternalFrameEvent evt) {
+        this.populatorTable();
+    }
 
-        }
+    @Override
+    public void onClose(InternalFrameEvent evt) {
+        populatorTable();
+        btnEditar.setEnabled(false);
+    }
 
-        @Override
-        public void windowDeactivated(WindowEvent windowEvent) {
+    @Override
+    public void onCreateControllers() {
+        this.mContaReceberController = new ContaReceberController();
+    }
 
-        }
+    @Override
+    public void onCreateViews() {
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnHoje;
-    private javax.swing.JButton btnMais30Dias;
-    private javax.swing.JButton btnMenos30Dias;
-    private javax.swing.JButton btnMes;
     private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnPesquisar;
-    private org.jdesktop.swingx.JXDatePicker datePickerA;
-    private org.jdesktop.swingx.JXDatePicker datePickerDe;
-    private javax.swing.JLabel lblA;
-    private javax.swing.JLabel lblDe;
-    private javax.swing.JLabel lblPesquisarContasReceber;
-    private javax.swing.JLabel lblSelecionarPeriodo;
     private javax.swing.JPanel paneHeader;
-    private javax.swing.JPanel paneOpcoes;
     private javax.swing.JScrollPane scrollConta;
     private javax.swing.JTable tableContas;
     private javax.swing.JTextField txtTotal;

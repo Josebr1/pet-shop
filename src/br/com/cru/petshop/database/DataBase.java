@@ -234,6 +234,7 @@ public class DataBase {
                 + "  `valor` decimal(10,0) DEFAULT NULL,\n"
                 + "  `data_credito` date DEFAULT NULL,\n"
                 + "  `observacao` varchar(255) DEFAULT NULL,\n"
+                + "  `credito_realizado` TINYINT(1),\n"
                 + "  `fk_foma_pagamento` int(11) NOT NULL,\n"
                 + "  PRIMARY KEY (`id_conta_receber`),\n"
                 + "  FOREIGN KEY (`fk_foma_pagamento`) REFERENCES `foma_pagamento` (`id_foma_pagamento`)\n"

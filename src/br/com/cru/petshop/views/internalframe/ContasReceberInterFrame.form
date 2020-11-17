@@ -29,20 +29,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="paneOpcoes" min="-2" max="-2" attributes="0"/>
+          <Component id="paneHeader" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="paneHeader" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="scrollConta" pref="991" max="32767" attributes="0"/>
+                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollConta" alignment="0" pref="800" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtTotal" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtTotal" min="-2" pref="150" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -50,156 +47,18 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="paneOpcoes" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Component id="paneHeader" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="scrollConta" min="-2" pref="416" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtTotal" min="-2" pref="27" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="paneOpcoes">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
-        </Property>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="btnPesquisar" min="-2" pref="108" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnMenos30Dias" pref="82" max="32767" attributes="0"/>
-                              <Component id="btnMes" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="btnMais30Dias" max="32767" attributes="0"/>
-                              <Component id="btnHoje" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblPesquisarContasReceber" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblSelecionarPeriodo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblA" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblDe" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="datePickerA" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
-                                      <Component id="datePickerDe" min="-2" pref="158" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblPesquisarContasReceber" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="lblSelecionarPeriodo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnMes" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnHoje" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnMenos30Dias" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMais30Dias" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="datePickerDe" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblDe" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="datePickerA" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblA" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
-                  <Component id="btnPesquisar" min="-2" pref="38" max="-2" attributes="0"/>
-                  <EmptySpace pref="107" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblPesquisarContasReceber">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pesquisar Contas a Receber"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblSelecionarPeriodo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Selecione o Per&#xed;odo:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnMes">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="M&#xea;s"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnHoje">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Hoje"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnMenos30Dias">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="-30 Dias"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnMais30Dias">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="+30 Dias"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnPesquisar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pesquisar"/>
-          </Properties>
-        </Component>
-        <Component class="org.jdesktop.swingx.JXDatePicker" name="datePickerDe">
-        </Component>
-        <Component class="org.jdesktop.swingx.JXDatePicker" name="datePickerA">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblDe">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="De"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblA">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#xe0;"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Container class="javax.swing.JPanel" name="paneHeader">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -244,7 +103,11 @@
         <Component class="javax.swing.JButton" name="btnEditar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Editar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -317,6 +180,9 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableContasMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

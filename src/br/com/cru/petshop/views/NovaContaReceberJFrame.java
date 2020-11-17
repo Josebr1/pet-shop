@@ -4,42 +4,68 @@ import br.com.cru.petshop.controllers.ContaReceberController;
 import br.com.cru.petshop.controllers.FormasPagamentoController;
 import br.com.cru.petshop.controllers.interfaces.IContaReceberController;
 import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
+import br.com.cru.petshop.core.Dialog;
+import br.com.cru.petshop.exceptions.RequiredFieldException;
 import br.com.cru.petshop.models.ContaReceber;
 import br.com.cru.petshop.models.FormasPagamento;
+import br.com.cru.petshop.validations.Validator;
+import java.awt.event.WindowEvent;
 import java.util.*;
+import java.util.logging.Level;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import org.h2.util.StringUtils;
 
 /**
  *
  * @author jose.antonio
  */
-public class NovaContaReceberJFrame extends javax.swing.JDialog {
+public class NovaContaReceberJFrame extends Dialog {
 
-    
     private IFormasPagamentoController mFormasPagamentoController;
     private IContaReceberController mContaReceberController;
+
+    private ContaReceber mContaReceber = new ContaReceber();
+    
+    private int mIdContaReceber;
     
     /**
      * Creates new form NovaContaReceberJFrame
      */
     public NovaContaReceberJFrame() {
+        initComponents();
         this.setModal(true);
         //this.setModal(true);
-        initComponents();
-        
-       // Calendar c = Calendar.getInstance();
-       // SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        
         datePickerDataCredito.setFormats("dd-MM-yyyy");
-        datePickerDataPagamento.setFormats("dd-MM-yyyy");
-
-        initControllers();
-    }
-
-    private void initControllers() {
-        this.mFormasPagamentoController = new FormasPagamentoController();
-        this.mContaReceberController = new ContaReceberController();
+        
+       
     }
     
+    public NovaContaReceberJFrame(int mIdContaReceber) {
+        initComponents();
+        this.mIdContaReceber = mIdContaReceber;
+        this.setModal(true);
+        
+        datePickerDataCredito.setFormats("dd-MM-yyyy");
+        
+        
+    }
+
+    private void CreateOrUpdate(){
+        if(this.mIdContaReceber != 0) {
+            mContaReceber = this.mContaReceberController.findById(this.mIdContaReceber);
+            
+            comboFormaPagamento.setSelectedItem(mContaReceber.getFormaPagamento());
+            
+            datePickerDataCredito.setDate(mContaReceber.getDataCredito());
+            txtValor.setText(String.valueOf(mContaReceber.getValor()));
+            txtArObservacao.setText(mContaReceber.getObservacao());
+            checkCreditoRealizado.setSelected(mContaReceber.isCreditoRealizado());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,19 +78,16 @@ public class NovaContaReceberJFrame extends javax.swing.JDialog {
         paneInformacoes = new javax.swing.JPanel();
         lblTipo = new javax.swing.JLabel();
         lblFormaPagamento = new javax.swing.JLabel();
-        lblDataPagemento = new javax.swing.JLabel();
-        lblTaxa = new javax.swing.JLabel();
         lblDataCredito = new javax.swing.JLabel();
         lblValor = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
         lblObservacao = new javax.swing.JLabel();
         scrollObservacao = new javax.swing.JScrollPane();
         txtArObservacao = new javax.swing.JTextArea();
-        txtTaxa = new javax.swing.JTextField();
         datePickerDataCredito = new org.jdesktop.swingx.JXDatePicker();
         comboFormaPagamento = new javax.swing.JComboBox<>();
-        datePickerDataPagamento = new org.jdesktop.swingx.JXDatePicker();
         comboTipo = new javax.swing.JComboBox<>();
+        checkCreditoRealizado = new javax.swing.JCheckBox();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
 
@@ -82,10 +105,6 @@ public class NovaContaReceberJFrame extends javax.swing.JDialog {
 
         lblFormaPagamento.setText("Forma Pagamento:");
 
-        lblDataPagemento.setText("Data do Pagamento:");
-
-        lblTaxa.setText("% Taxa:");
-
         lblDataCredito.setText("Data do Crédito:");
 
         lblValor.setText("Valor:");
@@ -96,53 +115,43 @@ public class NovaContaReceberJFrame extends javax.swing.JDialog {
         txtArObservacao.setRows(5);
         scrollObservacao.setViewportView(txtArObservacao);
 
-        txtTaxa.setText("0,0");
-
-        comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        datePickerDataPagamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datePickerDataPagamentoActionPerformed(evt);
-            }
-        });
-
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Outras Receitas" }));
         comboTipo.setEnabled(false);
+
+        checkCreditoRealizado.setText("Crédito efetuado?");
 
         javax.swing.GroupLayout paneInformacoesLayout = new javax.swing.GroupLayout(paneInformacoes);
         paneInformacoes.setLayout(paneInformacoesLayout);
         paneInformacoesLayout.setHorizontalGroup(
             paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneInformacoesLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneInformacoesLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(16, 16, 16)
                         .addComponent(lblObservacao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(scrollObservacao))
                     .addGroup(paneInformacoesLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblFormaPagamento)
+                            .addComponent(lblTipo)
+                            .addComponent(lblDataCredito))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDataPagemento)
-                            .addComponent(lblFormaPagamento, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTipo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTaxa, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTaxa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboFormaPagamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(datePickerDataPagamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneInformacoesLayout.createSequentialGroup()
+                            .addGroup(paneInformacoesLayout.createSequentialGroup()
+                                .addGap(0, 2, Short.MAX_VALUE)
+                                .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboFormaPagamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(datePickerDataCredito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                                 .addComponent(lblValor)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneInformacoesLayout.createSequentialGroup()
-                                .addComponent(lblDataCredito)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(datePickerDataCredito, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(paneInformacoesLayout.createSequentialGroup()
+                                .addComponent(checkCreditoRealizado)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         paneInformacoesLayout.setVerticalGroup(
@@ -160,15 +169,11 @@ public class NovaContaReceberJFrame extends javax.swing.JDialog {
                     .addComponent(comboFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDataPagemento)
-                    .addComponent(datePickerDataPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datePickerDataCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDataCredito))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTaxa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTaxa)
-                    .addComponent(lblDataCredito)
-                    .addComponent(datePickerDataCredito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addComponent(checkCreditoRealizado)
+                .addGap(24, 24, 24)
                 .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblObservacao))
@@ -213,7 +218,7 @@ public class NovaContaReceberJFrame extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalvar)
                     .addComponent(btnVoltar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,48 +229,45 @@ public class NovaContaReceberJFrame extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void datePickerDataPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_datePickerDataPagamentoActionPerformed
-
-    }//GEN-LAST:event_datePickerDataPagamentoActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
-
-
-        updateListFormasPagamento();
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        ContaReceber c = new ContaReceber();
-        c.setDataCredito(datePickerDataCredito.getDate());
-        c.setFormaPagamento(new FormasPagamento(Objects.requireNonNull(comboFormaPagamento.getSelectedItem()).toString()));
-        c.setObservacao(txtArObservacao.getText());
-        c.setTipoConta(Objects.requireNonNull(comboTipo.getSelectedItem()).toString());
-        c.setValor(Double.parseDouble(txtValor.getText()));
+        mContaReceber.setDataCredito(datePickerDataCredito.getDate());
+        mContaReceber.setFormaPagamento(new FormasPagamento(Objects.requireNonNull(comboFormaPagamento.getSelectedItem()).toString()));
+        mContaReceber.setObservacao(txtArObservacao.getText());
+        mContaReceber.setTipoConta(Objects.requireNonNull(comboTipo.getSelectedItem()).toString());
+        if(!StringUtils.isNullOrEmpty(txtValor.getText())) mContaReceber.setValor(Double.parseDouble(txtValor.getText()));
+        mContaReceber.setCreditoRealizado(checkCreditoRealizado.isSelected());
 
-        this.mContaReceberController.insertAndUpdate(c);
+        try {
+            if (Validator.validateForNulls(mContaReceber)) {
+                this.mContaReceberController.insertAndUpdate(mContaReceber);
+                JOptionPane.showMessageDialog(rootPane, "Operação realizada com sucesso!");
+                this.dispose();
+            }
+        } catch (RequiredFieldException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            ex.notifyUserWithToast();
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void updateListFormasPagamento() {
-        new Thread() {
-            @Override
-            public void run() {
-                comboFormaPagamento.removeAllItems();
+        List<FormasPagamento> allFormas = this.mFormasPagamentoController.all();
 
-                List<FormasPagamento> all = mFormasPagamentoController.all();
+        DefaultComboBoxModel<FormasPagamento> formas = new DefaultComboBoxModel<>();
 
-                String[] toStringDescription = new String[all.size()];
-
-                for (int i =0; i < all.size(); i++) {
-                    toStringDescription[i] = all.get(i).getDescricao();
-                }
-                comboFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(toStringDescription));
-            }
-        }.start();
+        allFormas.forEach((c) -> {
+            formas.addElement(c);
+        });
+        comboFormaPagamento.setModel(formas);
     }
 
-
-    
     /**
      * @param args the command line arguments
      */
@@ -305,21 +307,44 @@ public class NovaContaReceberJFrame extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox<String> comboFormaPagamento;
+    private javax.swing.JCheckBox checkCreditoRealizado;
+    private javax.swing.JComboBox<FormasPagamento> comboFormaPagamento;
     private javax.swing.JComboBox<String> comboTipo;
     private org.jdesktop.swingx.JXDatePicker datePickerDataCredito;
-    private org.jdesktop.swingx.JXDatePicker datePickerDataPagamento;
     private javax.swing.JLabel lblDataCredito;
-    private javax.swing.JLabel lblDataPagemento;
     private javax.swing.JLabel lblFormaPagamento;
     private javax.swing.JLabel lblObservacao;
-    private javax.swing.JLabel lblTaxa;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JLabel lblValor;
     private javax.swing.JPanel paneInformacoes;
     private javax.swing.JScrollPane scrollObservacao;
     private javax.swing.JTextArea txtArObservacao;
-    private javax.swing.JTextField txtTaxa;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(WindowEvent evt) {
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+        updateListFormasPagamento();
+        CreateOrUpdate();
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+        
+    }
+
+    @Override
+    public void onCreateControllers() {
+        this.mFormasPagamentoController = new FormasPagamentoController();
+        this.mContaReceberController = new ContaReceberController();
+    }
+
+    @Override
+    public void onCreateViews() {
+        
+    }
 }

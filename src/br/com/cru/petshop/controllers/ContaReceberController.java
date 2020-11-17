@@ -11,6 +11,10 @@ import br.com.cru.petshop.models.FormasPagamento;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 
 public class ContaReceberController implements IContaReceberController {
 
@@ -32,10 +36,16 @@ public class ContaReceberController implements IContaReceberController {
 
             model.setFormaPagamento(f);
 
-            this.mContaReceberDAO.insert(model);
+            if(model.getId()== 0)
+                this.mContaReceberDAO.insert(model);
+            else 
+                this.mContaReceberDAO.update(model);
 
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, e);
+            if (e instanceof JdbcSQLIntegrityConstraintViolationException)
+                JOptionPane.showMessageDialog(null, "Já existe um registro desse tipo cadastrado!");
+
         }
     }
 
@@ -44,13 +54,18 @@ public class ContaReceberController implements IContaReceberController {
         try {
             return this.mContaReceberDAO.all();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, e);
         }
         return new ArrayList<>();
     }
 
     @Override
     public ContaReceber findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return this.mContaReceberDAO.findById(id);
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+            Logger.getLogger(ClienteController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return new ContaReceber();
     }
 }

@@ -52,7 +52,7 @@
                   <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
                   <Component id="btnVoltar" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -71,39 +71,37 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Component id="lblObservacao" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="scrollObservacao" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblDataPagemento" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="lblFormaPagamento" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="lblTipo" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblTaxa" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblDataCredito" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtTaxa" alignment="1" min="-2" pref="174" max="-2" attributes="0"/>
-                              <Component id="comboFormaPagamento" alignment="1" min="-2" pref="174" max="-2" attributes="0"/>
-                              <Component id="datePickerDataPagamento" alignment="1" min="-2" pref="174" max="-2" attributes="0"/>
-                              <Component id="comboTipo" alignment="1" min="-2" pref="174" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="88" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="comboFormaPagamento" alignment="1" min="-2" pref="174" max="-2" attributes="0"/>
+                                      <Component id="comboTipo" alignment="1" min="-2" pref="174" max="-2" attributes="0"/>
+                                      <Component id="datePickerDataCredito" alignment="1" min="-2" pref="174" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace pref="188" max="32767" attributes="0"/>
                                   <Component id="lblValor" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtValor" min="-2" pref="104" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lblDataCredito" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="datePickerDataCredito" min="-2" pref="150" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="checkCreditoRealizado" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -129,17 +127,12 @@
                   </Group>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblDataPagemento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="datePickerDataPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="datePickerDataCredito" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblDataCredito" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtTaxa" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblTaxa" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblDataCredito" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="datePickerDataCredito" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="checkCreditoRealizado" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="scrollObservacao" min="-2" max="-2" attributes="0"/>
                       <Component id="lblObservacao" min="-2" max="-2" attributes="0"/>
@@ -158,16 +151,6 @@
         <Component class="javax.swing.JLabel" name="lblFormaPagamento">
           <Properties>
             <Property name="text" type="java.lang.String" value="Forma Pagamento:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblDataPagemento">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Data do Pagamento:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblTaxa">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="% Taxa:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDataCredito">
@@ -202,32 +185,17 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="txtTaxa">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="0,0"/>
-          </Properties>
-        </Component>
         <Component class="org.jdesktop.swingx.JXDatePicker" name="datePickerDataCredito">
         </Component>
         <Component class="javax.swing.JComboBox" name="comboFormaPagamento">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;FormasPagamento&gt;"/>
           </AuxValues>
-        </Component>
-        <Component class="org.jdesktop.swingx.JXDatePicker" name="datePickerDataPagamento">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="datePickerDataPagamentoActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboTipo">
           <Properties>
@@ -241,6 +209,11 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="checkCreditoRealizado">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cr&#xe9;dito efetuado?"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
