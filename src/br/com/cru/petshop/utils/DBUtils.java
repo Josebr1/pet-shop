@@ -21,7 +21,7 @@ public class DBUtils {
     public static Connection getConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException{
         Class.forName("org.h2.Driver").newInstance();
         String stringConexao = new StringBuilder()
-                .append("jdbc:h2:file:./petshop").toString();
+                .append("jdbc:h2:file:C:\\petshop\\petshop").toString();
         Logger.getLogger(DBUtils.class.getName()).log(Level.INFO, stringConexao);
         Connection connection = DriverManager.getConnection(stringConexao, USER, PASSWORD);
         

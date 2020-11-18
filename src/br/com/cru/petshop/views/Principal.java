@@ -12,12 +12,15 @@ import br.com.cru.petshop.views.internalframe.ColaboradoresIternFrame;
 import br.com.cru.petshop.views.internalframe.LoginInterFrame;
 import br.com.cru.petshop.views.internalframe.SituacaoInterFrame;
 import java.awt.Desktop;
+import java.awt.Image;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
@@ -393,10 +396,16 @@ public class Principal extends JFrameActivity {
         System.exit(0);
     }//GEN-LAST:event_menuItemSairActionPerformed
 
-    private void display() {
+    private void display() throws IOException {
         this.setDefaultCloseOperation(Principal.EXIT_ON_CLOSE);
         //this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_HORIZ);
         this.setVisible(true);
+        
+        //Image i = new ImageIcon(ClassLoader.getSystemResource("src"+File.pathSeparator+"br"+File.pathSeparator+"com"+File.pathSeparator+"cru"+File.pathSeparator+"petshop"+File.pathSeparator+"imgs"+File.pathSeparator+"logotipo.jpg")).getImage();
+        //Image i = new ImageIcon(ClassLoader.getSystemResource("/src/br/com/cru/petshop/imgs/logotipo.jpg")).getImage();        
+        //Image i = new ImageIcon(getClass().getResource("/logotipo.jpg")).getImage();
+//Image i = ImageIO.read(getClass().getResource("src"+File.pathSeparator+"br"+File.pathSeparator+"com"+File.pathSeparator+"cru"+File.pathSeparator+"petshop"+File.pathSeparator+"imgs"+File.pathSeparator+"logotipo.jpg"));
+        //setIconImage(i);
     }
     
     /**
@@ -429,7 +438,11 @@ public class Principal extends JFrameActivity {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().display();
+                try {
+                    new Principal().display();
+                } catch (IOException ex) {
+                    java.util.logging.Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
