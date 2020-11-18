@@ -133,6 +133,14 @@ public class DataBase {
 
         list.add("INSERT INTO tipo_usuario(descricao) VALUES('ADMINISTRADOR')");
         list.add("INSERT INTO tipo_usuario(descricao) VALUES('ATENDENTE')");
+        
+        list.add("INSERT INTO especie(descricao) VALUES('Cachorro')");
+        list.add("INSERT INTO especie(descricao) VALUES('Gato')");
+        
+        list.add("INSERT INTO situacao(descricao) VALUES('Pronto Para o Dono')");
+        list.add("INSERT INTO situacao(descricao) VALUES('Realizando Tosa')");
+        list.add("INSERT INTO situacao(descricao) VALUES('Realizando Banho')");
+        list.add("INSERT INTO situacao(descricao) VALUES('Aguardando o Dono')");
 
         return list;
     }

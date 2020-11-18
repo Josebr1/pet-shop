@@ -426,6 +426,7 @@ public class NovoAtendimentoJFrame extends Dialog {
                 NovoAnimaisJFrame animaisJFrame = new NovoAnimaisJFrame();
                 animaisJFrame.setVisible(true);
                 animaisJFrame.setLocationRelativeTo(this);
+                return;
             }            
         }
         
