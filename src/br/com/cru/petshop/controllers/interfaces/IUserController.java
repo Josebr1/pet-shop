@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IUserController {
     boolean primeiroAdm();
-    boolean login(Usuario u);
+    String login(Usuario u);
     void insertAndUpdate(Usuario usuario);
     List<Usuario> all();
     Usuario getUserByEmail(String email);

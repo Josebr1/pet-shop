@@ -9,9 +9,12 @@ import br.com.cru.petshop.controllers.UserController;
 import br.com.cru.petshop.controllers.interfaces.IUserController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Usuario;
+import br.com.cru.petshop.models.enums.TipoUsuario;
 import br.com.cru.petshop.views.AlterarSenhaJFrame;
+import br.com.cru.petshop.views.Principal;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
+import org.h2.util.StringUtils;
 
 /**
  *
@@ -120,7 +123,14 @@ public class LoginInterFrame extends JInternalFrameActivity {
         mUsuario.setLogin(txtUser.getText());
         mUsuario.setSenha(String.valueOf(txtPassword.getPassword()));
 
-        if(this.mUserController.login(mUsuario)) {
+        String rsLogin = this.mUserController.login(mUsuario);
+        
+        if(!StringUtils.isNullOrEmpty(rsLogin)) {
+            if(TipoUsuario.get(rsLogin) == TipoUsuario.ADMINISTRADOR) 
+                Principal.jMenuConfiguracoes.setVisible(true);
+            else 
+                Principal.jMenuConfiguracoes.setVisible(false);
+                
             JOptionPane.showMessageDialog(rootPane, "Login realizado com sucesso! <"+ mUsuario.getLogin() +">");
             LoginInterFrame.this.setVisible(false);
         } else {

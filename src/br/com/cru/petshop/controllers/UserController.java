@@ -62,13 +62,15 @@ public class UserController implements IUserController {
     }
 
     @Override
-    public boolean login(Usuario u) {
+    public String login(Usuario u) {
         try {
-            return this.mUsuarioDAO.login(u);
+            if(this.mUsuarioDAO.login(u)) {
+                return this.mUsuarioDAO.getTypeUserByLogin(u);
+            }
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return null;
     }
 
     @Override

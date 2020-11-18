@@ -458,7 +458,7 @@ public class Principal extends JFrameActivity {
     private javax.swing.JMenu jMenuAtendimento;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuClientes;
-    private javax.swing.JMenu jMenuConfiguracoes;
+    public static javax.swing.JMenu jMenuConfiguracoes;
     private javax.swing.JMenuItem jMenuItemAnimaBuscarAnimais;
     private javax.swing.JMenuItem jMenuItemAnimaIncluirAnimais;
     private javax.swing.JMenuItem jMenuItemAtendimeBuscarAgendado;

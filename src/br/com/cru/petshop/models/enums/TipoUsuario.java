@@ -27,6 +27,17 @@ public enum TipoUsuario {
                 return ADMINISTRADOR;
         }
     }
+    
+    public static TipoUsuario get(String tipoUsuario) {
+        switch(tipoUsuario){
+            case "ADMINISTRADOR":
+                return ADMINISTRADOR;
+            case "ATENDENTE":
+                return ATENDENTE;
+            default:
+                return ADMINISTRADOR;
+        }
+    }
 
 
     public static String get(TipoUsuario tipoUsuario) {

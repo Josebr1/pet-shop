@@ -218,4 +218,28 @@ public class UsuarioDAO implements IUsuarioDAO{
         
     }
     
+    public String getTypeUserByLogin(Usuario u) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+        mConnection = DBUtils.getConnection();
+        ResultSet resultSet;
+        
+        try {
+            String sql = "select tp.descricao as descricao from usuario as user inner join tipo_usuario tp on tp.id_tipo_usuario = user.fk_tipo_usuario WHERE user.login = ?";
+            
+            PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
+            statement.setString(1, u.getLogin());
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                return resultSet.getString("descricao");
+                
+            }
+            return null;
+        } finally {
+            if (mConnection != null)
+                mConnection.close();
+        }
+        
+    }
+    
 }
