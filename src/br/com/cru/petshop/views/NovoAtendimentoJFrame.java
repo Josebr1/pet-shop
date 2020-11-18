@@ -25,6 +25,8 @@ import br.com.cru.petshop.models.Usuario;
 import br.com.cru.petshop.models.enums.LocalizaoEnum;
 import br.com.cru.petshop.utils.DataUtils;
 import br.com.cru.petshop.validations.Validator;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.TimePickerSettings;
 import java.awt.event.WindowEvent;
 import java.time.ZoneId;
 import java.util.List;
@@ -47,14 +49,25 @@ public class NovoAtendimentoJFrame extends Dialog {
     private IUserController mUsuarioController;
     private ISituacaoController mSituacaoController;
     private IAtendimentoController mAtendimentoController;
+    private DatePickerSettings mDateSettingsEntrada;
+    private TimePickerSettings mTimeSettingsEntrada;
+    
+    private DatePickerSettings mDateSettingsPrevista;
+    private TimePickerSettings mTimeSettingsPrevista;
     
     private Atendimento mAtendimento = new Atendimento();
     /**
      * Creates new form NovoClienteJFrame
      */
-    public NovoAtendimentoJFrame() {
+    public NovoAtendimentoJFrame() {       
         initComponents();
     }
+    
+    public NovoAtendimentoJFrame(int id) {        
+        this.mAtendimento.setId(id);
+        initComponents();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,9 +93,7 @@ public class NovoAtendimentoJFrame extends Dialog {
         lblLocalizacao = new javax.swing.JLabel();
         comboLocalizacao = new javax.swing.JComboBox<>();
         lblDataPrevisao = new javax.swing.JLabel();
-        datePrevisao = new com.github.lgooddatepicker.components.DateTimePicker();
         lblDataEntrada = new javax.swing.JLabel();
-        dateEntrada = new com.github.lgooddatepicker.components.DateTimePicker();
         lblIdade = new javax.swing.JLabel();
         checkRetorno = new javax.swing.JCheckBox();
         checkAmbulancia = new javax.swing.JCheckBox();
@@ -91,6 +102,8 @@ public class NovoAtendimentoJFrame extends Dialog {
         jtextAObs = new javax.swing.JTextArea();
         txtIdade = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        dateEntrada = new com.toedter.calendar.JDateChooser();
+        datePrevisao = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Atendimento");
@@ -158,8 +171,6 @@ public class NovoAtendimentoJFrame extends Dialog {
 
         lblDataEntrada.setText("<html><body><span>Data Entrada:<span style='color:red;'>*</span></span></body></html>");
 
-        dateEntrada.setMinimumSize(new java.awt.Dimension(29, 20));
-
         lblIdade.setText("<html><body><span>Idade:<span style='color:red;'>*</span></span></body></html>");
 
         checkRetorno.setText("Retorno");
@@ -190,35 +201,34 @@ public class NovoAtendimentoJFrame extends Dialog {
                             .addComponent(lblFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dateEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboFuncionario, 0, 219, Short.MAX_VALUE)
+                            .addComponent(comboLocalizacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
-                                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboFuncionario, 0, 219, Short.MAX_VALUE)
-                                    .addComponent(comboLocalizacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblDataPrevisao)
                                     .addComponent(lblSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
-                                .addComponent(dateEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneDadosAtendimentoLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
                                 .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)))
                         .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
-                                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(comboSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(datePrevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
-                                .addComponent(txtIdade)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkRetorno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkAmbulancia))))
+                                .addComponent(checkAmbulancia))
+                            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                                .addComponent(comboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(datePrevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
                         .addComponent(lblObs)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -235,25 +245,26 @@ public class NovoAtendimentoJFrame extends Dialog {
                     .addComponent(lblSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(comboLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblDataPrevisao))
                     .addComponent(datePrevisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkRetorno)
+                            .addComponent(checkAmbulancia)
+                            .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addComponent(lblDataEntrada))
+                    .addComponent(dateEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(checkRetorno)
-                        .addComponent(checkAmbulancia)
-                        .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addComponent(dateEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblDataEntrada))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblObs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(scrollObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -327,8 +338,8 @@ public class NovoAtendimentoJFrame extends Dialog {
         
         mAtendimento.setLocalizao(LocalizaoEnum.get((String) comboLocalizacao.getSelectedItem()));
         
-        if(datePrevisao.getDateTime() != null) mAtendimento.setDataPrevisao(DataUtils.convertDateTime(datePrevisao.getDateTime()));
-        if(dateEntrada.getDateTime() != null) mAtendimento.setDataEntrega(DataUtils.convertDateTime(dateEntrada.getDateTime()));
+        if(dateEntrada.getDate() != null) mAtendimento.setDataPrevisao(datePrevisao.getDate());
+        if(datePrevisao.getDate() != null) mAtendimento.setDataEntrega(dateEntrada.getDate());
         
         mAtendimento.setIdade(txtIdade.getText());
         
@@ -363,8 +374,8 @@ public class NovoAtendimentoJFrame extends Dialog {
     private javax.swing.JComboBox<Usuario> comboFuncionario;
     private javax.swing.JComboBox<String> comboLocalizacao;
     private javax.swing.JComboBox<Situacao> comboSituacao;
-    private com.github.lgooddatepicker.components.DateTimePicker dateEntrada;
-    private com.github.lgooddatepicker.components.DateTimePicker datePrevisao;
+    private com.toedter.calendar.JDateChooser dateEntrada;
+    private com.toedter.calendar.JDateChooser datePrevisao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextArea jtextAObs;
     private javax.swing.JLabel lblAnimal;
@@ -452,11 +463,17 @@ public class NovoAtendimentoJFrame extends Dialog {
         populatorAnimaisCombo();
         populatorFuncionariosCombo();
         populatorSituacoesCombo();
+        
+        dateEntrada.setDateFormatString("dd-MM-yyyy");
+        datePrevisao.setDateFormatString("dd-MM-yyyy");
+        
+        createOrUpdate();
+        
     }
 
     @Override
     public void onResume(WindowEvent evt) {
-        createOrUpdate();
+        
     }
 
     @Override
@@ -478,14 +495,16 @@ public class NovoAtendimentoJFrame extends Dialog {
     
     private void createOrUpdate() {
         if(mAtendimento.getId() != 0) {
+            mAtendimento = this.mAtendimentoController.findById(mAtendimento.getId());
+            
             comboCliente.setSelectedItem(mAtendimento.getCliente());
             comboAnimal.setSelectedItem(mAtendimento.getAnimal());
             comboFuncionario.setSelectedItem(mAtendimento.getUsuario());
             comboSituacao.setSelectedItem(mAtendimento.getSituacao());
             comboLocalizacao.setSelectedItem(LocalizaoEnum.get(mAtendimento.getLocalizao()));
-            
-            datePrevisao.setDateTime((mAtendimento.getDataPrevisao().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
-            dateEntrada.setDateTime((mAtendimento.getDataEntrega().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
+            System.err.println(mAtendimento.getDataPrevisao());
+            datePrevisao.setDate(mAtendimento.getDataPrevisao());
+            dateEntrada.setDate(mAtendimento.getDataEntrega());
             
             txtIdade.setText(mAtendimento.getIdade());
             checkRetorno.setSelected(mAtendimento.isRetorno());

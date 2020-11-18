@@ -9,6 +9,7 @@ import br.com.cru.petshop.controllers.AtendimentoController;
 import br.com.cru.petshop.controllers.interfaces.IAtendimentoController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Atendimento;
+import br.com.cru.petshop.views.NovoAtendimentoJFrame;
 import br.com.cru.petshop.views.NovoClienteJFrame;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -27,6 +28,7 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.h2.util.StringUtils;
 
 /**
  *
@@ -116,7 +118,6 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
 
         paneHeader.setBackground(new java.awt.Color(102, 102, 102));
 
-        txtPesquisarCliente.setText("Nome, telefone ou endereço....");
         txtPesquisarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPesquisarClienteKeyPressed(evt);
@@ -124,6 +125,11 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -183,9 +189,9 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        NovoClienteJFrame novoClienteJFrame = new NovoClienteJFrame();
-        novoClienteJFrame.setVisible(true);
-	novoClienteJFrame.setLocationRelativeTo(this);
+        NovoAtendimentoJFrame atendimentoJFrame = new NovoAtendimentoJFrame();
+        atendimentoJFrame.setVisible(true);
+	atendimentoJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void tableAtendimentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAtendimentosMouseClicked
@@ -226,6 +232,17 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
             Logger.getLogger(AnimaisIternFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (this.mIdAtendimento != 0) {
+            NovoAtendimentoJFrame atendimentoJFrame = new NovoAtendimentoJFrame(this.mIdAtendimento);
+            atendimentoJFrame.setVisible(true);
+            atendimentoJFrame.setLocationRelativeTo(this);
+
+            populatorTable();
+            btnEditar.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     
     private void populatorTable() {

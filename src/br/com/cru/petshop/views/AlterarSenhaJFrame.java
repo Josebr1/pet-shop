@@ -5,12 +5,23 @@
  */
 package br.com.cru.petshop.views;
 
+import br.com.cru.petshop.controllers.UserController;
+import br.com.cru.petshop.core.Dialog;
+import br.com.cru.petshop.exceptions.RequiredFieldException;
+import br.com.cru.petshop.models.AlterarSenha;
+import br.com.cru.petshop.models.Usuario;
+import br.com.cru.petshop.validations.Validator;
+import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author jose.antonio
  */
-public class AlterarSenhaJFrame extends javax.swing.JDialog {
+public class AlterarSenhaJFrame extends Dialog {
+
+    private UserController mController;
 
     /**
      * Creates new form AlterarSenhaJFrame
@@ -29,23 +40,37 @@ public class AlterarSenhaJFrame extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jInternalFrame1 = new javax.swing.JInternalFrame();
         paneInformacoes = new javax.swing.JPanel();
-        txtSenhaAntiga = new javax.swing.JPasswordField();
         txtNovaSenha = new javax.swing.JPasswordField();
         txtRepeatNovaSenha = new javax.swing.JPasswordField();
         lblSenhaAtual = new javax.swing.JLabel();
         lblNovaSenha = new javax.swing.JLabel();
         lblRepeatNovaSenha = new javax.swing.JLabel();
         lblDicaSenha = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+
+        jInternalFrame1.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Altarar Senha");
 
         paneInformacoes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        lblSenhaAtual.setText("Senha Atual:");
+        lblSenhaAtual.setText("E-mail:");
 
         lblNovaSenha.setText("Nova Senha:");
 
@@ -64,21 +89,24 @@ public class AlterarSenhaJFrame extends javax.swing.JDialog {
                     .addComponent(lblNovaSenha)
                     .addComponent(lblRepeatNovaSenha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNovaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                    .addComponent(txtSenhaAntiga)
-                    .addComponent(txtRepeatNovaSenha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDicaSenha)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneInformacoesLayout.createSequentialGroup()
+                        .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNovaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                            .addComponent(txtRepeatNovaSenha))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDicaSenha)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtEmail))
+                .addContainerGap())
         );
         paneInformacoesLayout.setVerticalGroup(
             paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneInformacoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSenhaAntiga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSenhaAtual))
+                    .addComponent(lblSenhaAtual)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,7 +165,33 @@ public class AlterarSenhaJFrame extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
+
+        AlterarSenha as = new AlterarSenha(txtEmail.getText(), txtNovaSenha.getText(), txtRepeatNovaSenha.getText());
+
+        try {
+            if (Validator.validateForNulls(as)) {
+
+                Usuario u = new Usuario();
+                u.setEmail(txtEmail.getText());
+                u.setSenha(txtNovaSenha.getText());
+
+                if (txtNovaSenha.getText().equals(txtRepeatNovaSenha.getText())) {
+                    if (this.mController.updateSenha(u)) {
+                        JOptionPane.showMessageDialog(this, "Senha alterada com sucesso!");
+                        dispose();
+                    } else 
+                        JOptionPane.showMessageDialog(this, "Ops!! Ocorreu um erro interno");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Senhas não coincidem!");
+                }
+            }
+        } catch (RequiredFieldException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            ex.notifyUserWithToast();
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(NovoClienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -183,13 +237,35 @@ public class AlterarSenhaJFrame extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel lblDicaSenha;
     private javax.swing.JLabel lblNovaSenha;
     private javax.swing.JLabel lblRepeatNovaSenha;
     private javax.swing.JLabel lblSenhaAtual;
     private javax.swing.JPanel paneInformacoes;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JPasswordField txtNovaSenha;
     private javax.swing.JPasswordField txtRepeatNovaSenha;
-    private javax.swing.JPasswordField txtSenhaAntiga;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onCreate(WindowEvent evt) {
+    }
+
+    @Override
+    public void onResume(WindowEvent evt) {
+    }
+
+    @Override
+    public void onClose(WindowEvent evt) {
+    }
+
+    @Override
+    public void onCreateControllers() {
+        mController = new UserController();
+    }
+
+    @Override
+    public void onCreateViews() {
+    }
 }

@@ -175,12 +175,13 @@
                               <Component id="lblDataEntrada" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="dateEntrada" max="32767" attributes="0"/>
+                              <Component id="comboFuncionario" pref="219" max="32767" attributes="0"/>
+                              <Component id="comboLocalizacao" max="32767" attributes="0"/>
+                          </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="comboFuncionario" pref="219" max="32767" attributes="0"/>
-                                      <Component id="comboLocalizacao" max="32767" attributes="0"/>
-                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="lblDataPrevisao" min="-2" max="-2" attributes="0"/>
@@ -188,30 +189,27 @@
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="dateEntrada" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                                   <Component id="lblIdade" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="comboSituacao" max="32767" attributes="0"/>
-                                      <Component id="datePrevisao" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="txtIdade" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtIdade" min="-2" pref="43" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="checkRetorno" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="checkAmbulancia" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="comboSituacao" min="-2" pref="221" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="datePrevisao" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -235,7 +233,7 @@
                       <Component id="comboSituacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblLocalizacao" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="comboLocalizacao" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -243,21 +241,23 @@
                       </Group>
                       <Component id="datePrevisao" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblIdade" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkRetorno" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkAmbulancia" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtIdade" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblIdade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkRetorno" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkAmbulancia" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtIdade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblDataEntrada" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="dateEntrada" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblDataEntrada" alignment="0" max="32767" attributes="0"/>
+                      <Component id="dateEntrada" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblObs" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblObs" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="scrollObs" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -322,18 +322,9 @@
             <Property name="text" type="java.lang.String" value="Data previs&#xe3;o:"/>
           </Properties>
         </Component>
-        <Component class="com.github.lgooddatepicker.components.DateTimePicker" name="datePrevisao">
-        </Component>
         <Component class="javax.swing.JLabel" name="lblDataEntrada">
           <Properties>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Data Entrada:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
-          </Properties>
-        </Component>
-        <Component class="com.github.lgooddatepicker.components.DateTimePicker" name="dateEntrada">
-          <Properties>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[29, 20]"/>
-            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblIdade">
@@ -380,6 +371,10 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="anos"/>
           </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dateEntrada">
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="datePrevisao">
         </Component>
       </SubComponents>
     </Container>

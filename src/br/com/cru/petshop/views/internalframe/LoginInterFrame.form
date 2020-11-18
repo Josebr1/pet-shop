@@ -23,7 +23,10 @@
               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="btnSair" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnSair" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblEsqueciSenha" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace pref="147" max="32767" attributes="0"/>
                       <Component id="btnEntrar" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
@@ -32,7 +35,7 @@
                   <Component id="txtUser" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="85" max="32767" attributes="0"/>
+              <EmptySpace pref="61" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -48,10 +51,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtPassword" min="-2" pref="46" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnEntrar" min="-2" pref="39" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnEntrar" pref="39" max="32767" attributes="0"/>
+                  <Component id="lblEsqueciSenha" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="btnSair" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="66" max="32767" attributes="0"/>
+              <EmptySpace pref="70" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -85,6 +91,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSairActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblEsqueciSenha">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Esqueci minha senha"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblEsqueciSenhaMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

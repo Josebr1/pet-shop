@@ -10,4 +10,5 @@ public interface IUserController {
     void insertAndUpdate(Usuario usuario);
     List<Usuario> all();
     Usuario getUserByEmail(String email);
+    boolean updateSenha(Usuario u);
 }

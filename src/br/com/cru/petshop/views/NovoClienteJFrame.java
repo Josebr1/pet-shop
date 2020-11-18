@@ -102,11 +102,11 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
         lblReferencia = new javax.swing.JLabel();
         lblCodigo = new javax.swing.JLabel();
         lblDataNascimento = new javax.swing.JLabel();
-        datePickerNascimento = new org.jdesktop.swingx.JXDatePicker();
         lblSexo = new javax.swing.JLabel();
         comboSexo = new javax.swing.JComboBox<>();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
+        datePickerNascimento = new com.toedter.calendar.JDateChooser();
         btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -255,13 +255,14 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
                 .addContainerGap()
                 .addComponent(lblDadosPrincipais)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCodigo)
-                    .addComponent(lblDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datePickerNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSexo)
-                    .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCodigo)
+                        .addComponent(lblDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSexo)
+                        .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datePickerNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,7 +429,7 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> comboSexo;
     private javax.swing.JComboBox<String> comboUF;
-    private org.jdesktop.swingx.JXDatePicker datePickerNascimento;
+    private com.toedter.calendar.JDateChooser datePickerNascimento;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCelular;
     private javax.swing.JLabel lblCep;
@@ -463,6 +464,7 @@ public class NovoClienteJFrame extends Dialog implements ViaCEPEvents {
 
     @Override
     public void onCreate(WindowEvent evt) {
+        datePickerNascimento.setDateFormatString("dd-MM-yyyy");
     }
 
     @Override

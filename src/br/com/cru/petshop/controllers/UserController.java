@@ -71,4 +71,14 @@ public class UserController implements IUserController {
         return false;
     }
 
+    @Override
+    public boolean updateSenha(Usuario u) {
+        try {
+            return this.mUsuarioDAO.updateByEmail(u) != 0;
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

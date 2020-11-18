@@ -336,7 +336,7 @@ public class NovoAnimaisJFrame extends Dialog {
 
     @Override
     public void onCreate(WindowEvent evt) {
-        
+        dateNascimento.setDateFormatString("dd-MM-yyyy");
     }
 
     @Override

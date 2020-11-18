@@ -180,13 +180,15 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="lblDadosPrincipais" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="datePickerNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblSexo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboSexo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblSexo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboSexo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="datePickerNascimento" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -403,8 +405,6 @@
             <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Data Nasc.:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
-        <Component class="org.jdesktop.swingx.JXDatePicker" name="datePickerNascimento">
-        </Component>
         <Component class="javax.swing.JLabel" name="lblSexo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sexo:"/>
@@ -433,6 +433,8 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEmail">
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="datePickerNascimento">
         </Component>
       </SubComponents>
     </Container>

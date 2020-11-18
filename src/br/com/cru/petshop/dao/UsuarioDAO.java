@@ -197,4 +197,25 @@ public class UsuarioDAO implements IUsuarioDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public int updateByEmail(Usuario usuario) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+        mConnection = DBUtils.getConnection();
+        
+        try {
+            String sql = "UPDATE usuario SET senha =? WHERE email = ?;";
+            
+            PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
+            
+            statement.setString(1, usuario.getSenha());
+            statement.setString(2, usuario.getEmail());
+            
+            int up = statement.executeUpdate();
+            
+            return up;
+        } finally {
+            if (mConnection != null)
+                mConnection.close();
+        }
+        
+    }
+    
 }

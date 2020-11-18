@@ -9,6 +9,7 @@ import br.com.cru.petshop.controllers.UserController;
 import br.com.cru.petshop.controllers.interfaces.IUserController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Usuario;
+import br.com.cru.petshop.views.AlterarSenhaJFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
 
@@ -45,6 +46,7 @@ public class LoginInterFrame extends JInternalFrameActivity {
         txtPassword = new javax.swing.JPasswordField();
         btnEntrar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        lblEsqueciSenha = new javax.swing.JLabel();
 
         lblUsuario.setText("Usuário:");
 
@@ -64,6 +66,13 @@ public class LoginInterFrame extends JInternalFrameActivity {
             }
         });
 
+        lblEsqueciSenha.setText("Esqueci minha senha");
+        lblEsqueciSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEsqueciSenhaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,14 +81,16 @@ public class LoginInterFrame extends JInternalFrameActivity {
                 .addGap(94, 94, 94)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSair)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSair)
+                            .addComponent(lblEsqueciSenha))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                         .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblSenha, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,10 +104,12 @@ public class LoginInterFrame extends JInternalFrameActivity {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                    .addComponent(lblEsqueciSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(17, 17, 17)
                 .addComponent(btnSair)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,10 +133,17 @@ public class LoginInterFrame extends JInternalFrameActivity {
         System.exit(0);
     }//GEN-LAST:event_btnSairActionPerformed
 
+    private void lblEsqueciSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsqueciSenhaMouseClicked
+        AlterarSenhaJFrame alterarSenhaJFrame = new AlterarSenhaJFrame();
+        alterarSenhaJFrame.setLocationRelativeTo(this);
+        alterarSenhaJFrame.setVisible(true);
+    }//GEN-LAST:event_lblEsqueciSenhaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
     private javax.swing.JButton btnSair;
+    private javax.swing.JLabel lblEsqueciSenha;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField txtPassword;

@@ -500,7 +500,7 @@ public class Principal extends JFrameActivity {
                     public void windowDeactivated(WindowEvent e) {}
                 });
             } else {
-                //InternalFrameUtils.init(new LoginInterFrame(), dkpContainer);
+                InternalFrameUtils.init(new LoginInterFrame(), dkpContainer);
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
