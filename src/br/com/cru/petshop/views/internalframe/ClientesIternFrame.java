@@ -5,7 +5,16 @@ import br.com.cru.petshop.controllers.interfaces.IClienteController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Cliente;
 import br.com.cru.petshop.views.NovoClienteJFrame;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -53,6 +62,11 @@ public class ClientesIternFrame extends JInternalFrameActivity {
         paneFooter.setBackground(new java.awt.Color(102, 102, 102));
 
         btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneFooterLayout = new javax.swing.GroupLayout(paneFooter);
         paneFooter.setLayout(paneFooterLayout);
@@ -194,6 +208,28 @@ public class ClientesIternFrame extends JInternalFrameActivity {
             mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtPesquisarCliente.getText()));
         }
     }//GEN-LAST:event_txtPesquisarClienteKeyPressed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        try {
+            Printable printable = tableClientes.getPrintable(JTable.PrintMode.FIT_WIDTH,
+                    new MessageFormat("Clientes"),
+                    new MessageFormat("Page - {0}"));
+
+            PrinterJob printJob = PrinterJob.getPrinterJob();
+
+            printJob.setPrintable(printable);
+
+            PrintRequestAttributeSet attr = new HashPrintRequestAttributeSet();
+
+            boolean printAccepted = printJob.printDialog(attr);
+
+            if (printAccepted) {
+                printJob.print(attr);
+            }
+        } catch (PrinterException ex) {
+            Logger.getLogger(AnimaisIternFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void populatorTable() {
         List<Cliente> all = this.mClienteController.all();

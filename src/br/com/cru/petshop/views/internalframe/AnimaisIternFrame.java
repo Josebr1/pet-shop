@@ -11,7 +11,17 @@ import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Animal;
 import br.com.cru.petshop.views.NovoAnimaisJFrame;
 import br.com.cru.petshop.views.NovoClienteJFrame;
+import java.awt.PrintJob;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -32,6 +42,7 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
     private TableRowSorter<TableModel> mRowSorter;
 
     private int idAnimal;
+
     /**
      * Creates new form ClientesIternFrame
      */
@@ -50,8 +61,8 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
 
         paneFooter = new javax.swing.JPanel();
         btnImprimir = new javax.swing.JButton();
-        scrollPaneClientes = new javax.swing.JScrollPane();
-        tableClientes = new javax.swing.JTable();
+        scrollPaneAnimais = new javax.swing.JScrollPane();
+        tableAnimais = new javax.swing.JTable();
         paneHeader = new javax.swing.JPanel();
         txtPesquisarCliente = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
@@ -65,6 +76,11 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
         paneFooter.setBackground(new java.awt.Color(102, 102, 102));
 
         btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneFooterLayout = new javax.swing.GroupLayout(paneFooter);
         paneFooter.setLayout(paneFooterLayout);
@@ -83,7 +99,7 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
                 .addContainerGap())
         );
 
-        tableClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tableAnimais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -94,12 +110,12 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
                 "Código", "Cliente", "Especie", "Apelido", "Cor", "Sexo"
             }
         ));
-        tableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableAnimais.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableClientesMouseClicked(evt);
+                tableAnimaisMouseClicked(evt);
             }
         });
-        scrollPaneClientes.setViewportView(tableClientes);
+        scrollPaneAnimais.setViewportView(tableAnimais);
 
         paneHeader.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -155,7 +171,7 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrollPaneClientes))
+                        .addComponent(scrollPaneAnimais))
                     .addComponent(paneHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(paneFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -165,7 +181,7 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(paneHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPaneAnimais, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(paneFooter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -176,7 +192,7 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         NovoAnimaisJFrame novoAnimaisJFrame = new NovoAnimaisJFrame();
         novoAnimaisJFrame.setVisible(true);
-	novoAnimaisJFrame.setLocationRelativeTo(this);
+        novoAnimaisJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void txtPesquisarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarClienteKeyPressed
@@ -187,14 +203,14 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
         }
     }//GEN-LAST:event_txtPesquisarClienteKeyPressed
 
-    private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientesMouseClicked
+    private void tableAnimaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAnimaisMouseClicked
         btnEditar.setEnabled(true);
 
-        DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+        DefaultTableModel model = (DefaultTableModel) tableAnimais.getModel();
 
-        int selectedRowIndex = tableClientes.getSelectedRow();
+        int selectedRowIndex = tableAnimais.getSelectedRow();
         this.idAnimal = (int) model.getValueAt(selectedRowIndex, 0);
-    }//GEN-LAST:event_tableClientesMouseClicked
+    }//GEN-LAST:event_tableAnimaisMouseClicked
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (idAnimal != 0) {
@@ -207,20 +223,41 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        try {
+            Printable printable = tableAnimais.getPrintable(JTable.PrintMode.FIT_WIDTH,
+                    new MessageFormat("Animais"),
+                    new MessageFormat("Page - {0}"));
+
+            PrinterJob printJob = PrinterJob.getPrinterJob();
+
+            printJob.setPrintable(printable);
+
+            PrintRequestAttributeSet attr = new HashPrintRequestAttributeSet();
+
+            boolean printAccepted = printJob.printDialog(attr);
+
+            if (printAccepted) {
+                printJob.print(attr);
+            }
+        } catch (PrinterException ex) {
+            Logger.getLogger(AnimaisIternFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
     private void populatorTable() {
         List<Animal> all = this.mAnimalController.all();
 
         DefaultTableModel model = new DefaultTableModel(new String[]{
-            "Código", "Cliente", "Especie", "Apelido", "Cor", "Sexo",
-        }, 0);
+            "Código", "Cliente", "Especie", "Apelido", "Cor", "Sexo",}, 0);
 
         for (Animal c : all) {
             model.addRow(new Object[]{c.getId(), c.getCliente().getNome(), c.getEspecie().getDescricao(), c.getApelido(), c.getCor(), c.getSexo()});
         }
 
-        tableClientes.setModel(model);
+        tableAnimais.setModel(model);
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -228,23 +265,23 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
     private javax.swing.JButton btnNovo;
     private javax.swing.JPanel paneFooter;
     private javax.swing.JPanel paneHeader;
-    private javax.swing.JScrollPane scrollPaneClientes;
-    private javax.swing.JTable tableClientes;
+    private javax.swing.JScrollPane scrollPaneAnimais;
+    private javax.swing.JTable tableAnimais;
     private javax.swing.JTextField txtPesquisarCliente;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void onCreate(InternalFrameEvent evt) {
         this.populatorTable();
-        
+
         btnEditar.setEnabled(false);
 
-        mRowSorter = new TableRowSorter<>(tableClientes.getModel());
-        tableClientes.setRowSorter(mRowSorter);
+        mRowSorter = new TableRowSorter<>(tableAnimais.getModel());
+        tableAnimais.setRowSorter(mRowSorter);
 
         txtPesquisarCliente.getDocument().addDocumentListener(listenerPesquisar);
     }
-    
+
     DocumentListener listenerPesquisar = new DocumentListener() {
         @Override
         public void insertUpdate(DocumentEvent e) {

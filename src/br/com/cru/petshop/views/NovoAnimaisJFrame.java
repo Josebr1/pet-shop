@@ -354,6 +354,15 @@ public class NovoAnimaisJFrame extends Dialog {
 
         DefaultComboBoxModel<Cliente> clientes = new DefaultComboBoxModel<>();
 
+        if(allClientes.isEmpty()) {
+            if(JOptionPane.showOptionDialog(null, "Necessário cadastrar cliente!", "Atenção", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null) == JOptionPane.OK_OPTION){
+                this.dispose();
+                NovoClienteJFrame mNovoClienteJFrame = new NovoClienteJFrame();
+                mNovoClienteJFrame.setVisible(true);
+                mNovoClienteJFrame.setLocationRelativeTo(this);
+            }            
+        }
+        
         allClientes.forEach((c) -> {
             clientes.addElement(c);
         });

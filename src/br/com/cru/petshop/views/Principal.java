@@ -7,16 +7,15 @@ import br.com.cru.petshop.utils.InternalFrameUtils;
 import br.com.cru.petshop.views.internalframe.AnimaisIternFrame;
 import br.com.cru.petshop.views.internalframe.AnimalInterFrame;
 import br.com.cru.petshop.views.internalframe.AtendimentoIternFrame;
-import br.com.cru.petshop.views.internalframe.CategoriasInterFrame;
 import br.com.cru.petshop.views.internalframe.ClientesIternFrame;
 import br.com.cru.petshop.views.internalframe.ColaboradoresIternFrame;
-import br.com.cru.petshop.views.internalframe.FormasPagamentoInterFrame;
-import br.com.cru.petshop.views.internalframe.FornecedoresInterFrame;
 import br.com.cru.petshop.views.internalframe.LoginInterFrame;
-import br.com.cru.petshop.views.internalframe.ServicosInterFrame;
 import br.com.cru.petshop.views.internalframe.SituacaoInterFrame;
+import java.awt.Desktop;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import javax.swing.JFrame;
@@ -35,7 +34,6 @@ public class Principal extends JFrameActivity {
     
     int codigoUsuario;
 
-    private NovoFornecedorJFrame mNovoFornecedorJFrame;
     private NovoClienteJFrame mNovoClienteJFrame;
     private NovoColaboradorJFrame mNovoColaboradorJFrame;
     private NovoAnimaisJFrame mNovoAnimalJFrame;
@@ -43,14 +41,10 @@ public class Principal extends JFrameActivity {
 
     private ColaboradoresIternFrame mColaboradoresIternFrame;
     private ClientesIternFrame mClientesIternFrame;
-    private FornecedoresInterFrame mFornecedoresInterFrame;
-    private FormasPagamentoInterFrame mFormasPagamentoInterFrame;
     private AnimaisIternFrame mAnimaisIternFrame;
     private AtendimentoIternFrame mAtendimentoIternFrame;
-    private ServicosInterFrame mServicosInterFrame;
     private AnimalInterFrame mAnimalInterFrame;
     private SituacaoInterFrame mSituacaoInterFrame;
-    private CategoriasInterFrame mCategoriasInterFrame;
 
     /*CONTROLLERS*/
     private UserController mUserController;
@@ -71,7 +65,6 @@ public class Principal extends JFrameActivity {
         btnAdicionarAnimais = new javax.swing.JButton();
         btnBuscarAtendimento = new javax.swing.JButton();
         btnAtendimento = new javax.swing.JButton();
-        btnServicos = new javax.swing.JButton();
         dkpContainer = new javax.swing.JDesktopPane();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuClientes = new javax.swing.JMenu();
@@ -83,18 +76,14 @@ public class Principal extends JFrameActivity {
         jMenuAtendimento = new javax.swing.JMenu();
         jMenuItemAtendimeBuscarAgendado = new javax.swing.JMenuItem();
         jMenuItemAtendimeCadastrarAtendimento = new javax.swing.JMenuItem();
-        jMenuFornecedores = new javax.swing.JMenu();
-        jMenuItemForneListarFornecedores = new javax.swing.JMenuItem();
-        jMenuItemForneIncluirFornecedor = new javax.swing.JMenuItem();
         jMenuConfiguracoes = new javax.swing.JMenu();
         jMenuItemConfigColaboradores = new javax.swing.JMenuItem();
-        jMenuItemConfigDadosEmpresa = new javax.swing.JMenuItem();
-        jMenuItemConfigCategorias = new javax.swing.JMenuItem();
         jMenuItemConfigListaSituacao = new javax.swing.JMenuItem();
-        jMenuItemConfigFormPagamento = new javax.swing.JMenuItem();
         jMenuItemConfigAnimal = new javax.swing.JMenuItem();
         jMenuAjuda = new javax.swing.JMenu();
+        menuItemManual = new javax.swing.JMenuItem();
         jMenuSair = new javax.swing.JMenu();
+        menuItemSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PetShop");
@@ -163,24 +152,9 @@ public class Principal extends JFrameActivity {
         });
         toolBar.add(btnAtendimento);
 
-        btnServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/estoque.png"))); // NOI18N
-        btnServicos.setText("Serviços");
-        btnServicos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnServicos.setFocusable(false);
-        btnServicos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnServicos.setMargin(new java.awt.Insets(2, 12, 2, 12));
-        btnServicos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnServicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnServicosmiProdutoActionPerformed(evt);
-            }
-        });
-        toolBar.add(btnServicos);
-
         getContentPane().add(toolBar, java.awt.BorderLayout.PAGE_START);
 
         dkpContainer.setOpaque(false);
-        dkpContainer.setLayout(null);
         getContentPane().add(dkpContainer, java.awt.BorderLayout.CENTER);
 
         jMenuClientes.setText("Clientes");
@@ -255,30 +229,6 @@ public class Principal extends JFrameActivity {
 
         jMenuBar.add(jMenuAtendimento);
 
-        jMenuFornecedores.setText("Fornecedores");
-
-        jMenuItemForneListarFornecedores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemForneListarFornecedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/checklist.png"))); // NOI18N
-        jMenuItemForneListarFornecedores.setText("Listar Fornecedores");
-        jMenuItemForneListarFornecedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemForneListarFornecedoresActionPerformed(evt);
-            }
-        });
-        jMenuFornecedores.add(jMenuItemForneListarFornecedores);
-
-        jMenuItemForneIncluirFornecedor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemForneIncluirFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/add-button.png"))); // NOI18N
-        jMenuItemForneIncluirFornecedor.setText("Incluir um Fornecedor");
-        jMenuItemForneIncluirFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemForneIncluirFornecedorActionPerformed(evt);
-            }
-        });
-        jMenuFornecedores.add(jMenuItemForneIncluirFornecedor);
-
-        jMenuBar.add(jMenuFornecedores);
-
         jMenuConfiguracoes.setText("Configurações");
 
         jMenuItemConfigColaboradores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
@@ -291,21 +241,6 @@ public class Principal extends JFrameActivity {
         });
         jMenuConfiguracoes.add(jMenuItemConfigColaboradores);
 
-        jMenuItemConfigDadosEmpresa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemConfigDadosEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/building.png"))); // NOI18N
-        jMenuItemConfigDadosEmpresa.setText("Dados Empresa");
-        jMenuConfiguracoes.add(jMenuItemConfigDadosEmpresa);
-
-        jMenuItemConfigCategorias.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemConfigCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/list.png"))); // NOI18N
-        jMenuItemConfigCategorias.setText("Categorias");
-        jMenuItemConfigCategorias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConfigCategoriasActionPerformed(evt);
-            }
-        });
-        jMenuConfiguracoes.add(jMenuItemConfigCategorias);
-
         jMenuItemConfigListaSituacao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemConfigListaSituacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/checklist.png"))); // NOI18N
         jMenuItemConfigListaSituacao.setText("Lista de Situação");
@@ -316,19 +251,9 @@ public class Principal extends JFrameActivity {
         });
         jMenuConfiguracoes.add(jMenuItemConfigListaSituacao);
 
-        jMenuItemConfigFormPagamento.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemConfigFormPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/credit-card.png"))); // NOI18N
-        jMenuItemConfigFormPagamento.setText("Forma de Pagamento");
-        jMenuItemConfigFormPagamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConfigFormPagamentoActionPerformed(evt);
-            }
-        });
-        jMenuConfiguracoes.add(jMenuItemConfigFormPagamento);
-
         jMenuItemConfigAnimal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemConfigAnimal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/dog.png"))); // NOI18N
-        jMenuItemConfigAnimal.setText("Animal");
+        jMenuItemConfigAnimal.setText("Tipo Animal");
         jMenuItemConfigAnimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemConfigAnimalActionPerformed(evt);
@@ -339,15 +264,34 @@ public class Principal extends JFrameActivity {
         jMenuBar.add(jMenuConfiguracoes);
 
         jMenuAjuda.setText("Ajuda");
+
+        menuItemManual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/question.png"))); // NOI18N
+        menuItemManual.setText("Manual de ajuda");
+        menuItemManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemManualActionPerformed(evt);
+            }
+        });
+        jMenuAjuda.add(menuItemManual);
+
         jMenuBar.add(jMenuAjuda);
 
         jMenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/cru/petshop/imgs/exit.png"))); // NOI18N
-        jMenuSair.setText("Sair");
         jMenuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuSairActionPerformed(evt);
             }
         });
+
+        menuItemSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        menuItemSair.setText("Sair");
+        menuItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSairActionPerformed(evt);
+            }
+        });
+        jMenuSair.add(menuItemSair);
+
         jMenuBar.add(jMenuSair);
 
         setJMenuBar(jMenuBar);
@@ -365,10 +309,6 @@ public class Principal extends JFrameActivity {
     private void miVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVendaActionPerformed
         InternalFrameUtils.init(mAtendimentoIternFrame, dkpContainer);
     }//GEN-LAST:event_miVendaActionPerformed
-
-    private void btnServicosmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicosmiProdutoActionPerformed
-        InternalFrameUtils.init(mServicosInterFrame, dkpContainer);
-    }//GEN-LAST:event_btnServicosmiProdutoActionPerformed
 
     private void btnAdicionarAnimaismiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAnimaismiSairActionPerformed
         mNovoAnimalJFrame = new NovoAnimaisJFrame();
@@ -388,12 +328,6 @@ public class Principal extends JFrameActivity {
         mNovoClienteJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_jMenuItemClienteIncluirClienteActionPerformed
 
-    private void jMenuItemForneIncluirFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemForneIncluirFornecedorActionPerformed
-        mNovoFornecedorJFrame = new NovoFornecedorJFrame();
-        mNovoFornecedorJFrame.setVisible(true);
-        mNovoFornecedorJFrame.setLocationRelativeTo(this);
-    }//GEN-LAST:event_jMenuItemForneIncluirFornecedorActionPerformed
-
     private void jMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuSairActionPerformed
@@ -405,14 +339,6 @@ public class Principal extends JFrameActivity {
     private void jMenuItemClienteBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClienteBuscarClientesActionPerformed
         InternalFrameUtils.init(mClientesIternFrame, dkpContainer);
     }//GEN-LAST:event_jMenuItemClienteBuscarClientesActionPerformed
-
-    private void jMenuItemForneListarFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemForneListarFornecedoresActionPerformed
-        InternalFrameUtils.init(mFornecedoresInterFrame, dkpContainer);
-    }//GEN-LAST:event_jMenuItemForneListarFornecedoresActionPerformed
-
-    private void jMenuItemConfigFormPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigFormPagamentoActionPerformed
-        InternalFrameUtils.init(mFormasPagamentoInterFrame, dkpContainer);
-    }//GEN-LAST:event_jMenuItemConfigFormPagamentoActionPerformed
 
     private void jMenuItemAnimaIncluirAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnimaIncluirAnimaisActionPerformed
         mNovoAnimalJFrame = new NovoAnimaisJFrame();
@@ -442,9 +368,30 @@ public class Principal extends JFrameActivity {
         InternalFrameUtils.init(mSituacaoInterFrame, dkpContainer);
     }//GEN-LAST:event_jMenuItemConfigListaSituacaoActionPerformed
 
-    private void jMenuItemConfigCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConfigCategoriasActionPerformed
-        InternalFrameUtils.init(mCategoriasInterFrame, dkpContainer);
-    }//GEN-LAST:event_jMenuItemConfigCategoriasActionPerformed
+    private void menuItemManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemManualActionPerformed
+        try {
+            Desktop dp = Desktop.getDesktop();
+            dp.open(new File("src" 
+                    + File.separator 
+                    + "br"
+                    + File.separator 
+                    +"com"
+                    + File.separator 
+                    + "cru" 
+                    + File.separator 
+                    + "petshop" 
+                    + File.separator 
+                    + "pdfs"
+                    + File.separator 
+                    + "ajuda.pdf"));
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menuItemManualActionPerformed
+
+    private void menuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuItemSairActionPerformed
 
     private void display() {
         this.setDefaultCloseOperation(Principal.EXIT_ON_CLOSE);
@@ -492,7 +439,6 @@ public class Principal extends JFrameActivity {
     private javax.swing.JButton btnAdicionarCliente;
     private javax.swing.JButton btnAtendimento;
     private javax.swing.JButton btnBuscarAtendimento;
-    private javax.swing.JButton btnServicos;
     private javax.swing.JDesktopPane dkpContainer;
     private javax.swing.JMenu jMenuAjuda;
     private javax.swing.JMenu jMenuAnimais;
@@ -500,7 +446,6 @@ public class Principal extends JFrameActivity {
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuClientes;
     private javax.swing.JMenu jMenuConfiguracoes;
-    private javax.swing.JMenu jMenuFornecedores;
     private javax.swing.JMenuItem jMenuItemAnimaBuscarAnimais;
     private javax.swing.JMenuItem jMenuItemAnimaIncluirAnimais;
     private javax.swing.JMenuItem jMenuItemAtendimeBuscarAgendado;
@@ -508,14 +453,11 @@ public class Principal extends JFrameActivity {
     private javax.swing.JMenuItem jMenuItemClienteBuscarClientes;
     private javax.swing.JMenuItem jMenuItemClienteIncluirCliente;
     private javax.swing.JMenuItem jMenuItemConfigAnimal;
-    private javax.swing.JMenuItem jMenuItemConfigCategorias;
     private javax.swing.JMenuItem jMenuItemConfigColaboradores;
-    private javax.swing.JMenuItem jMenuItemConfigDadosEmpresa;
-    private javax.swing.JMenuItem jMenuItemConfigFormPagamento;
     private javax.swing.JMenuItem jMenuItemConfigListaSituacao;
-    private javax.swing.JMenuItem jMenuItemForneIncluirFornecedor;
-    private javax.swing.JMenuItem jMenuItemForneListarFornecedores;
     private javax.swing.JMenu jMenuSair;
+    private javax.swing.JMenuItem menuItemManual;
+    private javax.swing.JMenuItem menuItemSair;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 
@@ -558,7 +500,7 @@ public class Principal extends JFrameActivity {
                     public void windowDeactivated(WindowEvent e) {}
                 });
             } else {
-                InternalFrameUtils.init(new LoginInterFrame(), dkpContainer);
+                //InternalFrameUtils.init(new LoginInterFrame(), dkpContainer);
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
@@ -578,21 +520,16 @@ public class Principal extends JFrameActivity {
     @Override
     public void onCreateViews() {
 
-        this.mNovoFornecedorJFrame = new NovoFornecedorJFrame();
         this.mNovoClienteJFrame = new NovoClienteJFrame();
         this.mNovoColaboradorJFrame = new NovoColaboradorJFrame();
         this.mNovoAnimalJFrame = new NovoAnimaisJFrame();
         this.mNovoAtendimentoJFrame = new NovoAtendimentoJFrame();
 
         this.mClientesIternFrame = new ClientesIternFrame();
-        this.mFornecedoresInterFrame = new FornecedoresInterFrame();
-        this.mFormasPagamentoInterFrame = new FormasPagamentoInterFrame();
         this.mAnimaisIternFrame = new AnimaisIternFrame();
         this.mAtendimentoIternFrame = new AtendimentoIternFrame();
-        this.mServicosInterFrame = new ServicosInterFrame();
         this.mAnimalInterFrame = new AnimalInterFrame();
         this.mSituacaoInterFrame = new SituacaoInterFrame();
-        this.mCategoriasInterFrame = new CategoriasInterFrame();                   
         this.mColaboradoresIternFrame = new ColaboradoresIternFrame();
 
     }

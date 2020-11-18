@@ -114,12 +114,12 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblAnimal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Animal:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Animal:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCliente">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cliente:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Cliente:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboCliente">
@@ -168,43 +168,47 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblDataEntrada" min="-2" max="-2" attributes="0"/>
                               <Component id="lblLocalizacao" min="-2" max="-2" attributes="0"/>
                               <Component id="lblFuncionario" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblDataEntrada" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="comboFuncionario" pref="219" max="32767" attributes="0"/>
                                       <Component id="comboLocalizacao" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="lblSituacao" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="comboSituacao" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="lblDataPrevisao" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="datePrevisao" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="lblDataPrevisao" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblSituacao" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="dateEntrada" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                                  <Component id="lblIdade" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="comboSituacao" max="32767" attributes="0"/>
+                                      <Component id="datePrevisao" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="dateEntrada" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblIdade" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtIdade" min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Component id="txtIdade" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="26" max="32767" attributes="0"/>
-                                  <Component id="checkRetorno" min="-2" pref="78" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="checkRetorno" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="checkAmbulancia" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -248,8 +252,8 @@
                           <Component id="txtIdade" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblDataEntrada" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="dateEntrada" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblDataEntrada" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblObs" min="-2" max="-2" attributes="0"/>
@@ -263,7 +267,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblFuncionario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Funcionario:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Funcionario:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboFuncionario">
@@ -278,7 +282,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblSituacao">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Situa&#xe7;&#xe3;o:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Situa&#xe7;&#xe3;o:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboSituacao">
@@ -293,7 +297,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblLocalizacao">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Localiza&#xe7;&#xe3;o:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Localiza&#xe7;&#xe3;o:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboLocalizacao">
@@ -322,7 +326,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblDataEntrada">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Data Entrada:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Data Entrada:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="com.github.lgooddatepicker.components.DateTimePicker" name="dateEntrada">
@@ -334,7 +338,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblIdade">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Idade:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Idade:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="checkRetorno">

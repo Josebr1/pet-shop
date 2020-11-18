@@ -53,7 +53,7 @@ public class SituacaoInterFrame extends JInternalFrameActivity {
         btnExcluir = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Lista de Situação");
+        setTitle("Situações do atendimento");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -122,7 +122,7 @@ public class SituacaoInterFrame extends JInternalFrameActivity {
         });
         scrollPaneSituacao.setViewportView(listSituacao);
 
-        lblTitulos.setText("Configurações:");
+        lblTitulos.setText("Situações do atendimento:");
 
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
@@ -143,7 +143,7 @@ public class SituacaoInterFrame extends JInternalFrameActivity {
                     .addComponent(scrollPaneSituacao)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTitulos)
-                        .addGap(0, 301, Short.MAX_VALUE))
+                        .addGap(0, 246, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnExcluir)))

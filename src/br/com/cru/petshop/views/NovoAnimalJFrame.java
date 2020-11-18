@@ -56,7 +56,7 @@ public class NovoAnimalJFrame extends Dialog {
 
         paneInformacoes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        lblDescricao.setText("Descrição:");
+        lblDescricao.setText("<html><body><span>Descrição:<span style='color:red;'>*</span></span></body></html>");
 
         javax.swing.GroupLayout paneInformacoesLayout = new javax.swing.GroupLayout(paneInformacoes);
         paneInformacoes.setLayout(paneInformacoesLayout);
@@ -64,9 +64,9 @@ public class NovoAnimalJFrame extends Dialog {
             paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneInformacoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblDescricao)
+                .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                 .addContainerGap())
         );
         paneInformacoesLayout.setVerticalGroup(
@@ -74,7 +74,7 @@ public class NovoAnimalJFrame extends Dialog {
             .addGroup(paneInformacoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDescricao)
+                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );

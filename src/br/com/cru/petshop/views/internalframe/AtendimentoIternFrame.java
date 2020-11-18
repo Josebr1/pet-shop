@@ -10,7 +10,16 @@ import br.com.cru.petshop.controllers.interfaces.IAtendimentoController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Atendimento;
 import br.com.cru.petshop.views.NovoClienteJFrame;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -49,8 +58,8 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
 
         paneFooter = new javax.swing.JPanel();
         btnImprimir = new javax.swing.JButton();
-        scrollPaneClientes = new javax.swing.JScrollPane();
-        tableClientes = new javax.swing.JTable();
+        scrollPaneAtendimentos = new javax.swing.JScrollPane();
+        tableAtendimentos = new javax.swing.JTable();
         paneHeader = new javax.swing.JPanel();
         txtPesquisarCliente = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
@@ -59,11 +68,16 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Atendimento");
+        setTitle("Atendimentos");
 
         paneFooter.setBackground(new java.awt.Color(102, 102, 102));
 
         btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneFooterLayout = new javax.swing.GroupLayout(paneFooter);
         paneFooter.setLayout(paneFooterLayout);
@@ -82,7 +96,7 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
                 .addContainerGap())
         );
 
-        tableClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tableAtendimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -93,12 +107,12 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
                 "Código", "Animal", "Cliente", "Documento", "Data Entrada", "Retorno", "Situação"
             }
         ));
-        tableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableAtendimentos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableClientesMouseClicked(evt);
+                tableAtendimentosMouseClicked(evt);
             }
         });
-        scrollPaneClientes.setViewportView(tableClientes);
+        scrollPaneAtendimentos.setViewportView(tableAtendimentos);
 
         paneHeader.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -150,7 +164,7 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(scrollPaneClientes))
+                        .addComponent(scrollPaneAtendimentos))
                     .addComponent(paneHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(paneFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -160,7 +174,7 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(paneHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPaneAtendimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(paneFooter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -174,14 +188,14 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
 	novoClienteJFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_btnNovoActionPerformed
 
-    private void tableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClientesMouseClicked
+    private void tableAtendimentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAtendimentosMouseClicked
         btnEditar.setEnabled(true);
 
-        DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+        DefaultTableModel model = (DefaultTableModel) tableAtendimentos.getModel();
 
-        int selectedRowIndex = tableClientes.getSelectedRow();
+        int selectedRowIndex = tableAtendimentos.getSelectedRow();
         this.mIdAtendimento = (Integer)model.getValueAt(selectedRowIndex, 0);
-    }//GEN-LAST:event_tableClientesMouseClicked
+    }//GEN-LAST:event_tableAtendimentosMouseClicked
 
     private void txtPesquisarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarClienteKeyPressed
         if (txtPesquisarCliente.getText().trim().length() == 0) {
@@ -190,6 +204,28 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
             mRowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + txtPesquisarCliente.getText()));
         }
     }//GEN-LAST:event_txtPesquisarClienteKeyPressed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        try {
+            Printable printable = tableAtendimentos.getPrintable(JTable.PrintMode.FIT_WIDTH,
+                    new MessageFormat("Atendimentos"),
+                    new MessageFormat("Page - {0}"));
+
+            PrinterJob printJob = PrinterJob.getPrinterJob();
+
+            printJob.setPrintable(printable);
+
+            PrintRequestAttributeSet attr = new HashPrintRequestAttributeSet();
+
+            boolean printAccepted = printJob.printDialog(attr);
+
+            if (printAccepted) {
+                printJob.print(attr);
+            }
+        } catch (PrinterException ex) {
+            Logger.getLogger(AnimaisIternFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnImprimirActionPerformed
 
     
     private void populatorTable() {
@@ -203,7 +239,7 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
             model.addRow(new Object[]{c.getId(), c.getAnimal().getApelido(), c.getCliente().getNome(), c.getCliente().getDocumento(), c.getDataEntrega(), c.isRetorno() ? "Sim" : "Não", c.getSituacao().getDescricao()});
         }
 
-        tableClientes.setModel(model);
+        tableAtendimentos.setModel(model);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -212,8 +248,8 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
     private javax.swing.JButton btnNovo;
     private javax.swing.JPanel paneFooter;
     private javax.swing.JPanel paneHeader;
-    private javax.swing.JScrollPane scrollPaneClientes;
-    private javax.swing.JTable tableClientes;
+    private javax.swing.JScrollPane scrollPaneAtendimentos;
+    private javax.swing.JTable tableAtendimentos;
     private javax.swing.JTextField txtPesquisarCliente;
     // End of variables declaration//GEN-END:variables
 
@@ -222,8 +258,8 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
         this.populatorTable();
         btnEditar.setEnabled(false);
 
-        mRowSorter = new TableRowSorter<>(tableClientes.getModel());
-        tableClientes.setRowSorter(mRowSorter);
+        mRowSorter = new TableRowSorter<>(tableAtendimentos.getModel());
+        tableAtendimentos.setRowSorter(mRowSorter);
 
         txtPesquisarCliente.getDocument().addDocumentListener(listenerPesquisar);
 

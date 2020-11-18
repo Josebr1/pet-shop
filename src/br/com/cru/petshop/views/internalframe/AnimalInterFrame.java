@@ -6,12 +6,9 @@
 package br.com.cru.petshop.views.internalframe;
 
 import br.com.cru.petshop.controllers.EspecieController;
-import br.com.cru.petshop.controllers.FormasPagamentoController;
 import br.com.cru.petshop.controllers.interfaces.IEspecieController;
-import br.com.cru.petshop.controllers.interfaces.IFormasPagamentoController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Especie;
-import br.com.cru.petshop.models.FormasPagamento;
 import br.com.cru.petshop.views.NovoAnimalJFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -56,7 +53,7 @@ public class AnimalInterFrame extends JInternalFrameActivity {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Animal");
+        setTitle("Tipos de animais atendidos");
 
         paneHeader.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -108,7 +105,7 @@ public class AnimalInterFrame extends JInternalFrameActivity {
         });
         scrollPaneAnimal.setViewportView(listAnimal);
 
-        lblTitulos.setText("Configurações:");
+        lblTitulos.setText("Tipos de animais:");
 
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
@@ -129,7 +126,7 @@ public class AnimalInterFrame extends JInternalFrameActivity {
                     .addComponent(scrollPaneAnimal)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTitulos)
-                        .addGap(0, 301, Short.MAX_VALUE))
+                        .addGap(0, 292, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnExcluir)))

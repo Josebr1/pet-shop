@@ -76,7 +76,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblDescricao" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtDescricao" pref="304" max="32767" attributes="0"/>
+                  <Component id="txtDescricao" pref="298" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -97,7 +97,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblDescricao">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o:"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;&lt;span&gt;Descri&#xe7;&#xe3;o:&lt;span style=&apos;color:red;&apos;&gt;*&lt;/span&gt;&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDescricao">

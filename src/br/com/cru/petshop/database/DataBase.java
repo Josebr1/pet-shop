@@ -22,20 +22,7 @@ public class DataBase {
         List<String> tableSQL = new ArrayList<>();
 
         //tableSQL.add("drop all objects delete files");
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `categoria` (\n"
-                + "  `id_categoria` int(11) NOT NULL AUTO_INCREMENT,\n"
-                + "  `descricao` varchar(45) NOT NULL UNIQUE,\n"
-                + "  PRIMARY KEY (`id_categoria`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `categoria_conta` (\n"
-                + "  `id_tipo_conta` int(11) NOT NULL,\n"
-                + "  `descricao` varchar(45) NOT NULL UNIQUE,\n"
-                + "  PRIMARY KEY (`id_tipo_conta`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
+        
         tableSQL.add(
                 "CREATE TABLE IF NOT EXISTS `tipo_usuario` (\n"
                 + "  `id_tipo_usuario` int(11) NOT NULL AUTO_INCREMENT,\n"
@@ -55,24 +42,6 @@ public class DataBase {
                 + "  `complemento` varchar(255) DEFAULT NULL,\n"
                 + "  `uf` enum('AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO') NOT NULL,\n"
                 + "  PRIMARY KEY (`id_endereco`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `foma_pagamento` (\n"
-                + "  `id_foma_pagamento` int(11) NOT NULL AUTO_INCREMENT,\n"
-                + "  `descricao` varchar(45) NOT NULL UNIQUE,\n"
-                + "  PRIMARY KEY (`id_foma_pagamento`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `insumo` (\n"
-                + "  `id_insumo` int(11) NOT NULL,\n"
-                + "  `nome` varchar(45) DEFAULT NULL,\n"
-                + "  `preco_custo` decimal(10,0) DEFAULT NULL,\n"
-                + "  `medida` enum('UN','KG','LT') DEFAULT NULL,\n"
-                + "  `cod_sistema` varchar(45) NOT NULL UNIQUE,\n"
-                + "  `cod_personalizado` varchar(45) NOT NULL UNIQUE,\n"
-                + "  PRIMARY KEY (`id_insumo`)\n"
                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
         tableSQL.add(
@@ -128,132 +97,10 @@ public class DataBase {
                     + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         
         tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `fornecedor` (\n"
-                + "  `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT,\n"
-                + "  `nome` varchar(45) DEFAULT NULL,\n"
-                + "  `fone` varchar(45) DEFAULT NULL,\n"
-                + "  `email` varchar(45) DEFAULT NULL,\n"
-                + "  `documento` varchar(45) NOT NULL UNIQUE,\n"
-                + "  `IERG` varchar(45) NOT NULL UNIQUE,\n"
-                + "  `fk_endereco` int(11) NOT NULL,\n"
-                + "  PRIMARY KEY (`id_fornecedor`),\n"
-                + "  FOREIGN KEY (`fk_endereco`) REFERENCES `endereco` (`id_endereco`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `produto` (\n"
-                + "  `id_produto` int(11) NOT NULL,\n"
-                + "  `nome` varchar(45) DEFAULT NULL,\n"
-                + "  `preco_custo` decimal(10,0) DEFAULT NULL,\n"
-                + "  `preco_venda` decimal(10,0) DEFAULT NULL,\n"
-                + "  `medida` enum('UN','KG','LT') DEFAULT NULL,\n"
-                + "  `codigo_pesonalizado` varchar(45) NOT NULL UNIQUE,\n"
-                + "  `descricao` varchar(255) DEFAULT NULL,\n"
-                + "  `foto` longblob,\n"
-                + "  `fk_categoria_conta` int(11) NOT NULL,\n"
-                + "  PRIMARY KEY (`id_produto`),\n"
-                + "  FOREIGN KEY (`fk_categoria_conta`) REFERENCES `categoria` (`id_categoria`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `estoque` (\n"
-                + "  `id_estoque` int(11) NOT NULL,\n"
-                + "  `quantidade_atual` mediumtext,\n"
-                + "  `valor_custo` decimal(10,0) DEFAULT NULL,\n"
-                + "  `fk_produto` int(11) NOT NULL,\n"
-                + "  PRIMARY KEY (`id_estoque`),\n"
-                + "  FOREIGN KEY (`fk_produto`) REFERENCES `produto` (`id_produto`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `pedido` (\n"
-                + "  `id_pedido` int(11) NOT NULL,\n"
-                + "  `observacao` varchar(45) DEFAULT NULL,\n"
-                + "  `fk_cliente` int(11) NOT NULL,\n"
-                + "  `fk_usuario` UUID NOT NULL,\n"
-                + "  PRIMARY KEY (`id_pedido`),\n"
-                + "  FOREIGN KEY (`fk_cliente`) REFERENCES `cliente` (`id_cliente`),\n"
-                + "  FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`id_usuario`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `pagamento` (\n"
-                + "  `id_pagamento` int(11) NOT NULL,\n"
-                + "  `descricao` varchar(45) DEFAULT NULL,\n"
-                + "  `data_pagamento` date DEFAULT NULL,\n"
-                + "  `fk_foma_pagamento` int(11) NOT NULL,\n"
-                + "  `fk_pedido` int(11) NOT NULL,\n"
-                + "  PRIMARY KEY (`id_pagamento`,`fk_foma_pagamento`),\n"
-                + "  FOREIGN KEY (`fk_foma_pagamento`) REFERENCES `foma_pagamento` (`id_foma_pagamento`),\n"
-                + "  FOREIGN KEY (`fk_pedido`) REFERENCES `pedido` (`id_pedido`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `ficha_tecnica` (\n"
-                + "  `id_ficha_tecnica` int(11) NOT NULL,\n"
-                + "  `insumo_item` varchar(45) DEFAULT NULL,\n"
-                + "  `fk_insumo` int(11) NOT NULL,\n"
-                + "  `fk_produto` int(11) NOT NULL,\n"
-                + "  PRIMARY KEY (`id_ficha_tecnica`),\n"
-                + "  FOREIGN KEY (`fk_insumo`) REFERENCES `insumo` (`id_insumo`),\n"
-                + "  FOREIGN KEY (`fk_produto`) REFERENCES `produto` (`id_produto`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `item_pedido` (\n"
-                + "  `id_item_pedido` int(11) NOT NULL,\n"
-                + "  `quantidade` varchar(45) DEFAULT NULL,\n"
-                + "  `fk_produto` int(11) NOT NULL,\n"
-                + "  `fk_pedido` int(11) NOT NULL,\n"
-                + "  PRIMARY KEY (`id_item_pedido`),\n"
-                + "  FOREIGN KEY (`fk_produto`) REFERENCES `produto` (`id_produto`),\n"
-                + "  FOREIGN KEY (`fk_pedido`) REFERENCES `pedido` (`id_pedido`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `conta_pagar` (\n"
-                + "  `id_conta_pagar` int(11) NOT NULL,\n"
-                + "  `descricao` varchar(255) DEFAULT NULL,\n"
-                + "  `vencimento` date DEFAULT NULL,\n"
-                + "  `valor` decimal(10,0) DEFAULT NULL,\n"
-                + "  `conta_paga` tinyint(1) DEFAULT NULL,\n"
-                + "  `data_pagamento` date DEFAULT NULL,\n"
-                + "  `valor_pago` decimal(10,0) DEFAULT NULL,\n"
-                + "  `fk_fornecedor_id_fornecedor` int(11) NOT NULL,\n"
-                + "  PRIMARY KEY (`id_conta_pagar`),\n"
-                + "  FOREIGN KEY (`fk_fornecedor_id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `conta_receber` (\n"
-                + "  `id_conta_receber` int(11) NOT NULL AUTO_INCREMENT,\n"
-                + "  `tipo_conta` varchar(45) DEFAULT NULL,\n"
-                + "  `valor` decimal(10,0) DEFAULT NULL,\n"
-                + "  `data_credito` date DEFAULT NULL,\n"
-                + "  `observacao` varchar(255) DEFAULT NULL,\n"
-                + "  `credito_realizado` TINYINT(1),\n"
-                + "  `fk_foma_pagamento` int(11) NOT NULL,\n"
-                + "  PRIMARY KEY (`id_conta_receber`),\n"
-                + "  FOREIGN KEY (`fk_foma_pagamento`) REFERENCES `foma_pagamento` (`id_foma_pagamento`)\n"
-                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
-        tableSQL.add(
                 "CREATE TABLE IF NOT EXISTS `situacao` (\n"
                         + " id_situacao int(11) NOT NULL AUTO_INCREMENT,\n"
                         + " descricao varchar(50) NOT NULL UNIQUE,\n"
                         + "PRIMARY KEY (`id_situacao`)\n"
-                        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-        
-        tableSQL.add(
-                "CREATE TABLE IF NOT EXISTS `pedido_fornecedor` (\n"
-                        + " `id_pedido` int(11) NOT NULL AUTO_INCREMENT,\n"
-                        + " `previsao` date DEFAULT NULL,\n"
-                        + " `descricao` varchar(255) NOT NULL,\n"
-                        + " `fk_fornecedor` int(11) NOT NULL,\n"
-                        + " `fk_usuario` UUID NOT NULL,\n"
-                        + " PRIMARY KEY (`id_pedido`),\n"
-                        + " FOREIGN KEY (`fk_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`),\n"
-                        + " FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`id_usuario`)\n"
                         + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
                
         tableSQL.add(

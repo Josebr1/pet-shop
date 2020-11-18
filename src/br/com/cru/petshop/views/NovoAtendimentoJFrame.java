@@ -104,9 +104,9 @@ public class NovoAtendimentoJFrame extends Dialog {
 
         paneGeral.setBorder(javax.swing.BorderFactory.createTitledBorder("Geral"));
 
-        lblAnimal.setText("Animal:");
+        lblAnimal.setText("<html><body><span>Animal:<span style='color:red;'>*</span></span></body></html>");
 
-        lblCliente.setText("Cliente:");
+        lblCliente.setText("<html><body><span>Cliente:<span style='color:red;'>*</span></span></body></html>");
 
         javax.swing.GroupLayout paneGeralLayout = new javax.swing.GroupLayout(paneGeral);
         paneGeral.setLayout(paneGeralLayout);
@@ -115,8 +115,8 @@ public class NovoAtendimentoJFrame extends Dialog {
             .addGroup(paneGeralLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblAnimal)
-                    .addComponent(lblCliente))
+                    .addComponent(lblAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(comboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -128,11 +128,11 @@ public class NovoAtendimentoJFrame extends Dialog {
             .addGroup(paneGeralLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCliente)
+                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAnimal)
+                    .addComponent(lblAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -146,21 +146,21 @@ public class NovoAtendimentoJFrame extends Dialog {
 
         paneDadosAtendimento.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do atendimento:"));
 
-        lblFuncionario.setText("Funcionario:");
+        lblFuncionario.setText("<html><body><span>Funcionario:<span style='color:red;'>*</span></span></body></html>");
 
-        lblSituacao.setText("Situação:");
+        lblSituacao.setText("<html><body><span>Situação:<span style='color:red;'>*</span></span></body></html>");
 
-        lblLocalizacao.setText("Localização:");
+        lblLocalizacao.setText("<html><body><span>Localização:<span style='color:red;'>*</span></span></body></html>");
 
         comboLocalizacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AREA DE TOSA", "AREA DE BANHO", "CANIL", "NA RESIDENCIA DO CLIENTE", "SALA DE ESPERA", "NO CONSULTORIO" }));
 
         lblDataPrevisao.setText("Data previsão:");
 
-        lblDataEntrada.setText("Data Entrada:");
+        lblDataEntrada.setText("<html><body><span>Data Entrada:<span style='color:red;'>*</span></span></body></html>");
 
         dateEntrada.setMinimumSize(new java.awt.Dimension(29, 20));
 
-        lblIdade.setText("Idade:");
+        lblIdade.setText("<html><body><span>Idade:<span style='color:red;'>*</span></span></body></html>");
 
         checkRetorno.setText("Retorno");
 
@@ -184,10 +184,11 @@ public class NovoAtendimentoJFrame extends Dialog {
                 .addContainerGap()
                 .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblDataEntrada)
-                            .addComponent(lblLocalizacao)
-                            .addComponent(lblFuncionario))
+                            .addComponent(lblLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
@@ -195,26 +196,27 @@ public class NovoAtendimentoJFrame extends Dialog {
                                     .addComponent(comboFuncionario, 0, 219, Short.MAX_VALUE)
                                     .addComponent(comboLocalizacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
-                                        .addComponent(lblSituacao)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(comboSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
-                                        .addComponent(lblDataPrevisao)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(datePrevisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblDataPrevisao)
+                                    .addComponent(lblSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
                                 .addComponent(dateEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIdade)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                                .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)))
+                        .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                                .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(comboSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(datePrevisao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
+                                .addComponent(txtIdade)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                                .addComponent(checkRetorno, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkRetorno)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkAmbulancia))))
                     .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
@@ -228,27 +230,27 @@ public class NovoAtendimentoJFrame extends Dialog {
             .addGroup(paneDadosAtendimentoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFuncionario)
+                    .addComponent(lblFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSituacao)
+                    .addComponent(lblSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblLocalizacao)
+                        .addComponent(lblLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(comboLocalizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblDataPrevisao))
                     .addComponent(datePrevisao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(paneDadosAtendimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblIdade)
+                        .addComponent(lblIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(checkRetorno)
                         .addComponent(checkAmbulancia)
                         .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1))
-                    .addComponent(lblDataEntrada)
-                    .addComponent(dateEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dateEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblDataEntrada))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblObs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -386,6 +388,16 @@ public class NovoAtendimentoJFrame extends Dialog {
 
         DefaultComboBoxModel<Cliente> clientes = new DefaultComboBoxModel<>();
 
+        if(allClientes.isEmpty()) {
+            if(JOptionPane.showOptionDialog(null, "Necessário cadastrar cliente!", "Atenção", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null) == JOptionPane.OK_OPTION){
+                this.dispose();
+                NovoClienteJFrame clienteJFrame = new NovoClienteJFrame();
+                clienteJFrame.setVisible(true);
+                clienteJFrame.setLocationRelativeTo(this);
+                return;
+            }            
+        }
+        
         allClientes.forEach((c) -> {
             clientes.addElement(c);
         });
@@ -397,6 +409,15 @@ public class NovoAtendimentoJFrame extends Dialog {
 
         DefaultComboBoxModel<Animal> animais = new DefaultComboBoxModel<>();
 
+        if(allAnimais.isEmpty()) {
+            if(JOptionPane.showOptionDialog(null, "Necessário cadastrar animal!", "Atenção", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null) == JOptionPane.OK_OPTION){
+                this.dispose();
+                NovoAnimaisJFrame animaisJFrame = new NovoAnimaisJFrame();
+                animaisJFrame.setVisible(true);
+                animaisJFrame.setLocationRelativeTo(this);
+            }            
+        }
+        
         allAnimais.forEach((c) -> {
             animais.addElement(c);
         });
@@ -435,7 +456,7 @@ public class NovoAtendimentoJFrame extends Dialog {
 
     @Override
     public void onResume(WindowEvent evt) {
-        
+        createOrUpdate();
     }
 
     @Override

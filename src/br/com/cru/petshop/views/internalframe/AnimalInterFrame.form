@@ -5,7 +5,7 @@
     <Property name="closable" type="boolean" value="true"/>
     <Property name="maximizable" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="true"/>
-    <Property name="title" type="java.lang.String" value="Animal"/>
+    <Property name="title" type="java.lang.String" value="Tipos de animais atendidos"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -32,7 +32,7 @@
                   <Component id="scrollPaneAnimal" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblTitulos" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="301" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="292" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -141,7 +141,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lblTitulos">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Configura&#xe7;&#xf5;es:"/>
+        <Property name="text" type="java.lang.String" value="Tipos de animais:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnExcluir">
