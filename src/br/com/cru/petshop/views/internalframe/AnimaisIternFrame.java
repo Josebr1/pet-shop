@@ -12,6 +12,8 @@ import br.com.cru.petshop.models.Animal;
 import br.com.cru.petshop.views.NovoAnimaisJFrame;
 import br.com.cru.petshop.views.NovoClienteJFrame;
 import java.awt.PrintJob;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -193,6 +195,37 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
         NovoAnimaisJFrame novoAnimaisJFrame = new NovoAnimaisJFrame();
         novoAnimaisJFrame.setVisible(true);
         novoAnimaisJFrame.setLocationRelativeTo(this);
+        novoAnimaisJFrame.addWindowListener(new WindowListener() {
+                @Override
+                public void windowOpened(WindowEvent e) {
+                }
+
+                @Override
+                public void windowClosing(WindowEvent e) {
+                }
+
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    populatorTable();
+                    btnEditar.setEnabled(false);
+                }
+
+                @Override
+                public void windowIconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeiconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowActivated(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeactivated(WindowEvent e) {
+                }
+            });
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void txtPesquisarClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarClienteKeyPressed
@@ -217,9 +250,37 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
             NovoAnimaisJFrame novoAnimaisJFrame = new NovoAnimaisJFrame(this.idAnimal);
             novoAnimaisJFrame.setVisible(true);
             novoAnimaisJFrame.setLocationRelativeTo(this);
+            novoAnimaisJFrame.addWindowListener(new WindowListener() {
+                @Override
+                public void windowOpened(WindowEvent e) {
+                }
 
-            populatorTable();
-            btnEditar.setEnabled(false);
+                @Override
+                public void windowClosing(WindowEvent e) {
+                }
+
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    populatorTable();
+                    btnEditar.setEnabled(false);
+                }
+
+                @Override
+                public void windowIconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeiconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowActivated(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeactivated(WindowEvent e) {
+                }
+            });
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -248,14 +309,13 @@ public class AnimaisIternFrame extends JInternalFrameActivity {
     private void populatorTable() {
         List<Animal> all = this.mAnimalController.all();
 
-        DefaultTableModel model = new DefaultTableModel(new String[]{
-            "Código", "Cliente", "Especie", "Apelido", "Cor", "Sexo",}, 0);
+        DefaultTableModel model = (DefaultTableModel) tableAnimais.getModel();
+        model.setNumRows(0);
 
         for (Animal c : all) {
             model.addRow(new Object[]{c.getId(), c.getCliente().getNome(), c.getEspecie().getDescricao(), c.getApelido(), c.getCor(), c.getSexo()});
         }
 
-        tableAnimais.setModel(model);
     }
 
 

@@ -338,8 +338,14 @@ public class NovoAtendimentoJFrame extends Dialog {
         
         mAtendimento.setLocalizao(LocalizaoEnum.get((String) comboLocalizacao.getSelectedItem()));
         
-        if(dateEntrada.getDate() != null) mAtendimento.setDataPrevisao(datePrevisao.getDate());
-        if(datePrevisao.getDate() != null) mAtendimento.setDataEntrega(dateEntrada.getDate());
+        
+        System.err.println("Date" + dateEntrada.getDate());
+        System.err.println("Date" + datePrevisao.getDate());
+        if(datePrevisao.getDate() != null) 
+            mAtendimento.setDataPrevisao(datePrevisao.getDate());
+        
+        if(dateEntrada.getDate() != null) 
+            mAtendimento.setDataEntrega(dateEntrada.getDate());
         
         mAtendimento.setIdade(txtIdade.getText());
         

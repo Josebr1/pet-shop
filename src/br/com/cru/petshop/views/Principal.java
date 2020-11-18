@@ -509,7 +509,6 @@ public class Principal extends JFrameActivity {
 
     @Override
     public void onClose(WindowEvent evt) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

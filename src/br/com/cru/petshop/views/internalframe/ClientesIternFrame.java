@@ -5,11 +5,14 @@ import br.com.cru.petshop.controllers.interfaces.IClienteController;
 import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Cliente;
 import br.com.cru.petshop.views.NovoClienteJFrame;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -87,13 +90,13 @@ public class ClientesIternFrame extends JInternalFrameActivity {
 
         tableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nome", "E-Mail", "Celular", "Num.", "Fone Principal", "Endereço"
+                "Codigo", "Nome", "Documento", "Email", "Fone", "Endereço"
             }
         ));
         tableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,6 +182,44 @@ public class ClientesIternFrame extends JInternalFrameActivity {
         NovoClienteJFrame novoClienteJFrame = new NovoClienteJFrame();
         novoClienteJFrame.setVisible(true);
         novoClienteJFrame.setLocationRelativeTo(this);
+        novoClienteJFrame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                System.err.println("windowOpened");
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.err.println("windowClosing");
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                populatorTable();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+                System.err.println("windowIconified");
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+                System.err.println("windowDeiconified");
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                System.err.println("windowActivated");
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+                System.err.println("windowDeactivated");
+            }
+        });
+        populatorTable();
+        btnEditar.setEnabled(false);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -186,9 +227,38 @@ public class ClientesIternFrame extends JInternalFrameActivity {
             NovoClienteJFrame novoClienteJFrame = new NovoClienteJFrame(Integer.parseInt(this.idCliente));
             novoClienteJFrame.setVisible(true);
             novoClienteJFrame.setLocationRelativeTo(this);
+            novoClienteJFrame.addWindowListener(new WindowListener() {
+                @Override
+                public void windowOpened(WindowEvent e) {
+                }
+
+                @Override
+                public void windowClosing(WindowEvent e) {
+                }
+
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    populatorTable();
+                }
+
+                @Override
+                public void windowIconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeiconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowActivated(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeactivated(WindowEvent e) {
+                }
+            });
 
             populatorTable();
-            btnEditar.setEnabled(false);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -234,16 +304,21 @@ public class ClientesIternFrame extends JInternalFrameActivity {
     private void populatorTable() {
         List<Cliente> all = this.mClienteController.all();
 
-        DefaultTableModel model = new DefaultTableModel(new String[]{
-            "Codigo", "Nome", "Documento", "Email", "Fone", "Endereço"
-        }, 0);
+        DefaultTableModel model = (DefaultTableModel) tableClientes.getModel();
+        model.setNumRows(0);
 
         for (Cliente c : all) {
-            model.addRow(new Object[]{c.getIdCliente(), c.getNome(), c.getDocumento(), c.getEmail(), c.getFone(), c.getEndereco().toString()});
+            model.addRow(new Object[]{
+                c.getIdCliente(),
+                c.getNome(),
+                c.getDocumento(),
+                c.getEmail(),
+                c.getFone(),
+                c.getEndereco().toString()}
+            );
         }
-
-        tableClientes.setModel(model);
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -297,7 +372,7 @@ public class ClientesIternFrame extends JInternalFrameActivity {
 
     @Override
     public void onResume(InternalFrameEvent evt) {
-        this.populatorTable();
+        //this.populatorTable();
     }
 
     @Override

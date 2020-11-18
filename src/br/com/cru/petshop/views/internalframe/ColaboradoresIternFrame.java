@@ -163,6 +163,7 @@ public class ColaboradoresIternFrame extends JInternalFrameActivity {
 
             populatorTable();
             btnEditar.setEnabled(false);
+            repaint();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

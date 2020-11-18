@@ -146,8 +146,7 @@ public class AtendimentoDAO implements IAtendimentoDAO {
         mConnection = DBUtils.getConnection();
 
         try {
-            String sql = "UPDATE atendimento "
-                    + "DATA_ENTRADA=?, DATA_PREVISAO=?, LOCALIZACAO=?, IDADE=?, RETORNO=?, AMBULANCIA=?, OBS=?, FK_CLIENTE=?, FK_ANIMAL=?, FK_USUARIO=?, FK_SITUACAO=? WHERE ID_ATENDIMENTO = ?;";
+            String sql = "UPDATE atendimento SET DATA_ENTRADA=?, DATA_PREVISAO=?, LOCALIZACAO=?, IDADE=?, RETORNO=?, AMBULANCIA=?, OBS=?, FK_CLIENTE=?, FK_ANIMAL=?, FK_USUARIO=?, FK_SITUACAO=? WHERE ID_ATENDIMENTO = ?;";
 
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
 
@@ -162,7 +161,7 @@ public class AtendimentoDAO implements IAtendimentoDAO {
             statement.setInt(9, model.getAnimal().getId());
             statement.setObject(10, model.getUsuario().getIdUsuario());
             statement.setInt(11, model.getSituacao().getId());
-            statement.setInt(11, model.getId());
+            statement.setInt(12, model.getId());
 
             int affectedRows = statement.executeUpdate();
 
@@ -208,7 +207,7 @@ public class AtendimentoDAO implements IAtendimentoDAO {
                     + "INNER JOIN cliente on atendimento.fk_cliente = cliente.id_cliente\n"
                     + "INNER JOIN animal on atendimento.fk_animal = animal.id_animal\n"
                     + "INNER JOIN usuario on atendimento.fk_usuario = usuario.id_usuario\n"
-                    + "INNER JOIN situacao on atendimento.fk_situacao = situacao.id_situacao";
+                    + "INNER JOIN situacao on atendimento.fk_situacao = situacao.id_situacao ORDER BY atendimento.data_entrada DESC";
 
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
 

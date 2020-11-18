@@ -26,7 +26,9 @@ public class DataUtils {
     }
     
     public static java.sql.Date convertDate(java.util.Date date) {
-        return new java.sql.Date(date.getTime());
+        if(date != null)
+            return new java.sql.Date(date.getTime());
+        return null;
     }
     
     public static Date convertDateTime(LocalDateTime time) {

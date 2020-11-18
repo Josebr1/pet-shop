@@ -80,7 +80,7 @@ public class ClienteDAO implements IClienteDAO{
             
             this.mEnderecoDAO.update(model.getEndereco());
             
-            String sql = "UPDATE Cliente SET nome = ?, documento = ?, email=?, data_nascimento=?, sexo=?, fone=? WHERE id_cliente=?";
+            String sql = "UPDATE Cliente SET nome = ?, documento = ?, email=?, data_nasciemento=?, sexo=?, fone=? WHERE id_cliente=?";
 
             PreparedStatement statement = DBUtils.getPreparedStatement(mConnection, sql);
             statement.setString(1, model.getNome());

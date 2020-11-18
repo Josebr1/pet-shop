@@ -11,6 +11,8 @@ import br.com.cru.petshop.core.JInternalFrameActivity;
 import br.com.cru.petshop.models.Atendimento;
 import br.com.cru.petshop.views.NovoAtendimentoJFrame;
 import br.com.cru.petshop.views.NovoClienteJFrame;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -192,6 +194,39 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
         NovoAtendimentoJFrame atendimentoJFrame = new NovoAtendimentoJFrame();
         atendimentoJFrame.setVisible(true);
 	atendimentoJFrame.setLocationRelativeTo(this);
+        atendimentoJFrame.addWindowListener(new WindowListener() {
+                @Override
+                public void windowOpened(WindowEvent e) {
+                }
+
+                @Override
+                public void windowClosing(WindowEvent e) {
+                }
+
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    populatorTable();
+                    btnEditar.setEnabled(false);
+                }
+
+                @Override
+                public void windowIconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeiconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowActivated(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeactivated(WindowEvent e) {
+                    populatorTable();
+                    btnEditar.setEnabled(false);
+                }
+            });
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void tableAtendimentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAtendimentosMouseClicked
@@ -238,9 +273,39 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
             NovoAtendimentoJFrame atendimentoJFrame = new NovoAtendimentoJFrame(this.mIdAtendimento);
             atendimentoJFrame.setVisible(true);
             atendimentoJFrame.setLocationRelativeTo(this);
+            atendimentoJFrame.addWindowListener(new WindowListener() {
+                @Override
+                public void windowOpened(WindowEvent e) {
+                }
 
-            populatorTable();
-            btnEditar.setEnabled(false);
+                @Override
+                public void windowClosing(WindowEvent e) {
+                }
+
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    populatorTable();
+                    btnEditar.setEnabled(false);
+                }
+
+                @Override
+                public void windowIconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeiconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowActivated(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeactivated(WindowEvent e) {
+                }
+            });
+
+            
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -248,15 +313,13 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
     private void populatorTable() {
         List<Atendimento> all = this.mAtendimentoController.all();
 
-        DefaultTableModel model = new DefaultTableModel(new String[]{
-            "Codigo", "Animal", "Cliente", "Documento", "Data Entrada", "Retorno", "Situação"
-        }, 0);
-
+        DefaultTableModel model = (DefaultTableModel) tableAtendimentos.getModel();
+        model.setNumRows(0);
+        
         for (Atendimento c : all) {
             model.addRow(new Object[]{c.getId(), c.getAnimal().getApelido(), c.getCliente().getNome(), c.getCliente().getDocumento(), c.getDataEntrega(), c.isRetorno() ? "Sim" : "Não", c.getSituacao().getDescricao()});
         }
 
-        tableAtendimentos.setModel(model);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -318,6 +381,7 @@ public class AtendimentoIternFrame extends JInternalFrameActivity {
     @Override
     public void onClose(InternalFrameEvent evt) {
         btnEditar.setEnabled(false);
+        this.populatorTable();
     }
 
     @Override
